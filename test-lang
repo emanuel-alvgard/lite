@@ -1,0 +1,79 @@
+#/
+* lite uses 4 white-space indentation for scoping but can also be written without indentation.
+* lite sees 2 white-spaces as end of line.
+
+Builtin functions:
+:: memory()
+:: delete() - deletes an instance from memory
+:: clean() - defragments the memory buffer, heavy on performance
+/#
+
+:: memory(64000)
+
+type Point:
+    Float: x
+    Float: y
+    Float: z
+    
+type Line:
+    Point: start
+    Point: end
+
+type Triangle:
+    Line: one
+    Line: two
+    Line: three
+
+type Quad:
+    Triangle: bottom
+    Triangle: top
+
+type Cuboid:
+    Point: origin
+    Quad: front
+    Quad: back
+    Quad: left
+    Quad: right
+    Quad: bottom
+    Quad: top
+
+
+func cuboid_create_by_width_height_origin:
+    
+    Point: origin
+    Float: width
+    Float: height
+
+    point_0: Point(0, 0, 0)
+    point_1: Point(1, 1, 1)
+    
+    line_0: Line(point0, point1)
+    lint_1: Line()
+
+    cube0: Cuboid()
+
+    return cube0:
+
+some_array: [1, 2, 3]
+
+loop some_array:
+    if some_array[0] = 1:
+        pass
+    else some_array[0] = 2:
+        pass
+    else:
+        exit
+
+
+func move_point_on_line:
+    
+
+
+cube : cuboid_create_by_width_height_origin()
+cube_points : get_cuboid_points(cube)
+
+:: delete()
+
+: move_point_on_line()
+: some_function(var_0)
+: some_function()
