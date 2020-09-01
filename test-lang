@@ -1,34 +1,46 @@
 #/
 * lite uses 4 white-space indentation for scoping but can also be written without indentation.
 * lite sees 2 white-spaces as end of line.
-
-Builtin functions:
-:: memory()
-:: delete() - deletes an instance from memory
-:: clean() - defragments the memory buffer, heavy on performance
+* object lifetime is always scope bound
+* no aliasing
+* parameters and assigments are always passed by value
+* type data are stores as SOA
 /#
 
-:: memory(64000)
+type Entity: [1024]
+    i32: id
+    f32: x
+    f32: y
+    f32: z
 
-type Point:
-    Float: x
-    Float: y
-    Float: z
+
+func check_entity_position:
     
-type Line:
+    [Entity]: entities
+
+    loop entities:
+        
+
+
+type Point: [128] #max amount of objects
+    f32: x
+    f32: y
+    f32: z
+    
+type Line: [1024]
     Point: start
     Point: end
 
-type Triangle:
+type Triangle: [256]
     Line: one
     Line: two
     Line: three
 
-type Quad:
+type Quad: [128]
     Triangle: bottom
     Triangle: top
 
-type Cuboid:
+type Cuboid: [128]
     Point: origin
     Quad: front
     Quad: back
@@ -52,14 +64,14 @@ func cuboid_create_by_width_height_origin:
 
     cube0: Cuboid()
 
-    return cube0:
+    return cube0
 
-some_array: [1, 2, 3]
+some_array: [8]Point
 
 loop some_array:
     if some_array[0] = 1:
         pass
-    else some_array[0] = 2:
+    else if some_array[0] = 2:
         pass
     else:
         exit
@@ -67,13 +79,6 @@ loop some_array:
 
 func move_point_on_line:
     
-
-
-cube : cuboid_create_by_width_height_origin()
-cube_points : get_cuboid_points(cube)
-
-:: delete()
-
-: move_point_on_line()
-: some_function(var_0)
-: some_function()
+move_point_on_line()
+some_function(var_0)
+some_function()
