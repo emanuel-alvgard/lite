@@ -5,6 +5,9 @@
 * no aliasing
 * parameters and assigments are always passed by value
 * type data are stores as SOA
+* lite is a small language that compiles to langs like wasm/js, C, Rust etc. It will ultimatly serve as a kindof lang interface.
+* lite uses 2 memory areas. The first one is the static area where all types are stored as SOA. 
+The second area is the dynamic area which serves as the function "stack".
 /#
 
 type Entity: [1024]

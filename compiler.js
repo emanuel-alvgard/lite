@@ -11,23 +11,33 @@ const indentation = 0;
 
 //error
 const line_number = 'line' + toString(line) + ': ';
-const error_indentation = 0;
-
+const error = [];
 
 //create variable for expected syntax versus actual syntax
 
-function error()
+function error_pass()
 {
-    if(error_indentation == 1)
+    const i = 0;
+    const length = error.length;
+
+    while(i < length)
     {
-        console.log(line_number + 'indentation error')
+        if(error[i] == 1)
+        {
+            console.log(line_number + 'syntax ' + 'indentation error');
+        }
+        
+        else if(errors[i] == 2)
+        {
+            console.log(line_number + '');
+        }
+        i++;
     }
-    //if() for every other type of syntax error.
 }
 
 
 
-function syntax()
+function syntax_pass()
 {
     if(scope == 0)
     {
@@ -35,10 +45,7 @@ function syntax()
         {
             //pass
         }
-        else if(code[char] == ':')
-        {
-            //call syntax_function_call()
-        }
+
         else if
         (
             code[char] == 't' &&
@@ -49,7 +56,7 @@ function syntax()
         )
         {
             scope += 1;
-        //call syntax_define_type()
+        //call syntax_definition_type()
         }
 
         else if
@@ -62,9 +69,10 @@ function syntax()
         )
         {
             scope += 1;
-            //call syntax_define_fuction()
+            //call syntax_definition_fuction()
         }
     }
+
     else if(scope > 1)
     {
         if(code[char] == ''/*new-line*/)
@@ -93,7 +101,7 @@ function syntax()
 
 function main()
 {
-    //run loop trough the code here calling syntax() every iteration.
+    //run loop trough the code here calling syntax_pass() etc. every iteration.
 }
 
 main();
