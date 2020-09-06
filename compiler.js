@@ -9,11 +9,27 @@ const line = 0;
 const scope = 0;
 const indentation = 0;
 
-//error
-const line_number = 'line' + toString(line) + ': ';
-const error = [];
+//utility
+const lower = 
+[
+    'a', 'b', 'c', 'd', 'e', 
+    'f', 'g', 'h', 'i', 'j', 
+    'k', 'l', 'm', 'n', 'o', 
+    'p', 'q', 'r','s', 't', 
+    'u', 'v', 'w', 'x', 'y', 'z',
+]
 
-//create variable for expected syntax versus actual syntax
+const upper = 
+[
+    'A', 'B', 'C', 'D', 'E', 
+    'F', 'G', 'H', 'I', 'J', 
+    'K', 'L', 'M', 'N', 'O', 
+    'P', 'Q', 'R','S', 'T', 
+    'U', 'V', 'W', 'X', 'Y', 'Z',
+]
+
+//error //problably DEPRECATED?
+const error = 0;
 
 function error_pass()
 {
@@ -22,12 +38,39 @@ function error_pass()
 
     while(i < length)
     {
-        if(error[i] == 1)
+        if(error[i] == 1) //expected indentation error
         {
-            console.log(line_number + 'syntax ' + 'indentation error');
+            console.log
+            (
+                line_number 
+                + '(syntax error): ' 
+                + 'expected level' 
+                + (scope + 1) 
+                + ' indentation'
+            );
+        }
+
+        else if(error[i] == 2) //unexpected indentation error
+        {
+            console.log
+            (
+                line_number 
+                + '(syntax error): ' 
+                + 'unexpected indentation ' 
+            );
         }
         
-        else if(errors[i] == 2)
+        else if(errors[i] == 3) //type declaration error
+        {
+            console.log(line_number + '');
+        }
+        
+        else if(errors[i] == 4) //function declaration error
+        {
+            console.log(line_number + '');
+        }
+
+        else if(errors[i] == 5) //variable declaration error
         {
             console.log(line_number + '');
         }
@@ -41,12 +84,17 @@ function syntax_pass()
 {
     if(scope == 0)
     {
-        if(code[char] == ''/*new-line*/)
+        if(code[char] == /*new-line*/)
         {
-            //pass
+            line += 1;
         }
 
-        else if
+        else if(code[char] == '')
+        {
+            console.log()//unexpected indentation error
+        }
+
+        else if //type declaration
         (
             code[char] == 't' &&
             code[char + 1] == 'y' &&
@@ -55,8 +103,27 @@ function syntax_pass()
             code[char + 4] == '' 
         )
         {
-            scope += 1;
-        //call syntax_definition_type()
+            const upper_true = 0
+            const upper_length =  upper.length;
+            for(const i = 0; i < upper_length; i++)
+            {
+                if(code[char + 5] == upper[i])
+                {
+                    upper_true = 1;
+                }
+                else
+                {
+                }
+            }
+            if(upper_true == 1)
+            {
+                //next step
+            }
+            else
+            {
+                console.log()//type declaration error
+                error = 1;
+            }
         }
 
         else if
@@ -69,7 +136,7 @@ function syntax_pass()
         )
         {
             scope += 1;
-            //call syntax_definition_fuction()
+            //call syntax_declaration_fuction()
         }
     }
 
@@ -101,7 +168,27 @@ function syntax_pass()
 
 function main()
 {
-    //run loop trough the code here calling syntax_pass() etc. every iteration.
+    const code_length = code.length;
+    while(char < code_length)
+    {
+        if(error != 1)
+        {
+            syntax_pass()
+        }
+        else
+        {
+            break
+        }
+        if (error != 1)
+        {
+            //token_pass()
+        }
+        else
+        {
+            break
+        }
+         
+    }
 }
 
 main();
