@@ -169,25 +169,15 @@ function syntax_pass()
 function main()
 {
     const code_length = code.length;
+    //thread 1
     while(char < code_length)
     {
-        if(error != 1)
-        {
-            syntax_pass()
-        }
-        else
-        {
-            break
-        }
-        if (error != 1)
-        {
-            //token_pass()
-        }
-        else
-        {
-            break
-        }
-         
+        syntax_pass()
+    }
+    //thread 2
+    while(char < code_length)
+    {
+        token_pass()    
     }
 }
 
