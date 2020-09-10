@@ -10,64 +10,65 @@
 The second area is the dynamic area which serves as the function "stack".
 /#
 
+
+
+protocol Selectable:
+    func hover_start: None
+    func hover_end: None
+    func select_start: None
+    func select_end: None
+
+
+
+type Vec3: [128]
+    (x: f32)
+    (y: f32)
+    (z: f32)
+
+
+
 type Entity: [1024]
-    i32: id
-    f32: x
-    f32: y
-    f32: z
+    (id: f32)
+    (x: f32)
+    (y: f23)
+    (z: f32)
+
+    func check_entity_position: Vec3
+        (entities: [Entity])  
+        
+        result: [3]Vec3
+        
+        loop entities:
+                
+        
+        return
 
 
-func check_entity_position:
-    
-    [Entity]: entities
 
-    loop entities:
+type Rgb: [1024]
+    (r: f32)         
+    (g: f32)         
+    (b: f32)         
         
 
 
-type Point: [128] #max amount of objects
-    f32: x
-    f32: y
-    f32: z
-    
 type Line: [1024]
-    Point: start
-    Point: end
+    Selectable
 
-type Triangle: [256]
-    Line: one
-    Line: two
-    Line: three
+    (color: Rgb)
+    (start: Vec3)
+    (end: Vec3)
 
-type Quad: [128]
-    Triangle: bottom
-    Triangle: top
-
-type Cuboid: [128]
-    Point: origin
-    Quad: front
-    Quad: back
-    Quad: left
-    Quad: right
-    Quad: bottom
-    Quad: top
+    func hover_start: None
+        pass
+    func hover_end: None
+        pass
+    func select_start: None
+        pass
+    func select_end: None
+        pass
 
 
-func cuboid_create_by_width_height_origin:
-    
-    Point: origin
-    Float: width
-    Float: height
-
-    point_0: Point(0, 0, 0)
-    point_1: Point(1, 1, 1)
-    
-    line_0: Line(point0, point1)
-    lint_1: Line()
-
-    cube0: Cuboid()
-
-    return cube0
 
 some_array: [8]Point
 
@@ -80,8 +81,8 @@ loop some_array:
         exit
 
 
-func move_point_on_line:
-    
-move_point_on_line()
-some_function(var_0)
-some_function()
+
+
+line_0: Line(
+Line.hover_start()
+Line.hover_end()
