@@ -18,44 +18,45 @@ out the compiler will automatically infer the type to either i32, f32 or string.
 MEMORY: '64MB'
 OPTIMIZATION: '1'
 
-protocol Selectable:
-    func hover_start: None
-    func hover_end: None
-    func select_start: None
-    func select_end: None
-
-
 
 type Vector3:
-    (x: f32)
-    (y: f32)
-    (z: f32)
+    x: f32
+    y: f32
+    z: f32
 
-type Entity:
-    (id: i32)
-    (position: Vector3)
 
-type Rgb:
-    (r: f32)         
-    (g: f32)         
-    (b: f32)         
+comp {Selectable}:
 
-type Line:
-    Selectable
-    
-    (id: string)
-    (color: Rgb)
-    (start: Vector3)
-    (end: Vector3)
+    color: Vector3
 
     func hover_start: None
-        pass
+        color: Vector3(100.0, 100.0, 100.0)
+        return
+
     func hover_end: None
-        pass
+        return
     func select_start: None
-        pass
+        return
     func select_end: None
+        return
+
+
+
+type Entity:
+    id: i32
+    position: Vector3
+
+type Line:
+    
+    {Selectable}
+    
+    id: string
+    start: Vector3
+    end: Vector3
+
+    func {Selectable}.hover_start: None #Overriden
         pass
+   
 
 test_variable: 10.0     #this variable gets infered to a f32.
 
