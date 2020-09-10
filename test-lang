@@ -57,7 +57,7 @@ type Line:
     func select_end: None
         pass
 
-
+test_variable: 10.0     #this variable gets infered to a f32.
 
 some_array: [128] Vec3
 
