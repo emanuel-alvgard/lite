@@ -20,39 +20,34 @@ protocol Selectable:
 
 
 
-type Vec3: [128]
+type Vec3:
     (x: f32)
     (y: f32)
     (z: f32)
 
-
-
-type Entity: [1024]
+type Entity:
     (id: f32)
-    (x: f32)
-    (y: f23)
-    (z: f32)
+    (position: Vec3)
 
-    func check_entity_position: Vec3
-        (entities: [Entity])  
+    func get_position: [] Vec3
         
-        result: [3]Vec3
+        (entities: [] Entity)
+
+        result: [entities] Vec3
         
-        loop entities:
-                
+        for i in entities:
+            result[i]: position
         
-        return
+        return result
 
 
 
-type Rgb: [1024]
+type Rgb:
     (r: f32)         
     (g: f32)         
     (b: f32)         
-        
 
-
-type Line: [1024]
+type Line:
     Selectable
 
     (color: Rgb)
@@ -70,17 +65,15 @@ type Line: [1024]
 
 
 
-some_array: [8]Point
+some_array: [128] Vec3
 
-loop some_array:
-    if some_array[0] = 1:
+for i in some_array:
+    if some_array[i] = 1:
         pass
-    else if some_array[0] = 2:
+    else if some_array[i] = 2:
         pass
     else:
         exit
-
-
 
 
 line_0: Line(
