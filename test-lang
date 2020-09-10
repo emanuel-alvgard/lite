@@ -2,15 +2,21 @@
 * lite uses 4 white-space indentation for scoping but can also be written without indentation.
 * lite sees 2 white-spaces as end of line.
 * object lifetime is always scope bound
-* no aliasing
+* no aliasing (except by accessing array indices) 
 * parameters and assigments are always passed by value
-* type data are stores as SOA
-* lite is a small language that compiles to langs like wasm/js, C, Rust etc. It will ultimatly serve as a kindof lang interface.
-* lite uses 2 memory areas. The first one is the static area where all types are stored as SOA. 
-The second area is the dynamic area which serves as the function "stack".
+* type data are stored as SOA
+* lite is a small language that compiles to langs like wasm/js, C, Rust etc. It will ultimately serve as a kind of language interface.
+* lite is completely stack based and all data is stored as SOA.  
 /#
 
+#/
+* primitive data types/structures: i32,64, fl32,64, string, array. What types are avalible will vary with the underlying implementation. if type annotation is left
+out the compiler will automatically infer the type to either i32, f32 or string.
+/#
 
+#compiler variables
+MEMORY: '64MB'
+OPTIMIZATION: '1'
 
 protocol Selectable:
     func hover_start: None
@@ -20,27 +26,14 @@ protocol Selectable:
 
 
 
-type Vec3:
+type Vector3:
     (x: f32)
     (y: f32)
     (z: f32)
 
 type Entity:
-    (id: f32)
-    (position: Vec3)
-
-    func get_position: [] Vec3
-        
-        (entities: [] Entity)
-
-        result: [entities] Vec3
-        
-        for i in entities:
-            result[i]: position
-        
-        return result
-
-
+    (id: i32)
+    (position: Vector3)
 
 type Rgb:
     (r: f32)         
@@ -49,10 +42,11 @@ type Rgb:
 
 type Line:
     Selectable
-
+    
+    (id: string)
     (color: Rgb)
-    (start: Vec3)
-    (end: Vec3)
+    (start: Vector3)
+    (end: Vector3)
 
     func hover_start: None
         pass
@@ -74,8 +68,25 @@ for i in some_array:
         pass
     else:
         exit
+        
+        
+ func get_position_of_entities: [] Vector3
+        
+        (entities: [] Entity)
+
+        result: [entities] Vector3
+        
+        for i in entities:
+            result[i]: enitities[i].position
+        
+        return result       
 
 
-line_0: Line(
-Line.hover_start()
-Line.hover_end()
+lines: [128] Line   #array contains 128 0-initialized Lines.
+
+line_0: lines[0]    #indexed value gets copied in memory by the compiler.
+
+line_0.start: Vec3(1.0, 1.0, 1.0)
+
+lines[0]: line_0    #indexed value gets overwritten with line_0's value
+lines[0].id: 'Test String'
