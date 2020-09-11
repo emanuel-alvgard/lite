@@ -25,7 +25,7 @@ type Vector3:
     z: f32
 
 
-comp {Selectable}:
+comp Selectable:
 
     color: Vector3
 
