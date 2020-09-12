@@ -15,7 +15,7 @@ out the compiler will automatically infer the type to either i32, f32 or string.
 /#
 
 #compiler variables
-MEMORY: '64MB'
+MEMORY: '64MB'  #stack size
 OPTIMIZATION: '1'
 
 
@@ -25,7 +25,7 @@ type Vector3:
     z: f32
 
 
-comp Selectable:
+type Selectable:
 
     color: Vector3
 
