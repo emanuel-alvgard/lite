@@ -9,6 +9,7 @@
 * lite is completely stack based and all data is stored as SOA.
 * variables can only be overwritten to a corresponding type. Variables containing an array can 
 can only be overwritten by an array of the same type and size.  
+* all type functions can be applied to an array of that type by default.
 /#
 
 #/
@@ -93,3 +94,6 @@ line_0.start: Vec3(1.0, 1.0, 1.0)
 
 lines[0]: line_0    #indexed value gets overwritten with line_0's value
 lines[0].id: 'Test String'
+
+new_array: lines + lines #joins to arrays into a new one
+
