@@ -2,11 +2,13 @@
 * lite uses 4 white-space indentation for scoping but can also be written without indentation.
 * lite sees 2 white-spaces as end of line.
 * object lifetime is always scope bound
-* no aliasing (except by accessing array indices) 
+* no aliasing
 * parameters and assigments are always passed by value
 * type data are stored as SOA
 * lite is a small language that compiles to langs like wasm/js, C, Rust etc. It will ultimately serve as a kind of language interface.
-* lite is completely stack based and all data is stored as SOA.  
+* lite is completely stack based and all data is stored as SOA.
+* variables can only be overwritten to a corresponding type. Variables containing an array can 
+can only be overwritten by an array of the same type and size.  
 /#
 
 #/
