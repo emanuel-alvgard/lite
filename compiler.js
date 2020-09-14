@@ -17,7 +17,7 @@ const lower =
     'k', 'l', 'm', 'n', 'o', 
     'p', 'q', 'r','s', 't', 
     'u', 'v', 'w', 'x', 'y', 'z',
-]
+];
 
 const upper = 
 [
@@ -26,7 +26,53 @@ const upper =
     'K', 'L', 'M', 'N', 'O', 
     'P', 'Q', 'R','S', 'T', 
     'U', 'V', 'W', 'X', 'Y', 'Z',
-]
+];
+
+/* tokens
+keyword_func()
+keyword_return()
+keyword_type()
+keyword_if()
+keyword_if_else()
+keyword_else()
+keyword_or()
+keyword_and()
+keyword_while()
+keyword_for()
+keyword_in()
+keyword_pass()
+keyword_exit()
+
+operator_add()
+operator_subtract()
+operator_multiply()
+operator_divide()
+
+operator_equal()
+opterator_greater()
+operator_lesser()
+operator_not_equal()
+operator_not_greater()
+operator_not_lesser()
+
+symbol_start_parenthesis()
+symbol_start_bracket_square()
+symbol_start_bracket_curly()
+symbol_end_parenthesis()
+symbol_end_bracket_square()
+symbol_end_bracket_curly()
+
+type_primitive()
+type_custom()
+structure_string()
+structure_array()
+*/
+
+
+
+
+
+
 
 //error //problably DEPRECATED?
 const error = 0;
@@ -172,12 +218,17 @@ function main()
     //thread 1
     while(char < code_length)
     {
-        syntax_pass()
+        syntax_pass();
     }
     //thread 2
     while(char < code_length)
     {
-        token_pass()    
+        token_pass();    
+    }
+    //thread 3
+    while(char < code_length)
+    {
+        //parsing_pass()
     }
 }
 

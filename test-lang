@@ -3,13 +3,16 @@
 * lite sees 2 white-spaces as end of line.
 * object lifetime is always scope bound
 * no aliasing
-* parameters and assigments are always passed by value
+* parameters and assignments are always passed by value
 * type data are stored as SOA
 * lite is a small language that compiles to langs like wasm/js, C, Rust etc. It will ultimately serve as a kind of language interface.
 * lite is completely stack based and all data is stored as SOA.
-* variables can only be overwritten to a corresponding type. Variables containing an array can 
+* variables can only be overwritten to the same type. Variables containing an array can 
 can only be overwritten by an array of the same type and size.  
 * all type functions can be applied to an array of that type by default.
+* arithmetic operators are +, -, *, /. These can also be used for operations on the to primitive data structures 
+string and array. 
+* comparison operators are =, >, <, !=, !>, !<.
 /#
 
 #/
@@ -32,16 +35,19 @@ type Selectable:
 
     color: Vector3
 
-    func hover_start: None
+    func hover_start:
         color: Vector3(100.0, 100.0, 100.0)
         return
 
-    func hover_end: None
+    func hover_end:
         return
-    func select_start: None
+
+    func select_start:
         return
-    func select_end: None
+
+    func select_end:
         return
+
 
 
 
@@ -57,7 +63,7 @@ type Line:
     start: Vector3
     end: Vector3
 
-    func {Selectable}.hover_start: None #Overriden
+    func {Selectable}.hover_start:     #Overriden
         pass
    
 
@@ -96,4 +102,5 @@ lines[0]: line_0    #indexed value gets overwritten with line_0's value
 lines[0].id: 'Test String'
 
 new_array: lines + lines #joins to arrays into a new one
+
 
