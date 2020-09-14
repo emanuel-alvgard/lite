@@ -43,29 +43,33 @@ keyword_in()
 keyword_pass()
 keyword_exit()
 
-operator_add()
-operator_subtract()
-operator_multiply()
-operator_divide()
+operator_add() : +
+operator_subtract() : -
+operator_multiply() : *
+operator_divide() : /
 
-operator_equal()
-opterator_greater()
-operator_lesser()
-operator_not_equal()
-operator_not_greater()
-operator_not_lesser()
+operator_equal() : =
+opterator_greater() : > 
+operator_lesser() : <
+operator_not_equal() : !=
+operator_not_greater() : !>
+operator_not_lesser() : !<
 
-symbol_start_parenthesis()
-symbol_start_bracket_square()
-symbol_start_bracket_curly()
-symbol_end_parenthesis()
-symbol_end_bracket_square()
-symbol_end_bracket_curly()
+symbol_comment() : #
+symbol_start_comment_multi() : #/
+symbol_start_parenthesis() : (
+symbol_start_bracket_square() : [
+symbol_start_bracket_curly() : {
+symbol_end_comment_multi() : /#
+symbol_end_parenthesis() : )
+symbol_end_bracket_square() : ]
+symbol_end_bracket_curly() : }
 
-type_primitive()
-type_custom()
-structure_string()
-structure_array()
+
+type_primitive() : 0, 0.0
+type_custom() : ex. Vector3()
+structure_string() : 'string'
+structure_array() : [16] f32
 */
 
 
