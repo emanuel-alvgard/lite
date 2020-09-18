@@ -4,10 +4,14 @@
 const code = [];
 const char = 0;
 const line = 0;
+const line_str = 'line ' + line + ': ';
 
 //scope
 const scope = 0;
 const indentation = 0;
+
+//error
+const compilation_error = 0;
 
 //utility
 const lower = 
@@ -16,7 +20,7 @@ const lower =
     'f', 'g', 'h', 'i', 'j', 
     'k', 'l', 'm', 'n', 'o', 
     'p', 'q', 'r','s', 't', 
-    'u', 'v', 'w', 'x', 'y', 'z',
+    'u', 'v', 'w', 'x', 'y', 'z'
 ];
 
 const upper = 
@@ -25,8 +29,23 @@ const upper =
     'F', 'G', 'H', 'I', 'J', 
     'K', 'L', 'M', 'N', 'O', 
     'P', 'Q', 'R','S', 'T', 
-    'U', 'V', 'W', 'X', 'Y', 'Z',
+    'U', 'V', 'W', 'X', 'Y', 'Z'
 ];
+
+const variable_characters = 
+[
+    'a', 'b', 'c', 'd', 'e', 
+    'f', 'g', 'h', 'i', 'j', 
+    'k', 'l', 'm', 'n', 'o', 
+    'p', 'q', 'r','s', 't', 
+    'u', 'v', 'w', 'x', 'y', 'z',
+    '_', ':'
+]
+
+const variable_name = [];
+const variable_scope = [];
+const variable_type = [];
+const variable_value = [];
 
 /* tokens
 keyword_func()
@@ -75,58 +94,64 @@ structure_array() : [16] f32
 
 
 
+/* Syntax Token
+lower case: 0
+upper case: 1
+colon: 2
+*/
 
 
 
-//error //problably DEPRECATED?
-const error = 0;
+function syntax_declaration_variable()
+{ 
+    const error = 0;
+    const name = '';
 
-function error_pass()
-{
-    const i = 0;
-    const length = error.length;
-
-    while(i < length)
+    while(error == 0)
     {
-        if(error[i] == 1) //expected indentation error
-        {
-            console.log
-            (
-                line_number 
-                + '(syntax error): ' 
-                + 'expected level' 
-                + (scope + 1) 
-                + ' indentation'
-            );
+        for(const i = 0; i < variable_symbols.length; i++)
+        {   
+            if(code[char] == variable_symbols[i])
+            {
+                name += code[char];
+                break
+            }
+            else if(code[char] == ':' && name != '')
+            {
+                console.log(line_str + 'Variable name must contain at least (1) character.');
+                break
+            }
+            else
+            {
+                error = 1;
+            }
         }
-
-        else if(error[i] == 2) //unexpected indentation error
-        {
-            console.log
-            (
-                line_number 
-                + '(syntax error): ' 
-                + 'unexpected indentation ' 
-            );
-        }
-        
-        else if(errors[i] == 3) //type declaration error
-        {
-            console.log(line_number + '');
-        }
-        
-        else if(errors[i] == 4) //function declaration error
-        {
-            console.log(line_number + '');
-        }
-
-        else if(errors[i] == 5) //variable declaration error
-        {
-            console.log(line_number + '');
-        }
-        i++;
+        char += 1;
     }
+    
+    if(error != 1)
+    {
+        if(code[char] == '')
+        {
+            //check type name for supported characters until new line char.
+        }
+        else
+        {
+            error = 1;
+        }
+    }
+    else
+    {
+        compilation_error = 1;
+    }
+    
+    return
 }
+
+
+
+
+
 
 
 
@@ -134,7 +159,7 @@ function syntax_pass()
 {
     if(scope == 0)
     {
-        if(code[char] == /*new-line*/)
+        if(code[char] == '\n')
         {
             line += 1;
         }
@@ -192,7 +217,7 @@ function syntax_pass()
 
     else if(scope > 1)
     {
-        if(code[char] == ''/*new-line*/)
+        if(code[char] == '\n')
         {
             //pass
         }
@@ -227,7 +252,7 @@ function main()
     //thread 2
     while(char < code_length)
     {
-        token_pass();    
+        //token_pass();    
     }
     //thread 3
     while(char < code_length)
