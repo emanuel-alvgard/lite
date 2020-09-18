@@ -4,7 +4,6 @@
 const code = [];
 const char = 0;
 const line = 0;
-const line_str = 'line ' + line + ': ';
 
 //scope
 const scope = 0;
@@ -40,7 +39,246 @@ const variable_characters =
     'p', 'q', 'r','s', 't', 
     'u', 'v', 'w', 'x', 'y', 'z',
     '_', ':'
-]
+];
+
+
+
+
+
+
+
+
+
+
+
+function syntax_declaration_variable()
+{ 
+    const error = 0;
+    const name = '';
+
+    while(error == 0)
+    {
+        for(const i = 0; i < variable_symbols.length; i++)
+        {   
+            if(code[char] == variable_symbols[i])
+            {
+                name += code[char];
+                break
+            }
+            else if(code[char] == ':' && name != '')
+            {
+                console.log(line_str + 'Variable name must contain at least (1) character.');
+                break
+            }
+            else
+            {   
+                console.log(line_str + 'Unexpected character: ' + code[char]);
+                error = 1;
+            }
+        }
+        char += 1;
+    }
+    
+    if(error != 1)
+    {
+        if(code[char] == '')
+        {
+            char += 1
+            loop = 1;
+            while(loop == 1)
+            {
+                if(code[char] == '\n')
+                {
+                    loop = 0;
+                }
+                char += 1
+            }
+        }
+        else
+        {
+            error = 1;
+        }
+    }
+    else
+    {
+        compilation_error = 1;
+    }
+    
+    return
+}
+
+
+
+
+
+
+
+
+
+
+
+function syntax_pass()
+{
+    indentation = scope * 4;
+    if(indentation == 0)
+    {}
+    else
+    {
+        while(indentation_index < indentation)
+        {
+            if(code[char] != '')
+            {
+                console.log('line ' + line + ':' + 'Expected ' + scope + ' levels of indentation');
+                error_compilation = 1;
+                break
+            }
+            char += 1;
+        }             
+    }
+
+
+    if(code[char] == '\n')
+    {}
+
+    else if(code[char] == '')
+    {
+        console.log('line ' + line + ':' + 'Expected ' + scope + ' levels of indentation');
+        compilation_error = 1;
+    }
+
+    else if //type
+    (
+        code[char] == 't' &&
+        code[char + 1] == 'y' &&
+        code[char + 2] == 'p' &&
+        code[char + 3] == 'e' &&
+        code[char + 4] == '' 
+    )
+    {
+        const upper_true = 0
+
+        for(const i = 0; i < upper.length; i++)
+        {
+            if(code[char + 5] == upper[i])
+            {
+                upper_true = 1;
+            }
+            else
+            {
+            }
+        }
+        if(upper_true == 1)
+        {
+            //next step
+        }
+        else
+        {
+            console.log()//type declaration error
+            error = 1;
+        }
+    }
+
+    else if //function
+    (
+        code[char] == 'f' &&
+        code[char + 1] == 'u' &&
+        code[char + 2] == 'n' &&
+        code[char + 3] == 'c' &&
+        code[char + 4] == '' 
+    )
+    {
+        scope += 1;
+        //call syntax_declaration_fuction()
+    }
+
+    else //variable
+    {
+        syntax_declaration_variable();
+    }
+    line += 1;
+}
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+    /*else if(scope > 1)
+    {
+        if(code[char] == '\n')
+        {
+            //pass
+        }
+        else
+        {
+            indentation = scope * 4;
+            while(indentation_index < indentation)
+            {
+                if(code[char] != '')
+                {
+                    error_indentation = 1;
+                }
+                char += 1;
+            }             
+        }
+    }
+}*/
+
+
+
+
+
+
+function main()
+{
+    const code_length = code.length;
+    //thread 1
+    while(char < code_length)
+    {
+        syntax_pass();
+    }
+    //thread 2
+    while(char < code_length)
+    {
+        //semantic_pass();    
+    }
+    //thread 3
+    while(char < code_length)
+    {
+        //parsing_pass()
+    }
+}
+
+main();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const variable_name = [];
 const variable_scope = [];
@@ -99,167 +337,3 @@ lower case: 0
 upper case: 1
 colon: 2
 */
-
-
-
-function syntax_declaration_variable()
-{ 
-    const error = 0;
-    const name = '';
-
-    while(error == 0)
-    {
-        for(const i = 0; i < variable_symbols.length; i++)
-        {   
-            if(code[char] == variable_symbols[i])
-            {
-                name += code[char];
-                break
-            }
-            else if(code[char] == ':' && name != '')
-            {
-                console.log(line_str + 'Variable name must contain at least (1) character.');
-                break
-            }
-            else
-            {
-                error = 1;
-            }
-        }
-        char += 1;
-    }
-    
-    if(error != 1)
-    {
-        if(code[char] == '')
-        {
-            //check type name for supported characters until new line char.
-        }
-        else
-        {
-            error = 1;
-        }
-    }
-    else
-    {
-        compilation_error = 1;
-    }
-    
-    return
-}
-
-
-
-
-
-
-
-
-function syntax_pass()
-{
-    if(scope == 0)
-    {
-        if(code[char] == '\n')
-        {
-            line += 1;
-        }
-
-        else if(code[char] == '')
-        {
-            console.log()//unexpected indentation error
-        }
-
-        else if //type declaration
-        (
-            code[char] == 't' &&
-            code[char + 1] == 'y' &&
-            code[char + 2] == 'p' &&
-            code[char + 3] == 'e' &&
-            code[char + 4] == '' 
-        )
-        {
-            const upper_true = 0
-            const upper_length =  upper.length;
-            for(const i = 0; i < upper_length; i++)
-            {
-                if(code[char + 5] == upper[i])
-                {
-                    upper_true = 1;
-                }
-                else
-                {
-                }
-            }
-            if(upper_true == 1)
-            {
-                //next step
-            }
-            else
-            {
-                console.log()//type declaration error
-                error = 1;
-            }
-        }
-
-        else if
-        (
-            code[char] == 'f' &&
-            code[char + 1] == 'u' &&
-            code[char + 2] == 'n' &&
-            code[char + 3] == 'c' &&
-            code[char + 4] == '' 
-        )
-        {
-            scope += 1;
-            //call syntax_declaration_fuction()
-        }
-    }
-
-    else if(scope > 1)
-    {
-        if(code[char] == '\n')
-        {
-            //pass
-        }
-        else
-        {
-            indentation = scope * 4;
-            while(indentation_index < indentation)
-            {
-                if(code[char] != '')
-                {
-                    error_indentation = 1;
-                }
-                char += 1;
-            }             
-        }
-    }
-}
-
-
-
-
-
-
-function main()
-{
-    const code_length = code.length;
-    //thread 1
-    while(char < code_length)
-    {
-        syntax_pass();
-    }
-    //thread 2
-    while(char < code_length)
-    {
-        //token_pass();    
-    }
-    //thread 3
-    while(char < code_length)
-    {
-        //parsing_pass()
-    }
-}
-
-main();
-
