@@ -48,6 +48,15 @@ const snake_case =
 
 
 
+function comment_single()
+{}
+function comment_multiple()
+{}
+//all other syntax functions implement these comment functions inside of them.
+
+
+
+
 
 
 
