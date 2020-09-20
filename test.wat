@@ -1,7 +1,7 @@
 (module
     (memory 1)
 
-    (global 
+    ;;(global 
 
     (func $add (param i32) (param i32) (result i32)
         local.get 0

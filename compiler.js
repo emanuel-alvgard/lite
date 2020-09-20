@@ -31,14 +31,14 @@ const upper =
     'U', 'V', 'W', 'X', 'Y', 'Z'
 ];
 
-const variable_characters = 
+const snake_case = 
 [
     'a', 'b', 'c', 'd', 'e', 
     'f', 'g', 'h', 'i', 'j', 
     'k', 'l', 'm', 'n', 'o', 
     'p', 'q', 'r','s', 't', 
     'u', 'v', 'w', 'x', 'y', 'z',
-    '_', ':'
+    '_'
 ];
 
 
@@ -58,21 +58,21 @@ function syntax_declaration_variable()
 
     while(error == 0)
     {
-        for(const i = 0; i < variable_symbols.length; i++)
+        for(const i = 0; i < snake_case.length; i++)
         {   
-            if(code[char] == variable_symbols[i])
+            if(code[char] == snake_case[i])
             {
                 name += code[char];
                 break
             }
             else if(code[char] == ':' && name != '')
             {
-                console.log(line_str + 'Variable name must contain at least (1) character.');
+                console.log(line_str + 'variable name must contain at least (1) character.');
                 break
             }
             else
             {   
-                console.log(line_str + 'Unexpected character: ' + code[char]);
+                console.log(line_str + 'unexpected character: ' + code[char]);
                 error = 1;
             }
         }
@@ -83,7 +83,7 @@ function syntax_declaration_variable()
     {
         if(code[char] == '')
         {
-            char += 1
+            char += 1;
             loop = 1;
             while(loop == 1)
             {
@@ -91,7 +91,7 @@ function syntax_declaration_variable()
                 {
                     loop = 0;
                 }
-                char += 1
+                char += 1;
             }
         }
         else
@@ -103,7 +103,68 @@ function syntax_declaration_variable()
     {
         compilation_error = 1;
     }
+    return
+}
+
+
+
+
+
+
+
+
+function syntax_declaration_function()
+{
+    const error = 0;
+    const name = '';
+
+    while(error == 0)
+    {
+        for(const i = 0; i < snake_case.length; i++)
+        {   
+            if(code[char] == snake_case[i])
+            {
+                name += code[char];
+                break
+            }
+            else if(code[char] == ':' && name != '')
+            {
+                console.log(line_str + 'function name must contain at least (1) character.');
+                break
+            }
+            else
+            {   
+                console.log(line_str + 'unexpected character: ' + code[char]);
+                error = 1;
+            }
+        }
+        char += 1;
+    }
     
+    if(error != 1)
+    {
+        if(code[char] == '' || '\n')
+        {
+            char += 1;
+            loop = 1;
+            while(loop == 1)
+            {
+                if(code[char] == '\n')
+                {
+                    loop = 0;
+                }
+                char += 1;
+            }
+        }
+        else
+        {
+            error = 1;
+        }
+    }
+    else
+    {
+        compilation_error = 1;
+    }
     return
 }
 
@@ -128,7 +189,7 @@ function syntax_pass()
         {
             if(code[char] != '')
             {
-                console.log('line ' + line + ':' + 'Expected ' + scope + ' levels of indentation');
+                console.log('line ' + line + ':' + 'expected ' + scope + ' levels of indentation');
                 error_compilation = 1;
                 break
             }
@@ -142,7 +203,7 @@ function syntax_pass()
 
     else if(code[char] == '')
     {
-        console.log('line ' + line + ':' + 'Expected ' + scope + ' levels of indentation');
+        console.log('line ' + line + ':' + 'expected ' + scope + ' levels of indentation');
         compilation_error = 1;
     }
 
@@ -155,27 +216,9 @@ function syntax_pass()
         code[char + 4] == '' 
     )
     {
-        const upper_true = 0
-
-        for(const i = 0; i < upper.length; i++)
-        {
-            if(code[char + 5] == upper[i])
-            {
-                upper_true = 1;
-            }
-            else
-            {
-            }
-        }
-        if(upper_true == 1)
-        {
-            //next step
-        }
-        else
-        {
-            console.log()//type declaration error
-            error = 1;
-        }
+        char += 5;
+        //syntax_declaration_type();
+        scope += 1;
     }
 
     else if //function
@@ -187,8 +230,9 @@ function syntax_pass()
         code[char + 4] == '' 
     )
     {
+        char += 5;
+        syntax_declaration_function();
         scope += 1;
-        //call syntax_declaration_fuction()
     }
 
     else //variable
