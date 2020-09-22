@@ -43,7 +43,8 @@ const snake_case =
 
 
 
-
+const syntax_log = []; 
+const semantic_log = [];
 
 
 
@@ -76,12 +77,12 @@ function syntax_declaration_variable()
             }
             else if(code[char] == ':' && name != '')
             {
-                console.log(line_str + 'variable name must contain at least (1) character.');
+                syntax_log.push(line_str + 'variable name must contain at least (1) character.');
                 break
             }
             else
             {   
-                console.log(line_str + 'unexpected character: ' + code[char]);
+                syntax_log.push(line_str + 'unexpected character: ' + code[char]);
                 error = 1;
             }
         }
@@ -138,12 +139,12 @@ function syntax_declaration_function()
             }
             else if(code[char] == ':' && name != '')
             {
-                console.log(line_str + 'function name must contain at least (1) character.');
+                syntax_log.push(line_str + 'function name must contain at least (1) character.');
                 break
             }
             else
             {   
-                console.log(line_str + 'unexpected character: ' + code[char]);
+                syntax_log.push(line_str + 'unexpected character: ' + code[char]);
                 error = 1;
             }
         }
@@ -198,7 +199,7 @@ function syntax_pass()
         {
             if(code[char] != '')
             {
-                console.log('line ' + line + ':' + 'expected ' + scope + ' levels of indentation');
+                syntax_log.push('line ' + line + ':' + 'expected ' + scope + ' levels of indentation');
                 error_compilation = 1;
                 break
             }
@@ -214,6 +215,24 @@ function syntax_pass()
     {
         console.log('line ' + line + ':' + 'expected ' + scope + ' levels of indentation');
         compilation_error = 1;
+    }
+
+    else if //protocol
+    (
+        code[char] == 'p' &&
+        code[char + 1] == 'r' &&
+        code[char + 2] == 'o' &&
+        code[char + 3] == 't' &&
+        code[char + 4] == 'o' &&
+        code[char + 5] == 'c' &&
+        code[char + 6] == 'o' &&
+        code[char + 7] == 'l' &&
+        code[char + 8] == ''  
+    )
+    {
+        char += 9;
+        //syntax_declaration_protocol();
+        scope += 1;
     }
 
     else if //type
@@ -236,10 +255,14 @@ function syntax_pass()
         code[char + 1] == 'u' &&
         code[char + 2] == 'n' &&
         code[char + 3] == 'c' &&
-        code[char + 4] == '' 
+        code[char + 4] == 't' &&
+        code[char + 5] == 'i' &&
+        code[char + 6] == 'o' &&
+        code[char + 7] == 'n' &&
+        code[char + 8] == '' 
     )
     {
-        char += 5;
+        char += 9;
         syntax_declaration_function();
         scope += 1;
     }
@@ -265,26 +288,6 @@ function syntax_pass()
    
    
    
-    /*else if(scope > 1)
-    {
-        if(code[char] == '\n')
-        {
-            //pass
-        }
-        else
-        {
-            indentation = scope * 4;
-            while(indentation_index < indentation)
-            {
-                if(code[char] != '')
-                {
-                    error_indentation = 1;
-                }
-                char += 1;
-            }             
-        }
-    }
-}*/
 
 
 
@@ -338,20 +341,11 @@ const variable_scope = [];
 const variable_type = [];
 const variable_value = [];
 
-/* tokens
-keyword_func()
-keyword_return()
-keyword_type()
-keyword_if()
-keyword_if_else()
-keyword_else()
-keyword_or()
-keyword_and()
-keyword_while()
-keyword_for()
-keyword_in()
-keyword_pass()
-keyword_exit()
+
+
+
+
+/*
 
 operator_add() : +
 operator_subtract() : -
@@ -385,8 +379,11 @@ structure_array() : [16] f32
 
 
 
-/* Syntax Token
-lower case: 0
-upper case: 1
-colon: 2
-*/
+// variable semantic token arrays
+const variable_name= []
+const variable_scope = []
+const variable_value_type = []
+const variable_value = []
+const variable_lock = []
+
+//function semantic token arrays

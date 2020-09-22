@@ -23,6 +23,7 @@ out the compiler will automatically infer the type to either i32, f32 or string.
 #compiler variables
 MEMORY: '64MB'  #stack size
 OPTIMIZATION: '1'
+THREADS: 3
 
 protocol Selectable:
     function hover_start:
@@ -48,8 +49,14 @@ type Line:
     end: Vector3
 
     function {Selectable}.hover_start:
-        pass
+        
+        (input_0: Vector3)
+        (inptu_1: Vector3)
+       
+        return
    
+
+
 #type inference of primitive types
 variable_0: 1                           #i32
 variable_1: 2500000                     #i64
@@ -62,29 +69,37 @@ num_array[0]: 10.0
 num_array[1]: 11.0
 num_array[2]: 12.0
 
-short_array: [1] f32
-short_array[0]: 10.0
-
 string_array: [3] str
 string_array[0]: 'string 0'
 string_array[1]: 'string 1'
 string_array[2]: 'string 2'
 
 
-some_array: [128] Vector3
 
-for i in some_array:
-    if some_array[i].x = 1.0:
-        pass
-    else if some_array[i].x = 2.0:
-        pass
-    else:
-        exit
+some_array: [128] Vector3   
+lock some_array             #makes the variable immutable
+
+thread:
+    for i in some_array:           #for every in-loop
+        if some_array[i].x = 1.0:
+            pass
+        else if some_array[i].x = 2.0:
+            pass
+        else:
+            exit
+
+thread:
+    i: 0
+    for i < some_array:            #for as long-loop
+        i: +1
         
+unlock some_array          #makes the variable mutable again
+
         
- function get_position_of_entities: Vector3
+ async function get_position_of_entities: Vector3
         
         (entities: Entity)
+        (param_2: Vector3)
 
         result: [entities] Vector3 
         
@@ -94,15 +109,19 @@ for i in some_array:
         return result       
 
 
-lines: [128] Line   #array contains 128 0-initialized Lines.
 
-line_0: lines[0]    #indexed value gets copied in memory by the compiler.
-
+lines: [128] Line                           #array contains 128 0-initialized Lines.
+line_0: lines[0]                            #indexed value gets copied in memory by the compiler.
 line_0.start: Vector3(1.0, 1.0, 1.0)
-
-lines[0]: line_0    #indexed value gets overwritten with line_0's value
+lines[0]: line_0                            #indexed value gets overwritten with line_0's value
 lines[0].id: 'Test String'
 
 
 
 
+
+#keywords
+#/ protocol, type, function, return, for, 
+    if, else if, else, in 
+    and, or, pass, exit, thread,
+    lock, unlock /#
