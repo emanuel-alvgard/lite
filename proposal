@@ -1,0 +1,3 @@
+# Logging que with that consists of one string array per
+pass. Each thread fills it's own log array and then each array
+is executed in synch starting with syntax log.
