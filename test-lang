@@ -1,8 +1,7 @@
 #/
 * lite uses 4 white-space indentation for scoping but can also be written without indentation.
-* lite sees 2 white-spaces as end of line.
 * object lifetime is always scope bound
-* no aliasing
+* no aliasing, except for imports
 * parameters and assignments are always passed by value
 * type data are stored as SOA
 * lite is a small language that compiles to langs like wasm/js, C, Rust etc. It will ultimately serve as a kind of language interface.
@@ -10,20 +9,25 @@
 * variables can only be overwritten to the same type. Variables containing an array can 
 can only be overwritten by an array of the same type and size.  
 * all type functions can be applied to an array of that type by default.
-* arithmetic operators are +, -, *, /. These can also be used for operations on the to primitive data structures 
-string and array. 
+* arithmetic operators are +, -, *, /. These can only be used on primitive types.
 * comparison operators are =, >, <, !=, !>, !<.
 /#
 
+
+
 #/
-* primitive data types/structures: i32,64, fl32,64, string, array. What types are avalible will vary with the underlying implementation. if type annotation is left
+* primitive data types/structures: i32,64, f32,64, str, array(structure). What types are avalible will vary with the underlying implementation. if type annotation is left
 out the compiler will automatically infer the type to either i32, f32 or string.
 /#
 
 #compiler variables
-MEMORY: '64MB'  #stack size
+MEMORY: '64MB'              #stack size
 OPTIMIZATION: '1'
 THREADS: 3
+
+#relative or absolute imports with aliasing and specific importing
+import 'module_0.lt' as mod_0
+import '../module_1.lt'.some_function
 
 protocol Selectable:
     function hover_start:
@@ -121,7 +125,7 @@ lines[0].id: 'Test String'
 
 
 #keywords
-#/ protocol, type, function, return, for, 
+#/ import, as, protocol, type, function, return, for, 
     if, else if, else, in 
     and, or, pass, exit, thread,
     lock, unlock /#
