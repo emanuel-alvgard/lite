@@ -3,3 +3,5 @@ pass. Each thread fills it's own log array and then each array
 is executed in synch starting with syntax log.
 
 #all variables are iterable. How will that work??
+
+#improved support for exception handling?
