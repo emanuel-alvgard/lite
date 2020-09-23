@@ -44,20 +44,26 @@ type Entity:
     id: i32
     position: Vector3
 
-type Line:
-
-    {Selectable}
-    
+type Line:   
     id: str
     start: Vector3
     end: Vector3
 
-    function {Selectable}.hover_start:
-        
-        (input_0: Vector3)
-        (inptu_1: Vector3)
-       
-        return
+    function unique_type_func:
+        pass
+
+    {Selectable}
+        function hover_start:
+            (input_0: Vector3)
+            (inptu_1: Vector3)
+            return
+
+        function hover_end:
+            pass
+        function select_start:
+            pass
+        function select_end:
+            pass
    
 
 
@@ -68,7 +74,7 @@ variable_2: 1.0                         #f32
 variable_3: 1.00000000                  #f64
 variable_4: 'this is a string'          #str
 
-num_array: [64000] f64 
+num_array: [3] f64: [1.0, 3.0, 4.0]
 num_array[0]: 10.0
 num_array[1]: 11.0
 num_array[2]: 12.0
@@ -84,33 +90,33 @@ some_array: [128] Vector3
 lock some_array             #makes the variable immutable
 
 thread:
-    for i in some_array:           #for every in-loop
+    loop i < some_array:           #for
         if some_array[i].x = 1.0:
             pass
         else if some_array[i].x = 2.0:
             pass
         else:
             exit
-
+        i ++
 thread:
-    i: 0
-    for i < some_array:            #for as long-loop
-        i: +1
+
+    loop i = 1:                    #while
+        i: 0
         
 unlock some_array          #makes the variable mutable again
 
         
- async function get_position_of_entities: Vector3
+ function get_position_of_entities: Vector3
         
-        (entities: Entity)
-        (param_2: Vector3)
+    (entities: Entity)
+    (param_2: Vector3)
 
-        result: [entities] Vector3 
-        
-        for i in entities:
-            result[i]: enitities[i].position
-        
-        return result       
+    result: [entities] Vector3 
+    
+    for i in entities:
+        result[i]: enitities[i].position
+    
+    return result       
 
 
 
@@ -118,14 +124,14 @@ lines: [128] Line                           #array contains 128 0-initialized Li
 line_0: lines[0]                            #indexed value gets copied in memory by the compiler.
 line_0.start: Vector3(1.0, 1.0, 1.0)
 lines[0]: line_0                            #indexed value gets overwritten with line_0's value
-lines[0].id: 'Test String'
+lines[0].id: 'some string'
 
 
 
 
 
 #keywords
-#/ import, as, protocol, type, function, return, for, 
-    if, else if, else, in 
+#/ import, as, protocol, type, function, return, loop, 
+    if, else if, else,
     and, or, pass, exit, thread,
     lock, unlock /#
