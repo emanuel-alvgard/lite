@@ -98,16 +98,15 @@ thread:
         else:
             exit
         i ++
+        
 thread:
-
     loop i = 1:                    #while
         i: 0
         
 unlock some_array          #makes the variable mutable again
 
         
- function get_position_of_entities: Vector3
-        
+ function get_position_of_entities: Vector3  
     (entities: Entity)
     (param_2: Vector3)
 
