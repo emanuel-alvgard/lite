@@ -16,7 +16,7 @@ can only be overwritten by an array of the same type and size.
 
 
 #/
-* primitive data types/structures: i32,64, f32,64, str, any, array(structure). What types are avalible will vary with the underlying implementation. if type annotation is left
+* primitive data types/structures: i32,64, f32,64, str, [array](generic structure). What types are avalible will vary with the underlying implementation. if type annotation is left
 out the compiler will automatically infer the type to either i32, f32 or string.
 /#
 
@@ -59,12 +59,12 @@ type Line:
         (inptu_1: Vector3)
         return
 
-        function hover_end:
-            pass
-        function select_start:
-            pass
-        function select_end:
-            pass
+    function {Selectable}.hover_end:
+        pass
+    function {Selectable}.select_start:
+        pass
+    function {Selectable}.select_end:
+        pass
    
 
 
@@ -107,7 +107,7 @@ thread:
 unlock some_array          #makes the variable mutable again
 
         
- function get_position_of_entities: Vector3  
+function get_position_of_entities: Vector3  
     (entities: Entity)
     (param_2: Vector3)
 
@@ -128,10 +128,19 @@ lines[0].id: 'some string'
 
 
 
+# generic function since both primitive and custom types are iterable
+function generic_func: []
+    (input_0)
+    (input_1)
+    result: [input_0] input_0               #creates an array with length of input_0 and of type input_0 (this is evaluated at runtime)
+    #some generic array manipulation
+    
+    return result
+
 
 
 #keywords
 #/ import, as, protocol, type, function, return, loop, 
     if, else if, else,
     and, or, pass, exit, thread,
-    lock, unlock /#
+    lock, unlock, exception /#
