@@ -53,10 +53,11 @@ type Line:
         pass
 
     {Selectable}
-        function hover_start:
-            (input_0: Vector3)
-            (inptu_1: Vector3)
-            return
+
+    function {Selectable}.hover_start:
+        (input_0: Vector3)
+        (inptu_1: Vector3)
+        return
 
         function hover_end:
             pass
