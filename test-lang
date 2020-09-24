@@ -16,7 +16,7 @@ can only be overwritten by an array of the same type and size.
 
 
 #/
-* primitive data types/structures: i32,64, f32,64, str, array(structure). What types are avalible will vary with the underlying implementation. if type annotation is left
+* primitive data types/structures: i32,64, f32,64, str, any, array(structure). What types are avalible will vary with the underlying implementation. if type annotation is left
 out the compiler will automatically infer the type to either i32, f32 or string.
 /#
 
