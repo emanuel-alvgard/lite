@@ -113,9 +113,10 @@ function get_position_of_entities: Vector3
 
     result: [entities] Vector3 
     
-    for i in entities:
+    loop i < entities:
         result[i]: enitities[i].position
-    
+        i ++
+        
     return result       
 
 
