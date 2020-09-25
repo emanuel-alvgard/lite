@@ -50,7 +50,9 @@ const semantic_log = [];
 
 
 function comment_single()
-{}
+{
+    //
+}
 function comment_multiple()
 {}
 //all other syntax functions implement these comment functions inside of them.
@@ -209,6 +211,12 @@ function syntax_pass()
 
 
     if(code[char] == '\n')
+    {}
+
+    else if(code[char] == '#')
+    {}
+
+    else if(code[char] == '#/')
     {}
 
     else if(code[char] == '')
@@ -380,7 +388,7 @@ structure_array() : [16] f32
 
 
 // variable semantic token arrays
-const variable_name= []
+const variable_name = []
 const variable_scope = []
 const variable_value_type = []
 const variable_value = []

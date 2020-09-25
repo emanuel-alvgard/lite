@@ -95,7 +95,7 @@ thread:
         if some_array[i].x = 1.0:
             pass
         else if some_array[i].x = 2.0:
-            pass
+            fail 'this stops execution'
         else:
             exit
         i ++
@@ -144,4 +144,4 @@ function generic_func: []
 #/ import, as, protocol, type, function, return, loop, 
     if, else if, else,
     and, or, pass, exit, thread,
-    lock, unlock, exception /#
+    lock, unlock, fail /#
