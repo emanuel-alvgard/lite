@@ -29,11 +29,7 @@ THREADS: 3
 import 'module_0.lt' as mod_0
 import '../module_1.lt'.some_function
 
-protocol Selectable:
-    function hover_start:
-    function hover_end:
-    function select_start:
-    function select_end:
+
 
 type Vector3:
     x: f32
@@ -51,20 +47,6 @@ type Line:
 
     function unique_type_func:
         pass
-
-    {Selectable}
-
-    function {Selectable}.hover_start:
-        (input_0: Vector3)
-        (inptu_1: Vector3)
-        return
-
-    function {Selectable}.hover_end:
-        pass
-    function {Selectable}.select_start:
-        pass
-    function {Selectable}.select_end:
-        pass
    
 
 
@@ -75,19 +57,19 @@ variable_2: 1.0                         #f32
 variable_3: 1.00000000                  #f64
 variable_4: 'this is a string'          #str
 
-num_array: [3] f64: [1.0, 3.0, 4.0]
+num_array: f64 [3]
 num_array[0]: 10.0
 num_array[1]: 11.0
 num_array[2]: 12.0
 
-string_array: [3] str
+string_array: str[3]
 string_array[0]: 'string 0'
 string_array[1]: 'string 1'
 string_array[2]: 'string 2'
 
+another_array: [Vector3(0.0, 0.0, Vector3(0.0, 0.0)]
 
-
-some_array: [128] Vector3   
+some_array: Vector3 {128}  
 lock some_array             #makes the variable immutable
 
 thread:
@@ -111,7 +93,7 @@ function get_position_of_entities: Vector3
     (entities: Entity)
     (param_2: Vector3)
 
-    result: [entities] Vector3 
+    result: Vector3 [entities]
     
     loop i < entities:
         result[i]: enitities[i].position
@@ -121,7 +103,7 @@ function get_position_of_entities: Vector3
 
 
 
-lines: [128] Line                           #array contains 128 0-initialized Lines.
+lines: Line [128]                          #array contains 128 0-initialized Lines.
 line_0: lines[0]                            #indexed value gets copied in memory by the compiler.
 line_0.start: Vector3(1.0, 1.0, 1.0)
 lines[0]: line_0                            #indexed value gets overwritten with line_0's value
