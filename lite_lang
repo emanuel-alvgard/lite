@@ -16,16 +16,17 @@ can only be overwritten by an array of the same type and size.
 
 
 #/
-* primitive data types/structures: i32,64, f32,64, str, [array](generic structure). What types are avalible will vary with the underlying implementation. if type annotation is left
+* primitive data types/structures: i32,64, f32,64, s(x), [array](generic structure). What types are avalible will vary with the underlying implementation. if type annotation is left
 out the compiler will automatically infer the type to either i32, f32 or string.
 /#
 
-#compiler variables
-MEMORY: '64MB'              #stack size
-OPTIMIZATION: '1'
-THREADS: 3
 
-#relative or absolute imports with aliasing and specific importing
+
+# compiler variables
+MEMORY: '64MB'              #stack size
+THREADS: 3                  #thread pool
+
+# relative or absolute imports with aliasing and specific importing
 import 'module_0.lt' as mod_0
 import '../module_1.lt'.some_function
 
@@ -41,7 +42,7 @@ type Entity:
     position: Vector3
 
 type Line:   
-    id: str
+    id: s8                      # tring of 8 bytes
     start: Vector3
     end: Vector3
 
@@ -50,30 +51,35 @@ type Line:
    
 
 
-#type inference of primitive types
-variable_0: 1                           #i32
-variable_1: 2500000                     #i64
-variable_2: 1.0                         #f32
-variable_3: 1.00000000                  #f64
-variable_4: 'this is a string'          #str
+# type inference of primitive types
+variable_0: 1                           # i32
+variable_1: 2500000                     # i64
+variable_2: 1.0                         # f32
+variable_3: 1.00000000                  # f64
+variable_4: 'this is a string'          # s16
 
+# zero initialized with 3 items
 num_array: f64 [3]
 num_array[0]: 10.0
 num_array[1]: 11.0
 num_array[2]: 12.0
 
-string_array: str[3]
+string_array: s8 [3]
 string_array[0]: 'string 0'
 string_array[1]: 'string 1'
 string_array[2]: 'string 2'
 
-another_array: [Vector3(0.0, 0.0, Vector3(0.0, 0.0)]
+# direct initialization
+vector_array: [Vector2(0.0, 0.0, Vector2(0.0, 0.0)]     #inferred to Vector2 based on first item
+string_array: ['short', 'longer string']                #inferred to s13 by longest string        
 
-some_array: Vector3 {128}  
-lock some_array             #makes the variable immutable
+
+
+some_array: Vector3 [128]  
+lock some_array             # makes the variable immutable
 
 thread:
-    loop i < some_array:           #for
+    loop i < some_array:           # for
         if some_array[i].x = 1.0:
             pass
         else if some_array[i].x = 2.0:
@@ -83,10 +89,10 @@ thread:
         i ++
         
 thread:
-    loop i = 1:                    #while
+    loop i = 1:                    # while
         i: 0
         
-unlock some_array          #makes the variable mutable again
+unlock some_array          # makes the variable mutable again
 
         
 function get_position_of_entities: Vector3  
@@ -103,10 +109,10 @@ function get_position_of_entities: Vector3
 
 
 
-lines: Line [128]                          #array contains 128 0-initialized Lines.
-line_0: lines[0]                            #indexed value gets copied in memory by the compiler.
+lines: Line [128]                          # array contains 128 0-initialized Lines.
+line_0: lines[0]                            # indexed value gets copied in memory by the compiler.
 line_0.start: Vector3(1.0, 1.0, 1.0)
-lines[0]: line_0                            #indexed value gets overwritten with line_0's value
+lines[0]: line_0                            # indexed value gets overwritten with line_0's value
 lines[0].id: 'some string'
 
 
@@ -115,15 +121,17 @@ lines[0].id: 'some string'
 function generic_func: []
     (input_0)
     (input_1)
-    result: [input_0] input_0               #creates an array with length of input_0 and of type input_0 (this is evaluated at runtime)
+    result: input_0 [input_0]               # creates an array with length of input_0 and of type input_0 (this is evaluated at runtime)
     #some generic array manipulation
     
     return result
 
 
+# arithmetic expression
+some_new_var: ((1 + 1) + (2 * 3) + 1) / 4
 
-#keywords
-#/ import, as, protocol, type, function, return, loop, 
+# keywords
+#/ import, as, type, function, return, loop, 
     if, else if, else,
-    and, or, pass, exit, thread,
-    lock, unlock, fail /#
+    and, or, pass, exit, fail, thread,
+    lock, unlock /#
