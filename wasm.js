@@ -1,4 +1,4 @@
-const file = await Deno.open("test.wasm", { read: true });
+const file = await Deno.open("output.wasm", { read: true });
 const wasm = await Deno.readAll(file);
 Deno.close(file.rid);
 

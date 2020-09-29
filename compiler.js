@@ -13,21 +13,27 @@ const indentation = 0;
 const compilation_error = 0;
 
 //utility
-const lower = 
+const number_case = 
+[
+    '0', '1', '2', '3',
+    '4', '5', '6', '7', '8', '9'
+]
+
+const lower_case = 
 [
     'a', 'b', 'c', 'd', 'e', 
     'f', 'g', 'h', 'i', 'j', 
     'k', 'l', 'm', 'n', 'o', 
-    'p', 'q', 'r','s', 't', 
+    'p', 'q', 'r', 's', 't', 
     'u', 'v', 'w', 'x', 'y', 'z'
 ];
 
-const upper = 
+const upper_case = 
 [
     'A', 'B', 'C', 'D', 'E', 
     'F', 'G', 'H', 'I', 'J', 
     'K', 'L', 'M', 'N', 'O', 
-    'P', 'Q', 'R','S', 'T', 
+    'P', 'Q', 'R', 'S', 'T', 
     'U', 'V', 'W', 'X', 'Y', 'Z'
 ];
 
@@ -36,10 +42,27 @@ const snake_case =
     'a', 'b', 'c', 'd', 'e', 
     'f', 'g', 'h', 'i', 'j', 
     'k', 'l', 'm', 'n', 'o', 
-    'p', 'q', 'r','s', 't', 
+    'p', 'q', 'r', 's', 't', 
     'u', 'v', 'w', 'x', 'y', 'z',
-    '_'
+    '_', '0', '1', '2', '3',
+    '4', '5', '6', '7', '8', '9'
 ];
+
+const camel_case =
+[
+    'A', 'B', 'C', 'D', 'E', 
+    'F', 'G', 'H', 'I', 'J', 
+    'K', 'L', 'M', 'N', 'O', 
+    'P', 'Q', 'R', 'S', 'T', 
+    'U', 'V', 'W', 'X', 'Y', 'Z',
+    'a', 'b', 'c', 'd', 'e', 
+    'f', 'g', 'h', 'i', 'j', 
+    'k', 'l', 'm', 'n', 'o', 
+    'p', 'q', 'r', 's', 't', 
+    'u', 'v', 'w', 'x', 'y', 'z',
+    '0', '1', '2', '3',
+    '4', '5', '6', '7', '8', '9'
+]
 
 
 
@@ -49,7 +72,8 @@ const semantic_log = [];
 
 
 //DONE??
-function syntax_comment_single()
+function syntax_comment_single() //gets impolemented by all other syntax functions
+//except for multi line comment function
 {
     while(code[char] != '\n')
     {
@@ -58,6 +82,8 @@ function syntax_comment_single()
     char += 1;
     return
 }
+
+
 
 //DONE??
 function syntax_comment_multiple()
@@ -74,10 +100,6 @@ function syntax_comment_multiple()
     char += 3;
     return
 }
-//all other syntax functions implement these comment functions inside of them.
-
-
-
 
 
 
@@ -118,11 +140,19 @@ function syntax_declaration_variable()
             loop = 1;
             while(loop == 1)
             {
+                if(code[char] == '#' && code[char + 1] == ' ')
+                {
+                    syntax_comment_single();
+                    loop = 0;
+                }
                 if(code[char] == '\n')
                 {
                     loop = 0;
                 }
-                char += 1;
+                else
+                {
+                    char += 1;
+                }
             }
         }
         else
