@@ -1,8 +1,10 @@
 'use strict';
 
 //code
-const file = await Deno.open("lite_tests.txt", { read: true });
-const code = await Deno.readAll(file);
+const file = await Deno.open("lite_tests.lt", { read: true });
+const buffer = await Deno.readAll(file);
+const code = String.fromCharCode.apply(null, buffer)
+
 Deno.close(file.rid);
 
 const char = 0;
@@ -72,6 +74,10 @@ const camel_case =
 const syntax_log = []; 
 const semantic_log = [];
 
-console.log(code);
 
 //write test here for each function in compiler.
+
+if(compilation_error == 0)
+{
+    console.log('Success!')
+}
