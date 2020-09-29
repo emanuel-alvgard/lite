@@ -48,13 +48,27 @@ const semantic_log = [];
 
 
 
-
-function comment_single()
+//DONE??
+function syntax_comment_single()
 {
-    //
+    while(code[char] != '\n')
+    {
+        char += 1;
+    }
+    char += 1;
+    return
 }
-function comment_multiple()
-{}
+
+//DONE??
+function syntax_comment_multiple()
+{
+    while(code[char] != '/' && code[char] != '#')
+    {
+        char += 1;
+    }
+    char += 2;
+    return
+}
 //all other syntax functions implement these comment functions inside of them.
 
 
@@ -62,7 +76,7 @@ function comment_multiple()
 
 
 
-
+//DONE??
 function syntax_declaration_variable()
 { 
     const error = 0;
@@ -124,7 +138,7 @@ function syntax_declaration_variable()
 
 
 
-
+//NOT
 function syntax_declaration_function()
 {
     const error = 0;
@@ -189,7 +203,7 @@ function syntax_declaration_function()
 
 
 
-
+//NOT
 function syntax_pass()
 {
     indentation = scope * 4;
@@ -213,34 +227,22 @@ function syntax_pass()
     if(code[char] == '\n')
     {}
 
-    else if(code[char] == '#')
-    {}
+    else if(code[char] == '#' && code[char + 1] == ' ')
+    {
+        char += 2;
+        syntax_comment_single();
+    }
 
-    else if(code[char] == '#/')
-    {}
+    else if(code[char] == '#' && code[char + 1] == '/')
+    {
+        char += 2;
+        syntax_comment_multiple();
+    }
 
     else if(code[char] == '')
     {
         console.log('line ' + line + ':' + 'expected ' + scope + ' levels of indentation');
         compilation_error = 1;
-    }
-
-    else if //protocol
-    (
-        code[char] == 'p' &&
-        code[char + 1] == 'r' &&
-        code[char + 2] == 'o' &&
-        code[char + 3] == 't' &&
-        code[char + 4] == 'o' &&
-        code[char + 5] == 'c' &&
-        code[char + 6] == 'o' &&
-        code[char + 7] == 'l' &&
-        code[char + 8] == ''  
-    )
-    {
-        char += 9;
-        //syntax_declaration_protocol();
-        scope += 1;
     }
 
     else if //type
@@ -272,6 +274,49 @@ function syntax_pass()
     {
         char += 9;
         syntax_declaration_function();
+        scope += 1;
+    }
+
+    else if //if
+    (
+        code[char] == 'i' && 
+        code[char + 1] == 'f' &&
+        code[char + 2] == ''
+    )
+    {
+        char += 3;
+        //if()
+        scope += 1;
+    }
+
+    else if //else if
+    (
+        code[char] == 'e' &&
+        code[char + 1] == 'l' &&
+        code[char + 2] == 's' &&
+        code[char + 3] == 'e' &&
+        code[char + 4] == '' &&
+        code[char + 5] == 'i' &&
+        code[char + 6] == 'f' &&
+        code[char + 7] == '' 
+    )
+    {
+        char += 0;
+        //else if()
+        scope += 1;
+    }
+
+    else if //else
+    (
+        code[char] == 'e' &&
+        code[char + 1] == 'l' &&
+        code[char + 2] == 's' &&
+        code[char + 3] == 'e' &&
+        code[char + 4] == ''
+    )
+    {
+        char += 5;
+        //else()
         scope += 1;
     }
 
