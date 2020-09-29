@@ -23,8 +23,8 @@ out the compiler will automatically infer the type to either i32, f32 or string.
 
 
 # compiler variables
-MEMORY: '64MB'              #stack size
-THREADS: 3                  #thread pool
+MEMORY: '64MB'              # stack size
+THREADS: 3                  # thread pool
 
 # relative or absolute imports with aliasing and specific importing
 import 'module_0.lt' as mod_0
@@ -70,8 +70,8 @@ string_array[1]: 'string 1'
 string_array[2]: 'string 2'
 
 # direct initialization
-vector_array: [Vector2(0.0, 0.0, Vector2(0.0, 0.0)]     #inferred to Vector2 based on first item
-string_array: ['short', 'longer string']                #inferred to s13 by longest string        
+vector_array: [Vector2(0.0, 0.0, Vector2(0.0, 0.0)]     # inferred to Vector2 based on first item
+string_array: ['short', 'longer string']                # inferred to s13 by longest string        
 
 
 
@@ -131,7 +131,9 @@ function generic_func: []
 some_new_var: ((1 + 1) + (2 * 3) + 1) / 4
 
 # keywords
-#/ import, as, type, function, return, loop, 
-    if, else if, else,
-    and, or, pass, exit, fail, thread,
-    lock, unlock /#
+#/ 
+import, as, type, function, return, loop, 
+if, else if, else,
+and, or, pass, exit, fail, thread,
+lock, unlock 
+/#

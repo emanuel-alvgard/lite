@@ -62,11 +62,16 @@ function syntax_comment_single()
 //DONE??
 function syntax_comment_multiple()
 {
-    while(code[char] != '/' && code[char] != '#')
+    while
+    (
+        code[char] != '\n' &&
+        code[char + 1] != '/' && 
+        code[char + 2] != '#'
+    )
     {
         char += 1;
     }
-    char += 2;
+    char += 3;
     return
 }
 //all other syntax functions implement these comment functions inside of them.
@@ -227,15 +232,23 @@ function syntax_pass()
     if(code[char] == '\n')
     {}
 
-    else if(code[char] == '#' && code[char + 1] == ' ')
+    else if //single line comment
+    (
+        code[char] == '#' && 
+        code[char + 1] == ' '
+    )
     {
         char += 2;
         syntax_comment_single();
     }
 
-    else if(code[char] == '#' && code[char + 1] == '/')
+    else if //multi line coment
+    (
+        code[char] == '#' && 
+        code[char + 1] == '/' &&
+        code[char + 2] == '\n')
     {
-        char += 2;
+        char += 3;
         syntax_comment_multiple();
     }
 
