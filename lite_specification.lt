@@ -144,28 +144,29 @@ function compare3: i32
 
     result_0: i32 [x + y + z]
     
-    thread:
-        loop i < x:
-            if x[i] == other_x[i]:
-                result_0[i * 3]
-            i ++
+    {1}
+    loop i < x:
+        if x[i] == other_x[i]:
+            result_0[i * 3]
+        i ++
 
-    thread:
-        loop i < y:
-            if y[i] == other_y[i]:
-                result_0[(i * 3) + 1]: 1
-            else:
-                pass
-            i ++
+    {2}
+    loop i < y:
+        if y[i] == other_y[i]:
+            result_0[(i * 3) + 1]: 1
+        else:
+            pass
+        i ++
 
-    thread:
-        loop i < z:
-            if z[i] = other_z[i]:
-                result_0[(i * 3) + 2]: 1
-            else:
-                pass
-            i ++
-
+    {3}
+    loop i < z:
+        if z[i] = other_z[i]:
+            result_0[(i * 3) + 2]: 1
+        else:
+            pass
+        i ++
+    
+    {0}
     result_1: i32 [x]
     loop i < result_0:
         
@@ -179,13 +180,16 @@ function compare3: i32
 
     return result_1
 
-thread:
-    var_1: compare3(x, x_other, y, y_other, z, z_other)
-    var_2: do_something()
-    var_3: do_something_else()
 
 
+{1} # threads are scoped but they do not define scope
+var_1: compare3(x, x_other, y, y_other, z, z_other)
+var_2: do_something()
+var_3: do_something_else()
+
+{0}
 do_unrelated()
+do_related(var_1) # will defer this function call until 'var_1' has returned
 
 
 
@@ -194,6 +198,6 @@ do_unrelated()
 #/ 
 import, as, type, function, return, loop, 
 if, else if, else,
-and, or, pass, exit, fail, thread,
+and, or, pass, exit, fail,
 lock, unlock 
 /#
