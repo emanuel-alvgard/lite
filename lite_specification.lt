@@ -169,9 +169,9 @@ function compare3: i32
     result_1: i32 [x]
     loop i < result_0:
         
-        if result_0[i * 3] = 1 //
-        and result_0[(i * 3 + 1)] = 1 //
-        and result_0[(i * 3 + 1)] = 1:
+        if result_0[i * 3] = 1
+        and result_0[(i * 3 + 1)] = 1  # implicit line break??
+        and result_0[(i * 3 + 2)] = 1:
             result_1[i]: 1
         
         else:
@@ -180,9 +180,9 @@ function compare3: i32
     return result_1
 
 thread:
-    compare3(x, x_other, y, y_other, z, z_other):
-    do_something()
-    do_something_else()
+    var_1: compare3(x, x_other, y, y_other, z, z_other)
+    var_2: do_something()
+    var_3: do_something_else()
 
 
 do_unrelated()
