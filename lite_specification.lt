@@ -133,7 +133,7 @@ some_new_var: ((1 + 1) + (2 * 3) + 1) / 4
 
 
 # threading example
-function async_compare3: i32
+function compare3: i32
 
     (x: [])
     (other_x: [])
@@ -144,11 +144,12 @@ function async_compare3: i32
 
     result_0: i32 [x + y + z]
     
-    thread: 
+    thread:
         loop i < x:
             if x[i] == other_x[i]:
                 result_0[i * 3]
             i ++
+
     thread:
         loop i < y:
             if y[i] == other_y[i]:
@@ -178,10 +179,13 @@ function async_compare3: i32
 
     return result_1
 
+thread:
+    compare3(x, x_other, y, y_other, z, z_other):
+    do_something()
+    do_something_else()
 
-# if 'async_compare3' is not complete before 'do_something_unrelated' the main thread will become blocked
-until var_0: async_compare3():
-    do_something_unrelated()
+
+do_unrelated()
 
 
 
@@ -190,6 +194,6 @@ until var_0: async_compare3():
 #/ 
 import, as, type, function, return, loop, 
 if, else if, else,
-and, or, pass, exit, fail, thread, until
+and, or, pass, exit, fail, thread,
 lock, unlock 
 /#
