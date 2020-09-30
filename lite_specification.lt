@@ -130,10 +130,66 @@ function generic_func: []
 # arithmetic expression
 some_new_var: ((1 + 1) + (2 * 3) + 1) / 4
 
+
+
+# threading example
+function async_compare3: i32
+
+    (x: [])
+    (other_x: [])
+    (y: [])
+    (other_y: [])
+    (z: [])
+    (other_z: [])
+
+    result_0: i32 [x + y + z]
+    
+    thread: 
+        loop i < x:
+            if x[i] == other_x[i]:
+                result_0[i * 3]
+            i ++
+    thread:
+        loop i < y:
+            if y[i] == other_y[i]:
+                result_0[(i * 3) + 1]: 1
+            else:
+                pass
+            i ++
+
+    thread:
+        loop i < z:
+            if z[i] = other_z[i]:
+                result_0[(i * 3) + 2]: 1
+            else:
+                pass
+            i ++
+
+    result_1: i32 [x]
+    loop i < result_0:
+        
+        if result_0[i * 3] = 1 //
+        and result_0[(i * 3 + 1)] = 1 //
+        and result_0[(i * 3 + 1)] = 1:
+            result_1[i]: 1
+        
+        else:
+            pass
+
+    return result_1
+
+
+# if 'async_compare3' is not complete before 'do_something_unrelated' the main thread will become blocked
+until var_0: async_compare3():
+    do_something_unrelated()
+
+
+
+
 # keywords
 #/ 
 import, as, type, function, return, loop, 
 if, else if, else,
-and, or, pass, exit, fail, thread,
+and, or, pass, exit, fail, thread, until
 lock, unlock 
 /#
