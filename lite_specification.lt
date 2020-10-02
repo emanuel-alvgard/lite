@@ -75,21 +75,21 @@ vector_array: [Vector2(0.0, 0.0, Vector2(0.0, 0.0)]     # inferred to Vector2 ba
 
 
 some_array: Vector3 [128]  
-lock some_array             # makes the variable immutable
+lock some_array        # makes the variable immutable
 
-thread:
-    loop i < some_array:           # for
-        if some_array[i].x = 1.0:
-            pass
-        else if some_array[i].x = 2.0:
-            fail 'this stops execution'
-        else:
-            exit
-        i ++
+{1}
+loop i < some_array:           # for
+    if some_array[i].x = 1.0:
+        pass
+    else if some_array[i].x = 2.0:
+        fail 'this stops execution'
+    else:
+        exit
+    i ++
         
-thread:
-    loop i = 1:                    # while
-        i: 0
+{0}
+loop i = 1:                    # while
+    i: 0
         
 unlock some_array          # makes the variable mutable again
 
