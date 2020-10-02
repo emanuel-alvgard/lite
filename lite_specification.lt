@@ -16,15 +16,15 @@ can only be overwritten by an array of the same type and size.
 
 
 #/
-* primitive data types/structures: i32,64, f32,64, s(x), [array](generic structure). What types are avalible will vary with the underlying implementation. if type annotation is left
-out the compiler will automatically infer the type to either i32, f32 or string.
+* primitive data types/structures: u8-64, i8-64, f32-64, s(x), [array](generic structure). What types are avalible will vary with the underlying implementation. if type annotation is left
+out the compiler will automatically infer the type to it's smallest form.
 /#
 
 
 
 # compiler variables
-MEMORY: '64MB'              # stack size
-THREADS: 3                  # thread pool
+STACK: '64MB'              # stack size
+THREADS: 3                 # thread pool
 
 # relative or absolute imports with aliasing and specific importing
 import 'module_0.lt' as mod_0
@@ -199,5 +199,5 @@ do_related(var_1) # will defer this function call until 'var_1' has returned
 import, as, type, function, return, loop, 
 if, else if, else,
 and, or, pass, exit, fail,
-lock, unlock 
+lock, unlock, allocate
 /#
