@@ -16,7 +16,7 @@ can only be overwritten by an array of the same type and size.
 
 
 #/
-* primitive data types/structures: u8-64, i8-64, f32-64, s(x), [array](generic structure). What types are avalible will vary with the underlying implementation. if type annotation is left
+* primitive data types/structures: u8-64, s8-64, f32-64, str, [array](generic structure). What types are avalible will vary with the underlying implementation. if type annotation is left
 out the compiler will automatically infer the type to it's smallest form.
 /#
 
@@ -27,7 +27,7 @@ STACK: '64MB'              # stack size
 THREADS: 3                 # thread pool
 
 # relative or absolute imports with aliasing and specific importing
-import 'module_0.lt' as mod_0
+import mod_0: 'module_0.lt'
 import '../module_1.lt'.some_function
 
 
@@ -38,11 +38,11 @@ type Vector3:
     z: f32
 
 type Entity:
-    id: i32
+    id: u32
     position: Vector3
 
 type Line:   
-    id: s8                      # tring of 8 bytes
+    id: str
     start: Vector3
     end: Vector3
 
@@ -52,11 +52,11 @@ type Line:
 
 
 # type inference of primitive types
-variable_0: 1                           # i32
-variable_1: 2500000                     # i64
+variable_0: 1                           # u32
+variable_1: 2500000                     # u64
 variable_2: 1.0                         # f32
 variable_3: 1.00000000                  # f64
-variable_4: 'this is a string'          # s16
+variable_4: 'this is a string'          # str
 
 # zero initialized with 3 items
 num_array: f64 [3]
@@ -64,14 +64,13 @@ num_array[0]: 10.0
 num_array[1]: 11.0
 num_array[2]: 12.0
 
-string_array: s8 [3]
+string_array: str [3]
 string_array[0]: 'string 0'
 string_array[1]: 'string 1'
 string_array[2]: 'string 2'
 
 # direct initialization
-vector_array: [Vector2(0.0, 0.0, Vector2(0.0, 0.0)]     # inferred to Vector2 based on first item
-string_array: ['short', 'longer string']                # inferred to s13 by longest string        
+vector_array: [Vector2(0.0, 0.0, Vector2(0.0, 0.0)]     # inferred to Vector2 based on first item     
 
 
 
@@ -142,7 +141,7 @@ function compare3: i32
     (z: [])
     (other_z: [])
 
-    result_0: i32 [x + y + z]
+    result_0: u8 [x + y + z]
     
     {1}
     loop i < x:
@@ -167,12 +166,12 @@ function compare3: i32
         i ++
     
     {0}
-    result_1: i32 [x]
+    result_1: u8 [x]
     loop i < result_0:
         
         if result_0[i * 3] = 1
-        and result_0[(i * 3 + 1)] = 1  # implicit line break??
-        and result_0[(i * 3 + 2)] = 1:
+        & result_0[(i * 3 + 1)] = 1  # implicit line break??
+        & result_0[(i * 3 + 2)] = 1:
             result_1[i]: 1
         
         else:
@@ -189,15 +188,14 @@ var_3: do_something_else()
 
 {0}
 do_unrelated()
-do_related(var_1) # will defer this function call until 'var_1' has returned
+do_related({1}.var_1) # will defer this function call until 'var_1' has returned
 
 
 
 
 # keywords
 #/ 
-import, as, type, function, return, loop, 
-if, else if, else,
-and, or, pass, exit, fail,
+import, type, function, return, loop, 
+if, else if, else, pass, exit, fail,
 lock, unlock, allocate
 /#
