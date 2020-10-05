@@ -13,7 +13,7 @@ can only be overwritten by an array of the same type and size.
 * comparison operators are =, >, <, !=, !>, !<.
 /#
 
-
+#SKIP UNSIGNED???
 
 #/
 * primitive data types/structures: u8-64, s8-64, f32-64, str, [array](generic structure). What types are avalible will vary with the underlying implementation. if type annotation is left
@@ -51,11 +51,11 @@ type Line:
    
 
 
-# type inference of primitive types
-variable_0: 1                           # s32
+# type inference of primitive number types default to it's largest type
+variable_0: 1                           # s64
 variable_1: 2500000                     # s64
-variable_2: 1.0                         # f32
-variable_3: 1.00000000                  # f64
+variable_2: 1.0                         # f64
+variable_3: 1.00000000000               # f64
 variable_4: 'this is a string'          # str
 
 # explicit typing
@@ -65,7 +65,7 @@ variable_2: 1.0 f32
 variable_3: 1.00000000 f64                  
 variable_4: 'this is a string'          # strings can only be inferred         
 
-num_array_0: [0.0, 0.0, 0.0]              # f32
+num_array_0: [0.0, 0.0, 0.0]              # f64
 # or explicit
 num_array_1: [0.0, 0.0, 0.0] f32
 
