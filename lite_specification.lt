@@ -78,7 +78,7 @@ vector_array: [Vector2(0.0, 0.0, Vector2(0.0, 0.0)]     # inferred to Vector2 ba
 
 
 
-some_array: [(128)] Vector3    # can not be inferred  
+some_array: (128) Vector3    # can not be inferred  
 lock some_array        # makes the variable immutable
 
 {1}
