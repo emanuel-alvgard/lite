@@ -52,29 +52,35 @@ type Line:
 
 
 # type inference of primitive types
-variable_0: 1                           # u32
-variable_1: 2500000                     # u64
+variable_0: 1                           # s32
+variable_1: 2500000                     # s64
 variable_2: 1.0                         # f32
 variable_3: 1.00000000                  # f64
 variable_4: 'this is a string'          # str
 
-# zero initialized with 3 items
-num_array: f64 [3]
-num_array[0]: 10.0
-num_array[1]: 11.0
-num_array[2]: 12.0
+# explicit typing
+variable_0: 1 u8                          
+variable_1: 2500000 u16                 
+variable_2: 1.0 f32                        
+variable_3: 1.00000000 f64                  
+variable_4: 'this is a string'          # strings can only be inferred         
 
-string_array: str [3]
-string_array[0]: 'string 0'
-string_array[1]: 'string 1'
-string_array[2]: 'string 2'
+num_array_0: [0.0, 0.0, 0.0]              # f32
+# or explicit
+num_array_1: [0.0, 0.0, 0.0] f32
+
+loop i < num_array:
+    num_array[i]: 1.0
+    i ++
+
+string_array: ['string 0', 'string 1', 'string 2']
 
 # direct initialization
 vector_array: [Vector2(0.0, 0.0, Vector2(0.0, 0.0)]     # inferred to Vector2 based on first item     
 
 
 
-some_array: Vector3 [128]  
+some_array: [(128)] Vector3    # can not be inferred  
 lock some_array        # makes the variable immutable
 
 {1}
@@ -98,7 +104,7 @@ function get_position_of_entities: Vector3
     (entities: Entity)
     (param_2: Vector3)
 
-    result: Vector3 [entities]
+    result: [(entities)] Vector3
     
     loop i < entities:
         result[i]: enitities[i].position
