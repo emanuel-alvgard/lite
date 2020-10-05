@@ -9,13 +9,12 @@
 * variables can only be overwritten to the same type. Variables containing an array can 
 can only be overwritten by an array of the same type and size.  
 * all type functions can be applied to an array of that type by default.
-* arithmetic operators are +, -, *, /. These can only be used on primitive types.
+* arithmetic operators are +, -, *, /, %, ++, --. These can only be used on primitive types.
 * comparison operators are =, >, <, !=, !>, !<.
 /#
 
-#SKIP UNSIGNED???
 
-#/ primitive data types/structures: u8-64, s8-64, f32-64, str, [array](generic structure). What types are avalible will vary with the underlying implementation. if type annotation is left
+#/ primitive data types/structures: none, u8-64, s8-64, f32-64, str, [array](generic structure). What types are avalible will vary with the underlying implementation. if type annotation is left
 out the compiler will automatically infer the type to it's smallest form. /#
 
 
@@ -44,8 +43,11 @@ type Line:
     start: Vector3
     end: Vector3
 
-    function unique_type_func:
-        pass
+    function unique_type_func: none
+        (parameter_0: Vector2)
+        (parameter_1: Vector2)
+        (parameter_2: Vector2)
+        return
    
 
 
@@ -56,30 +58,65 @@ variable_2: 1.0                         # f64
 variable_3: 1.00000000000               # f64
 variable_4: 'this is a string'          # str
 
-# explicit typing
-variable_0: 1 u8                          
-variable_1: 2500000 u16                 
-variable_2: 1.0 f32                        
-variable_3: 1.00000000 f64                  
-variable_4: 'this is a string'          # strings can only be inferred         
+# inferred arrays based on first item
+array_0: 1, 1
+array_1: 2500000, 2500000
+array_2: 1.0, 1.0
+array_3: 1.00000000000, 1.00000000000
+array_4: 1, 2, 3, 4, 5
 
-num_array_0: [0.0, 0.0, 0.0]              # f64
-# or explicit
-num_array_1: [0.0, 0.0, 0.0] f32
+
+# explicit typing
+variable_0: u8 1                          
+variable_1: u16 25000000                
+variable_2: f32 1.0                       
+variable_3: f64 1..000000000
+variable_4: Vector3 (1.0, 1.0, 1.0)                 
+variable_5: 'this is a string'          # strings can only be inferred         
+
+
+# zero initialized array
+num_array: [1024] u8
 
 loop i < num_array:
-    num_array[i]: 1.0
+    num_array[i]: i
     i ++
 
-string_array: ['string 0', 'string 1', 'string 2']
 
-# direct initialization
-vector_array: [Vector2(0.0, 0.0, Vector2(0.0, 0.0)]     # inferred to Vector2 based on first item     
+num_array_1: f32
+    1.0, 1.0, 1.0, 1.0,
+    2.0, 2.0, 2.0, 2.0,
+    3.0, 3.0, 3.0, 3.0,
 
 
+string_array: 'string 0', 'string 1', 'string 2'
 
-some_array: (128) Vector3    # can not be inferred  
-lock some_array        # makes the variable immutable
+
+vector_array: Vector3 
+    (1.0, 1.0, 0.0),
+    (1.0, 1.0, 0.0),
+    (1.0, 1.0, 0.0),
+    (1.0, 1.0, 0.0)      
+
+
+if vector_array[0].x = 0.0
+| vector_array[1].x = 0.0 
+& vector_array[2].x = 0.0:
+    pass
+
+assigment_0: f32 10.0
+assigment_0: + 5.0
+assigment_0: - 5.0
+assigment_0: * 5.0
+assigment_0: / 5.0
+assigment_0: % 5.0
+assigment_0: ++
+assigment_0: --
+
+
+some_array: [128] Vector3    
+lock some_array                # makes the variable immutable
+
 
 {1}
 loop i < some_array:           # for
@@ -95,26 +132,26 @@ loop i < some_array:           # for
 loop i = 1:                    # while
     i: 0
         
-unlock some_array          # makes the variable mutable again
+unlock some_array              # makes the variable mutable again
 
         
 function get_position_of_entities: Vector3  
     (entities: Entity)
     (param_2: Vector3)
 
-    result: [(entities)] Vector3
+    result: [entities] Vector3
     
     loop i < entities:
         result[i]: enitities[i].position
         i ++
         
-    return result       
+    return result    
 
 
 
-lines: Line [128]                          # array contains 128 0-initialized Lines.
+lines: [128] Line                           # array contains 128 0-initialized Lines.
 line_0: lines[0]                            # indexed value gets copied in memory by the compiler.
-line_0.start: Vector3(1.0, 1.0, 1.0)
+line_0.start: Vector3 (1.0, 1.0, 1.0)
 lines[0]: line_0                            # indexed value gets overwritten with line_0's value
 lines[0].id: 'some string'
 
@@ -130,8 +167,11 @@ function generic_func: []
     return result
 
 
-# arithmetic expression
+# arithmetic expression with impilicit type
 some_new_var: ((1 + 1) + (2 * 3) + 1) / 4               #inferred to s64
+
+# arithmetic expression with explicit type
+some_new_var: f32 ((1.0 + 1.0) + (1.0 * 1.0) + 1.0) / 1.0   
 
 #/ primitive number types are interchangeble with arithmetic operations, 
 which type is used during such an operation is fully dependent on the type
@@ -141,7 +181,7 @@ inferred to it's largest signed version. /#
 
 
 # threading example
-function compare3: i32
+function compare3: u8
 
     (x: [])
     (other_x: [])
@@ -150,17 +190,17 @@ function compare3: i32
     (z: [])
     (other_z: [])
 
-    result_0: u8 [x + y + z]
+    result_0: [x + y + z] u8
     
     {1}
     loop i < x:
-        if x[i] == other_x[i]:
-            result_0[i * 3]
+        if x[i] = other_x[i]:
+            result_0[i * 3]: 1
         i ++
 
     {2}
     loop i < y:
-        if y[i] == other_y[i]:
+        if y[i] = other_y[i]:
             result_0[(i * 3) + 1]: 1
         else:
             pass
@@ -175,11 +215,11 @@ function compare3: i32
         i ++
     
     {0}
-    result_1: u8 [x]
+    result_1: [x] u8
     loop i < result_0:
         
         if result_0[i * 3] = 1
-        & result_0[(i * 3 + 1)] = 1  # implicit line break??
+        & result_0[(i * 3 + 1)] = 1
         & result_0[(i * 3 + 2)] = 1:
             result_1[i]: 1
         

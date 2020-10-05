@@ -476,10 +476,11 @@ structure_array() : [16] f32
 
 
 // variable semantic token arrays
-const variable_name = []
-const variable_scope = []
-const variable_value_type = []
-const variable_value = []
-const variable_lock = []
+const variable_name = [];
+const variable_scope = [];
+const variable_value_type = [];
+const varialble_value_known = [];
+const variable_value = [];
+const variable_lock = [];
 
 //function semantic token arrays
