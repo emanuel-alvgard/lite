@@ -15,10 +15,8 @@ can only be overwritten by an array of the same type and size.
 
 #SKIP UNSIGNED???
 
-#/
-* primitive data types/structures: u8-64, s8-64, f32-64, str, [array](generic structure). What types are avalible will vary with the underlying implementation. if type annotation is left
-out the compiler will automatically infer the type to it's smallest form.
-/#
+#/ primitive data types/structures: u8-64, s8-64, f32-64, str, [array](generic structure). What types are avalible will vary with the underlying implementation. if type annotation is left
+out the compiler will automatically infer the type to it's smallest form. /#
 
 
 
@@ -133,7 +131,12 @@ function generic_func: []
 
 
 # arithmetic expression
-some_new_var: ((1 + 1) + (2 * 3) + 1) / 4
+some_new_var: ((1 + 1) + (2 * 3) + 1) / 4               #inferred to s64
+
+#/ primitive number types are interchangeble with arithmetic operations, 
+which type is used during such an operation is fully dependent on the type
+of the target variable. If the target have no type it will as usual be
+inferred to it's largest signed version. /#
 
 
 
