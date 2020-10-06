@@ -92,7 +92,8 @@ function syntax_comment_multiple()
     (
         code[char] != '\n' &&
         code[char + 1] != '/' && 
-        code[char + 2] != '#'
+        code[char + 2] != '#' &&
+        code[char + 3] != ' ' 
     )
     {
         char += 1;
