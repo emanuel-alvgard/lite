@@ -23,6 +23,11 @@ char number_case[10] =
 };
 
 
+char symbol_case[4] = 
+{
+    '#', '/', ' ', '\n'
+};
+
 char lower_case[27] = 
 {
     'a', 'b', 'c', 'd', 'e', 
@@ -37,12 +42,11 @@ char lower_case[27] =
 //DONE??
 void syntax_comment_single() // gets impolemented by all other syntax functions
 {
-    while (strncmp(&code[character], "\n", 1) != 0)
+    while (strncmp(code[character], symbol_case[3], 1) != 0)
     {
         character += 1;
         printf("1");
     }
-    character += 1;
     printf("syntax_comment_single(): Success!\n");
     return;
 }
@@ -72,6 +76,13 @@ void syntax_comment_multiple()
 int main()
 {
     //FILE *fp = fopen(file_name, "r"); // read mode
-    syntax_comment_single();
+    //syntax_comment_single();
     syntax_comment_multiple();
+
+    char tester[7] = "tester";
+    if (strncmp(tester, tester, 6) == 0)
+    {
+        printf("true");
+    }
+    printf("%c\n", code[character]);
 }
