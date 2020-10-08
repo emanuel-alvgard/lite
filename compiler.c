@@ -16,19 +16,13 @@ char indentation = 0;
 char compilation_error = 0;
 
 //utility
-char number_case[10] = 
+char case_number[10] = 
 {
     '0', '1', '2', '3',
     '4', '5', '6', '7', '8', '9'
 };
 
-
-char symbol_case[4] = 
-{
-    '#', '/', ' ', '\n'
-};
-
-char lower_case[27] = 
+char case_lower[27] = 
 {
     'a', 'b', 'c', 'd', 'e', 
     'f', 'g', 'h', 'i', 'j', 
@@ -42,11 +36,12 @@ char lower_case[27] =
 //DONE??
 void syntax_comment_single() // gets impolemented by all other syntax functions
 {
-    while (strncmp(code[character], symbol_case[3], 1) != 0)
+    while (code[character] != '\n')
     {
         character += 1;
-        printf("1");
     }
+    character += 1;
+    line += 1;
     printf("syntax_comment_single(): Success!\n");
     return;
 }
@@ -58,13 +53,17 @@ void syntax_comment_multiple()
 {
     while
     (
-        strncmp(&code[character], "", 1) != 0 &&
-        strncmp(&code[character + 1], "/", 1) != 0 &&
-        strncmp(&code[character + 2], "#", 1) != 0 
+        code[character] != ' '
+        && code[character + 1] != '#'
+        && code[character + 2] != '/'
+        && code[character + 3] != '\n'
     )
     {
         character += 1;
-        printf("0");
+        if (code[character] == '\n')
+        {
+            line += 1;
+        }
     }
     character += 3;
     printf("syntax_comment_multiple(): Success!\n");
@@ -76,13 +75,8 @@ void syntax_comment_multiple()
 int main()
 {
     //FILE *fp = fopen(file_name, "r"); // read mode
-    //syntax_comment_single();
+    syntax_comment_single();
     syntax_comment_multiple();
-
-    char tester[7] = "tester";
-    if (strncmp(tester, tester, 6) == 0)
-    {
-        printf("true");
-    }
-    printf("%c\n", code[character]);
+    printf("current line id: %d\n", line);
+    printf("current character is: %c\n", character);
 }
