@@ -4,7 +4,7 @@
 //file
 
 //code
-char code[1024] = "# hello\n#/ test /#";
+char code[1024] = "#11\n#/ 111 /#\n";
 char character = 0;
 char line = 0;
 
@@ -33,40 +33,58 @@ char case_lower[27] =
 
 
 
-//DONE??
+//??
 void syntax_comment_single() // gets impolemented by all other syntax functions
 {
-    while (code[character] != '\n')
+    int comment_character = 0;
+    while (1)
     {
-        character += 1;
+        if (code[character] == '\n')
+        {
+            comment_character += 1;
+            character += 1;
+            line += 1;
+            break;
+        }
+        else
+        {
+            character += 1;
+        }
     }
-    character += 1;
-    line += 1;
-    printf("syntax_comment_single(): Success!\n");
+    printf("single comment is %d characters long!\n", comment_character);
     return;
 }
 
 
 
-//NOT WORKING
+//??
 void syntax_comment_multiple()
 {
-    while
-    (
-        code[character] != ' '
-        && code[character + 1] != '#'
-        && code[character + 2] != '/'
-        && code[character + 3] != '\n'
-    )
+    int comment_character = 0;
+    int comment_line = 1;
+    while (1)
     {
-        character += 1;
-        if (code[character] == '\n')
+        if (code[character] == ' '
+        && code[character + 1] == '/' 
+        && code[character + 2] == '#'
+        && code[character + 3] == '\n')
         {
+            character += 4;
             line += 1;
+            break;
+        }
+        else
+        {
+            comment_character += 1;
+            character += 1;
+            if (code[character] == '\n')
+            {
+                comment_line += 1;
+                line += 1;
+            }
         }
     }
-    character += 3;
-    printf("syntax_comment_multiple(): Success!\n");
+    printf("multi comment is %d characters long and %d lines long!\n", comment_character, comment_line);
     return;
 }
 
@@ -77,6 +95,7 @@ int main()
     //FILE *fp = fopen(file_name, "r"); // read mode
     syntax_comment_single();
     syntax_comment_multiple();
-    printf("current line id: %d\n", line);
-    printf("current character is: %c\n", character);
+
+    printf("current line is: %d\n", line);
+    printf("current character is: %d\n", character);
 }
