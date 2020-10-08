@@ -4,7 +4,7 @@
 //file
 
 //code
-char code[1024] = "#11\n#/ 111 /#\n";
+char code[1024] = "# 11\n#/ 111 /#\n";
 char character = 0;
 char line = 0;
 
@@ -22,7 +22,7 @@ char case_number[10] =
     '4', '5', '6', '7', '8', '9'
 };
 
-char case_lower[27] = 
+char case_lower[26] = 
 {
     'a', 'b', 'c', 'd', 'e', 
     'f', 'g', 'h', 'i', 'j', 
@@ -31,9 +31,46 @@ char case_lower[27] =
     'u', 'v', 'w', 'x', 'y', 'z'
 };
 
+char case_upper[26] = 
+{
+    'A', 'B', 'C', 'D', 'E', 
+    'F', 'G', 'H', 'I', 'J', 
+    'K', 'L', 'M', 'N', 'O', 
+    'P', 'Q', 'R', 'S', 'T', 
+    'U', 'V', 'W', 'X', 'Y', 'Z'
+};
+
+char case_snake[37] = 
+{
+    'a', 'b', 'c', 'd', 'e', 
+    'f', 'g', 'h', 'i', 'j', 
+    'k', 'l', 'm', 'n', 'o', 
+    'p', 'q', 'r', 's', 't', 
+    'u', 'v', 'w', 'x', 'y', 'z',
+    '_', '0', '1', '2', '3',
+    '4', '5', '6', '7', '8', '9'
+};
+
+char case_camel[62] =
+{
+    'A', 'B', 'C', 'D', 'E', 
+    'F', 'G', 'H', 'I', 'J', 
+    'K', 'L', 'M', 'N', 'O', 
+    'P', 'Q', 'R', 'S', 'T', 
+    'U', 'V', 'W', 'X', 'Y', 'Z',
+    'a', 'b', 'c', 'd', 'e', 
+    'f', 'g', 'h', 'i', 'j', 
+    'k', 'l', 'm', 'n', 'o', 
+    'p', 'q', 'r', 's', 't', 
+    'u', 'v', 'w', 'x', 'y', 'z',
+    '0', '1', '2', '3',
+    '4', '5', '6', '7', '8', '9'
+};
 
 
-//??
+
+//DONE
+//# this is a comment
 void syntax_comment_single() // gets impolemented by all other syntax functions
 {
     int comment_character = 0;
@@ -41,13 +78,13 @@ void syntax_comment_single() // gets impolemented by all other syntax functions
     {
         if (code[character] == '\n')
         {
-            comment_character += 1;
             character += 1;
             line += 1;
             break;
         }
         else
         {
+            comment_character += 1;
             character += 1;
         }
     }
@@ -57,7 +94,9 @@ void syntax_comment_single() // gets impolemented by all other syntax functions
 
 
 
-//??
+//DONE
+//  #/ this is multi line
+//  comment with 2 lines /#
 void syntax_comment_multiple()
 {
     int comment_character = 0;
@@ -93,7 +132,9 @@ void syntax_comment_multiple()
 int main()
 {
     //FILE *fp = fopen(file_name, "r"); // read mode
+    character += 2;
     syntax_comment_single();
+    character += 3;
     syntax_comment_multiple();
 
     printf("current line is: %d\n", line);
