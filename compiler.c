@@ -128,6 +128,11 @@ void syntax_comment_multiple()
 }
 
 
+void syntax_declaration_variable()
+{
+}
+
+
 
 int main()
 {
