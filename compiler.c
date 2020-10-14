@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <string.h>
+#include <time.h>
 
 //file
 
@@ -21,6 +21,11 @@ char case_number[10] =
     '0', '1', '2', '3',
     '4', '5', '6', '7', '8', '9'
 };
+
+char case_arithmetic[5] = 
+{
+    '+', '-', '*', '/', '%'
+}
 
 char case_lower[26] = 
 {
@@ -69,8 +74,9 @@ char case_camel[62] =
 
 
 
-//DONE
-//# this is a comment
+
+// DONE
+// # this is a comment
 void syntax_comment_single() // gets impolemented by all other syntax functions
 {
     int comment_character = 0;
@@ -94,7 +100,7 @@ void syntax_comment_single() // gets impolemented by all other syntax functions
 
 
 
-//DONE
+// DONE
 //  #/ this is multi line
 //  comment with 2 lines /#
 void syntax_comment_multiple()
@@ -128,9 +134,48 @@ void syntax_comment_multiple()
 }
 
 
+
 void syntax_declaration_variable()
+{}
+
+void syntax_daclaration_function()
+{}
+
+void syntax_declaration_type()
+{}
+
+
+//
+void syntax_expression()
 {
+    int scope = 0;
+    int state = 0;
+
+    while (1)
+    {
+        for (i = 0; i < case_number; i++)
+        {
+            if (character[code] == case_number[i])
+            {
+                character += 1;
+                break;
+            }
+        }
+    }
 }
+
+
+//
+void syntax_definition_variable()
+{}
+
+//
+void syntax_definition_function()
+{}
+
+//
+void syntax_definition_type()
+{}
 
 
 
