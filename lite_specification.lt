@@ -43,10 +43,10 @@ type Line:
     start: Vector3
     end: Vector3
 
-    function unique_type_func: none
-        (parameter_0: Vector2)
-        (parameter_1: Vector2)
-        (parameter_2: Vector2)
+    function unique_type_func:
+        parameter_0: (Vector2)
+        parameter_1: (Vector2)
+        parameter_2: (Vector2)
         return
    
 
@@ -136,8 +136,8 @@ unlock some_array              # makes the variable mutable again
 
         
 function get_position_of_entities: Vector3  
-    (entities: Entity)
-    (param_2: Vector3)
+    entities: (Entity)
+    param_2: (Vector3)
 
     result: [entities] Vector3
     
@@ -158,11 +158,11 @@ lines[0].id: 'some string'
 
 
 # generic function since both primitive and custom types are iterable
-function generic_func: []
-    (input_0)
-    (input_1)
-    result: input_0 [input_0]               # creates an array with length of input_0 and of type input_0 (this is evaluated at runtime)
-    #some generic array manipulation
+function generic_func:
+    input_0: ()
+    input_1: ()
+    result: [input_0] input_0              # creates an array with length of input_0 and of type input_0 (this is evaluated at runtime)
+    # some generic array manipulation
     
     return result
 
@@ -181,14 +181,12 @@ inferred to it's largest signed version. /#
 
 
 # threading example
-function compare3: u8
+function compare3:
 
-    (x: [])
-    (other_x: [])
-    (y: [])
-    (other_y: [])
-    (z: [])
-    (other_z: [])
+    x: (), y: (), z: ()
+    other_x: ()
+    other_y: ()
+    other_z: ()
 
     result_0: [x + y + z] u8
     
@@ -227,7 +225,6 @@ function compare3: u8
             pass
 
     return result_1
-
 
 
 {1} # threads are scoped but they do not define scope
