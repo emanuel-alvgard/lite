@@ -126,7 +126,7 @@ loop i < some_array:           # for
         fail 'this stops execution'
     else:
         exit
-    i ++
+    i: ++
         
 {0}
 loop i = 1:                    # while
@@ -143,7 +143,7 @@ function get_position_of_entities: Vector3
     
     loop i < entities:
         result[i]: enitities[i].position
-        i ++
+        i: ++
         
     return result    
 
@@ -194,7 +194,7 @@ function compare3:
     loop i < x:
         if x[i] = other_x[i]:
             result_0[i * 3]: 1
-        i ++
+        i: ++
 
     {2}
     loop i < y:
@@ -202,7 +202,7 @@ function compare3:
             result_0[(i * 3) + 1]: 1
         else:
             pass
-        i ++
+        i: ++
 
     {3}
     loop i < z:
@@ -210,7 +210,7 @@ function compare3:
             result_0[(i * 3) + 2]: 1
         else:
             pass
-        i ++
+        i: ++
     
     {0}
     result_1: [x] u8
