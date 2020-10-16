@@ -27,6 +27,16 @@ THREADS: 3                 # thread pool
 import mod_0: 'module_0.lt'
 import '../module_1.lt'.some_function
 
+# the compiler just copy paste this code in to the generated C file
+inline 'C':
+    #include <string.h>
+
+    int some_c_function()
+    {}
+
+# the compiler inlines this type of assembly into the generated C file
+inline 'ASM x64':
+    add %ebx,%eax
 
 
 type Vector3:
@@ -243,5 +253,5 @@ do_related({1}.var_1) # will defer this function call until 'var_1' has returned
 #/ 
 import, type, function, return, loop, 
 if, else if, else, pass, exit, fail,
-lock, unlock, allocate
+lock, unlock, allocate, inline
 /#

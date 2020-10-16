@@ -25,7 +25,7 @@ char case_number[10] =
 char case_arithmetic[5] = 
 {
     '+', '-', '*', '/', '%'
-}
+};
 
 char case_lower[26] = 
 {
@@ -153,7 +153,7 @@ void syntax_expression()
 
     while (1)
     {
-        for (i = 0; i < case_number; i++)
+        for (int i = 0; i < case_number; i++)
         {
             if (character[code] == case_number[i])
             {
