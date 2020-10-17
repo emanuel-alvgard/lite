@@ -13,66 +13,89 @@ char scope = 0;
 char indentation = 0;
 
 //error
-char compilation_error = 0;
+char syntax_error = 0;
 
-//utility
-char case_number[10] = 
+
+
+
+
+void syntax_expression_value_identifier() // always user defined // needs recursion?
 {
-    '0', '1', '2', '3',
-    '4', '5', '6', '7', '8', '9'
-};
+    while (1)
+    {
+        if (code[character] > 96 &&
+            code[character] < 123 ||
+            code[character] == 95)
+        {
+            character += 1;
+        }
+        else if (code[character] == '(')
+        {
+            character += 1;
+            
+            if (code[character] == ')' &&
+                code[character + 1] == ' ')
+            {
+                character += 2;
+                break;
+            }
+            else
+            {
+                syntax_expression_value_identifier();
+            }
 
-char case_arithmetic[5] = 
+        }
+    
+        else if (code[character] == ' ')
+        {
+            character += 1;
+            break;
+        }
+        else
+        {
+            printf('identifier is not valid.');
+            syntax_error = 1;
+            break;
+        }
+        
+    }
+}
+
+void syntax_expression_value_number()
 {
-    '+', '-', '*', '/', '%'
-};
 
-char case_lower[26] = 
+}
+
+void syntax_expression_value_string()
 {
-    'a', 'b', 'c', 'd', 'e', 
-    'f', 'g', 'h', 'i', 'j', 
-    'k', 'l', 'm', 'n', 'o', 
-    'p', 'q', 'r', 's', 't', 
-    'u', 'v', 'w', 'x', 'y', 'z'
-};
 
-char case_upper[26] = 
+}
+
+void syntax_expression_operator()
 {
-    'A', 'B', 'C', 'D', 'E', 
-    'F', 'G', 'H', 'I', 'J', 
-    'K', 'L', 'M', 'N', 'O', 
-    'P', 'Q', 'R', 'S', 'T', 
-    'U', 'V', 'W', 'X', 'Y', 'Z'
-};
+}
 
-char case_snake[37] = 
+void syntax_expression_type() 
 {
-    'a', 'b', 'c', 'd', 'e', 
-    'f', 'g', 'h', 'i', 'j', 
-    'k', 'l', 'm', 'n', 'o', 
-    'p', 'q', 'r', 's', 't', 
-    'u', 'v', 'w', 'x', 'y', 'z',
-    '_', '0', '1', '2', '3',
-    '4', '5', '6', '7', '8', '9'
-};
+    // language defined (u8, f32 etc.)
+    // user defined (Vector2 etc.)
+    // input type (both language and user defined)
+}
 
-char case_camel[62] =
+
+//
+void syntax_expression()
 {
-    'A', 'B', 'C', 'D', 'E', 
-    'F', 'G', 'H', 'I', 'J', 
-    'K', 'L', 'M', 'N', 'O', 
-    'P', 'Q', 'R', 'S', 'T', 
-    'U', 'V', 'W', 'X', 'Y', 'Z',
-    'a', 'b', 'c', 'd', 'e', 
-    'f', 'g', 'h', 'i', 'j', 
-    'k', 'l', 'm', 'n', 'o', 
-    'p', 'q', 'r', 's', 't', 
-    'u', 'v', 'w', 'x', 'y', 'z',
-    '0', '1', '2', '3',
-    '4', '5', '6', '7', '8', '9'
-};
+    int scope = 0;
+    int state = 0;
+
+}
 
 
+void syntax_identifier()
+{
+
+}
 
 
 // DONE
@@ -135,39 +158,8 @@ void syntax_comment_multiple()
 
 
 
-void syntax_declaration_variable()
-{}
-
-void syntax_daclaration_function()
-{}
-
-void syntax_declaration_type()
-{}
 
 
-//
-void syntax_expression()
-{
-    int scope = 0;
-    int state = 0;
-
-    while (1)
-    {
-        for (int i = 0; i < case_number; i++)
-        {
-            if (character[code] == case_number[i])
-            {
-                character += 1;
-                break;
-            }
-        }
-    }
-}
-
-
-//
-void syntax_definition_variable()
-{}
 
 //
 void syntax_definition_function()
