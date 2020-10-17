@@ -27,16 +27,16 @@ THREADS: 3                 # thread pool
 import mod_0: 'module_0.lt'
 import '../module_1.lt'.some_function
 
+
+
 # the compiler just copy paste this code in to the generated C file
-inline 'C':
+inline:
     #include <string.h>
 
     int some_c_function()
-    {}
-
-# the compiler inlines this type of assembly into the generated C file
-inline 'ASM x64':
-    add %ebx,%eax
+    {
+        printf('Hello!');
+    }
 
 
 type Vector3:
