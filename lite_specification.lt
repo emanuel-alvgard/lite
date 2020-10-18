@@ -90,7 +90,7 @@ num_array: [1024] u8
 
 loop i < num_array:
     num_array[i]: i
-    i ++
+    i: ++
 
 
 num_array_1: f32
