@@ -9,6 +9,7 @@
 * variables can only be overwritten to the same type. 
 * arithmetic operators are +, -, *, /, %, ++, --. These can only be used on primitive types.
 * comparison operators are =, >, <, !=, !>, !<.
+* threads can only read other threads varaiables and do atomic i.e(not ++, --) operations on shared variables.
 /#
 
 
@@ -20,6 +21,8 @@ out the compiler will automatically infer the type to it's largest form. /#
 # compiler variables
 STACK: '64MB'              # stack size
 THREADS: 3                 # thread pool
+
+
 
 # relative or absolute imports with aliasing and specific importing
 import mod_0: 'module_0.lt'
@@ -126,7 +129,7 @@ some_array: [128] Vector3
 lock some_array                # makes the variable immutable
 
 
-{1}
+{0}
 loop i < some_array:           # for
     if some_array[i].x = 1.0:
         pass
@@ -136,7 +139,7 @@ loop i < some_array:           # for
         exit
     i: ++
         
-{0}
+{main}
 loop i = 1:                    # while
     i: 0
         
@@ -196,15 +199,15 @@ function compare3:
     other_y: ()
     other_z: ()
 
-    result_0: [x + y + z] u8
+    shared result_0: [x + y + z] u8
     
-    {1}
+    {0}
     loop i < x:
         if x[i] = other_x[i]:
             result_0[i * 3]: 1
         i: ++
 
-    {2}
+    {1}
     loop i < y:
         if y[i] = other_y[i]:
             result_0[(i * 3) + 1]: 1
@@ -212,7 +215,7 @@ function compare3:
             pass
         i: ++
 
-    {3}
+    {2}
     loop i < z:
         if z[i] = other_z[i]:
             result_0[(i * 3) + 2]: 1
@@ -220,7 +223,7 @@ function compare3:
             pass
         i: ++
     
-    {0}
+    {main}
     result_1: [x] u8
     loop i < result_0:
         
@@ -235,12 +238,12 @@ function compare3:
     return result_1
 
 
-{1} # threads are scoped but they do not define scope
+{0} # threads are scoped but they do not define scope
 var_1: compare3(x, x_other, y, y_other, z, z_other)
 var_2: do_something()
 var_3: do_something_else()
 
-{0}
+{main}
 var_4: do_unrelated()
 var_5: do_related(var_1) # will automatically defer this function call until 'var_1' has returned.
 var_6: do_something_else() # if var_1 has not returned, this function will be executed before do_related().
@@ -251,5 +254,5 @@ var_6: do_something_else() # if var_1 has not returned, this function will be ex
 #/ 
 import, type, function, return, loop, 
 if, else if, else, pass, exit, fail,
-lock, unlock, allocate, inline
+lock, unlock, allocate, inline, shared
 /#
