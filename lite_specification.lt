@@ -242,8 +242,8 @@ var_3: do_something_else()
 
 {0}
 var_4: do_unrelated()
-var_5: do_related({var_1}, some_var) # will defer this function call until 'var_1' has returned
-var_6: do_something_else()
+var_5: do_related(var_1) # will automatically defer this function call until 'var_1' has returned.
+var_6: do_something_else() # if var_1 has not returned, this function will be executed before do_related().
 
 
 
