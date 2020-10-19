@@ -87,7 +87,7 @@ variable_5: 'this is a string'          # strings can only be inferred
 
 
 # zero initialized array
-num_array: [1024] u8
+num_array: [1024] u8 0
 
 loop i < num_array:
     num_array[i]: i
