@@ -129,7 +129,7 @@ some_array: [128] Vector3
 lock some_array                # makes the variable immutable
 
 
-{0}
+{thread}
 loop i < some_array:           # for
     if some_array[i].x = 1.0:
         pass
