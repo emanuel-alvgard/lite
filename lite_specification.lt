@@ -95,9 +95,8 @@ if [num_array] = 0:
 else:
     output('false')
 
-
-loop i < num_array:
-    num_array[i]: i
+i: 0
+[num_array]: i
     i: ++
 
 
@@ -121,6 +120,8 @@ if vector_array[0].x = 0.0
 | vector_array[1].x = 0.0 
 & vector_array[2].x = 0.0:
     pass
+else:
+    pass
 
 assigment_0: f32 10.0
 assigment_0: + 5.0
@@ -137,18 +138,17 @@ lock some_array                # makes the variable immutable
 
 
 {thread}
-loop i < some_array:           # for
-    if some_array[i].x = 1.0:
-        pass
-    else if some_array[i].x = 2.0:
-        fail 'this stops execution'
-    else:
-        exit
-    i: ++
+if [some_array].x = 1.0:
+    pass
+else if [some_array].x = 2.0:
+    fail 'this stops execution'
+else:
+    exit
+
         
 {main}
-loop i = 1:                    # while
-    i: 0
+loop:                    # while
+    exit
         
 unlock some_array              # makes the variable mutable again
 
@@ -159,9 +159,7 @@ function get_position_of_entities: Vector3
 
     result: [entities] Vector3
     
-    loop i < entities:
-        result[i]: enitities[i].position
-        i: ++
+    [result]: [enitities].position
         
     return result    
 
@@ -184,9 +182,10 @@ function generic_func:
     
     return result
 
+some_new_var: u8 0, 0, 0
 
 # arithmetic expression with impilicit type
-some_new_var: ((1 + 1) + (2 * 3) + 1) / 4               #inferred to s64
+[some_new_var]: ((1 + 1) + (2 * 3) + 1) / 4               #inferred to s64
 
 # arithmetic expression with explicit type
 some_new_var: f32 ((1.0 + 1.0) + (1.0 * 1.0) + 1.0) / 1.0   
@@ -208,39 +207,25 @@ function compare3:
 
     shared result_0: [x + y + z] u8
     
-    {0}
-    loop i < x:
-        if x[i] = other_x[i]:
-            result_0[i * 3]: 1
-        i: ++
+    {t1}
+    if [x] = [other_x]:
+        [result_0 * 3]: 1
 
-    {1}
-    loop i < y:
-        if y[i] = other_y[i]:
-            result_0[(i * 3) + 1]: 1
-        else:
-            pass
-        i: ++
+    {t2}
+    if [y] = [other_y]:
+        [(result_0 * 3) + 1)]: 1
 
-    {2}
-    loop i < z:
-        if z[i] = other_z[i]:
-            result_0[(i * 3) + 2]: 1
-        else:
-            pass
-        i: ++
+    {t3}
+    lif [z] = [other_z]:
+        [(result_0 * 3) + 2)]: 1
     
     {main}
     result_1: [x] u8
-    loop i < result_0:
-        
-        if result_0[i * 3] = 1
-        & result_0[(i * 3 + 1)] = 1
-        & result_0[(i * 3 + 2)] = 1:
-            result_1[i]: 1
-        
-        else:
-            pass
+    
+    if [result_0 * 3] = 1
+    & [(result_0 * 3) + 1)] = 1
+    & [(result_0 * 3) + 2)] = 1:
+        [result_1]: 1
 
     return result_1
 
