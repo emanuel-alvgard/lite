@@ -54,7 +54,7 @@ type Line:
     start: Vector3
     end: Vector3
 
-    function unique_type_func:
+    function unique_type_func: none
         parameter_0: (Vector2)
         parameter_1: (Vector2)
         parameter_2: (Vector2)
@@ -174,7 +174,7 @@ lines[0].id: 'some string'
 
 
 # generic function since both primitive and custom types are iterable
-function generic_func:
+function generic_func: []
     input_0: ()
     input_1: ()
     result: [input_0] input_0              # creates an array with length of input_0 and of type input_0 (this is evaluated at runtime)
@@ -198,7 +198,7 @@ inferred to it's largest signed version. /#
 
 
 # threading example
-function compare3:
+function compare3: u8
 
     x: (), y: (), z: ()
     other_x: ()
