@@ -13,7 +13,7 @@
 /#
 
 
-#/ primitive data types/structures: none, u8-64, s8-64, f32-64, str, [array](generic structure). What types are avalible will vary with the underlying implementation. if type annotation is left
+#/ primitive data types/structures: none, u8-64, i8-64, f32-64, s(x), [array](generic structure). What types are avalible will vary with the underlying implementation. if type annotation is left
 out the compiler will automatically infer the type to it's largest form. /#
 
 
@@ -50,24 +50,26 @@ type Entity:
     position: Vector3
 
 type Line:   
-    id: str
+    id: s32            # 32 characters long string
     start: Vector3
     end: Vector3
 
     function unique_type_func: none
-        parameter_0: (Vector2)
-        parameter_1: (Vector2)
-        parameter_2: (Vector2)
+        parameter_0: (Vector3)
+        parameter_1: (Vector3)
+        parameter_2: (Vector3)
+
+
         return
    
 
 
 # type inference of primitive number types default to it's largest type
-variable_0: 1                           # s64
-variable_1: 2500000                     # s64
+variable_0: 1                           # i64
+variable_1: 2500000                     # i64
 variable_2: 1.0                         # f64
 variable_3: 1.00000000000               # f64
-variable_4: 'this is a string'          # str
+variable_4: 'this is a string'          # s16
 
 # inferred arrays based on first item
 array_0: 1, 1
@@ -79,11 +81,11 @@ array_4: 1, 2, 3, 4, 5
 
 # explicit typing
 variable_0: u8 1                          
-variable_1: u16 25000000                
-variable_2: f32 1.0                       
-variable_3: f64 1..000000000
+variable_1: u16 (25000000                
+variable_2: f32 1.0                      
+variable_3: f64 1.000000000
 variable_4: Vector3 (1.0, 1.0, 1.0)                 
-variable_5: 'this is a string'          # strings can only be inferred         
+variable_5: s16 'this is a string'       
 
 
 # zero initialized array
@@ -92,15 +94,18 @@ num_array: [1024] u8 0
 if [num_array] = 0:         # this if statement will be looped 1024 times.
     print('yes')
 
-i: 0
-[num_array]: i
-    i: ++
-    
 
+a: 0
+b: 0
+loop:
+    a: ++
+    b: ++
+    if a + b = 10:
+        exit
 
 {t1}
-some_input: [3] str
-allocate [some_input]: read()
+some_input_0:                 # stack allocation
+allocate some_input: read()   # heap allocation of 3 items the each the size of read()'s return value
 
 if [some_input].substring('hello'):  # if statement will be looped 3 times.
     print('true')
@@ -116,11 +121,12 @@ num_array_1: f32
     3.0, 3.0, 3.0, 3.0,
 
 # assigment examples
-string_array: 'string 0', 'string 1', 'string 2'
+string_array: s8 
+    "string 0", "string 1", "string 2"
 
 
 # NOT DONE!!
-new_string_array: [1024] str "init"           # Initializes the array with 1024 "init" strings
+new_string_array: [1024] s8 "init"           # Initializes the array with 1024 "init" strings
 new_string_array_1: string_array              # copies only the first element into the first index of the array
 new_string_array_2: string_array[1]           # copies only the indexed item
 [new_string_array_2]: "test"                  # copies "test" into every index of array
@@ -156,7 +162,7 @@ some_array: [128] Vector3
 lock some_array                # makes the variable immutable
 
 
-{thread}
+{t1}
 if [some_array].x = 1.0:
     pass
 else if [some_array].x = 2.0:
@@ -249,7 +255,7 @@ function compare3: u8
     return result_1
 
 
-{0} # threads are scoped but they do not define scope
+{t1} # threads are scoped but they do not define scope
 var_1: compare3(x, x_other, y, y_other, z, z_other)
 var_2: do_something()
 var_3: do_something_else()
@@ -265,5 +271,5 @@ var_6: do_something_else() # if var_1 has not returned, this function will be ex
 #/ 
 import, type, function, return, loop, 
 if, else if, else, pass, exit, fail,
-lock, unlock, allocate, free, inline, shared
+lock, unlock, allocate, free, inline, shared, map
 /#
