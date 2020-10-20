@@ -89,25 +89,36 @@ variable_5: 'this is a string'          # strings can only be inferred
 # zero initialized array
 num_array: [1024] u8 0
 
-
-if [num_array] = 0:
-    output('true')
-else:
-    output('false')
+if [num_array] = 0:         # this if statement will be looped 1024 times.
+    print('yes')
 
 i: 0
 [num_array]: i
     i: ++
+    
 
 
+{t1}
+allocate some_input: [3] read()
+
+if [some_input].substring('hello'):  # if statement will be looped 3 times.
+    print('true')
+else:
+    print('false')
+
+free some_input # if not freed some_input will be freed when out of scope
+
+{main}
 num_array_1: f32
     1.0, 1.0, 1.0, 1.0,
     2.0, 2.0, 2.0, 2.0,
     3.0, 3.0, 3.0, 3.0,
 
 
-string_array: 'string 0', 'string 1', 'string 2'
+string_array: str 
+    'string 0', 'string 1', 'string 2'
 
+new_string_array: str [string_array]
 
 vector_array: Vector3 
     (1.0, 1.0, 0.0),
@@ -246,5 +257,5 @@ var_6: do_something_else() # if var_1 has not returned, this function will be ex
 #/ 
 import, type, function, return, loop, 
 if, else if, else, pass, exit, fail,
-lock, unlock, allocate, inline, shared
+lock, unlock, allocate, free, inline, shared
 /#
