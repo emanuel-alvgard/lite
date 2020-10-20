@@ -99,7 +99,8 @@ i: 0
 
 
 {t1}
-allocate some_input: [3] read()
+some_input: [3] str
+allocate [some_input]: read()
 
 if [some_input].substring('hello'):  # if statement will be looped 3 times.
     print('true')
@@ -119,11 +120,11 @@ string_array: 'string 0', 'string 1', 'string 2'
 
 
 # NOT DONE!!
-new_string_array: [1024] "0"                  # Initializes the array with 1024 "0"
-new_string_array_0: [string_array]          # copies all items of string_array_0 into new_string_array
-new_string_array_1: string_array              # copies only the first element
+new_string_array: [1024] str "init"           # Initializes the array with 1024 "init" strings
+new_string_array_1: string_array              # copies only the first element into the first index of the array
 new_string_array_2: string_array[1]           # copies only the indexed item
 [new_string_array_2]: "test"                  # copies "test" into every index of array
+[new_string_array_0]: [string_array]          # copies all items of string_array_0 into new_string_array
 
 
 
