@@ -2,7 +2,7 @@
 * lite uses 4 white-space indentation for scoping but can also be written without indentation.
 * object lifetime is always scope bound
 * no aliasing, except for imports
-* parameters and assignments are always passed by value
+* assignments are always passed by value. When passing arguments primitives are passed by value and user defined types passed by reference.
 * lite is a small language that compiles to readable C. It will ultimately serve as a kind of language interface.
 * lite is completely stack based and all data is stored as SOA.
 * all variables are arrays. This means that all varaibles are iterable.
@@ -114,11 +114,18 @@ num_array_1: f32
     2.0, 2.0, 2.0, 2.0,
     3.0, 3.0, 3.0, 3.0,
 
+# assigment examples
+string_array: 'string 0', 'string 1', 'string 2'
 
-string_array: str 
-    'string 0', 'string 1', 'string 2'
 
-new_string_array: str [string_array]
+# NOT DONE!!
+new_string_array: [1024] "0"                  # Initializes the array with 1024 "0"
+new_string_array_0: [string_array]          # copies all items of string_array_0 into new_string_array
+new_string_array_1: string_array              # copies only the first element
+new_string_array_2: string_array[1]           # copies only the indexed item
+[new_string_array_2]: "test"                  # copies "test" into every index of array
+
+
 
 vector_array: Vector3 
     (1.0, 1.0, 0.0),
@@ -164,15 +171,15 @@ loop:                    # while
 unlock some_array              # makes the variable mutable again
 
         
-function get_position_of_entities: Vector3  
+function transform_position_of_entities: none  
     entities: (Entity)
-    param_2: (Vector3)
-
-    result: [entities] Vector3
+    transform: (Vector3)
     
-    [result]: [enitities].position
+    [enitities].position.x: * [transform].x 
+    [enitities].position.y: * [transform].y 
+    [enitities].position.z: * [transform].z
         
-    return result    
+    return    
 
 
 
@@ -195,11 +202,11 @@ function generic_func: []
 
 some_new_var: u8 0, 0, 0
 
-# arithmetic expression with impilicit type
-[some_new_var]: ((1 + 1) + (2 * 3) + 1) / 4               #inferred to s64
+# arithmetic expression
+[some_new_var]: ((1 + 1) + (2 * 3) + 1) / 4      
 
 # arithmetic expression with explicit type
-some_new_var: f32 ((1.0 + 1.0) + (1.0 * 1.0) + 1.0) / 1.0   
+some_new_var_1: f32 ((1.0 + 1.0) + (1.0 * 1.0) + 1.0) / 1.0   
 
 #/ primitive number types are interchangeble with arithmetic operations, 
 which type is used during such an operation is fully dependent on the type
