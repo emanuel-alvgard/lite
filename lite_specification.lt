@@ -13,8 +13,12 @@
 /#
 
 
-#/ primitive data types/structures: none, u8-64, i8-64, f32-64, s(x), [array](generic structure). What types are avalible will vary with the underlying implementation. if type annotation is left
-out the compiler will automatically infer the type to it's largest form. /#
+#/ 
+primitive data types/structures: none, u1-8 (unsigned), 
+i1-8 (signed), f4-8 (float), s1-x (string), _(custom), [array](generic structure). 
+What types are avalible will vary with the underlying implementation. if type annotation is left
+out the compiler will automatically infer the type to it's largest form. 
+/#
 
 
 
@@ -44,21 +48,22 @@ inline:
 
 
 
-primitive color8:
+primitive _color:       # custom primitives are always implemented as u2
     red, green, blue
 
-primitive country8:
-    sweden, norway, denmark
+primitive _country:
+    sweden, norway, denmark,
+    spain, portugal, brazil
 
 
 composite Vector3:
-    x: f32
-    y: f32
-    z: f32
+    x: f4
+    y: f4
+    z: f4
 
 composite Entity:
-    id: u32
-    color: color8
+    id: u2
+    color: _color
     position: Vector3
 
 composite Line:   
@@ -71,17 +76,18 @@ composite Line:
         parameter_1: (Vector3)
         parameter_2: (Vector3)
 
-
         return
    
 
 
 # type inference of primitive number types default to it's largest type
-variable_0: 1                           # i64
-variable_1: 2500000                     # i64
-variable_2: 1.0                         # f64
-variable_3: 1.00000000000               # f64
+variable_0: 1                           # i8
+variable_1: 2500000                     # i8
+variable_2: 1.0                         # f8
+variable_3: 1.00000000000               # f8
 variable_4: "this is a string"          # s16
+variable_5: sweden                      # _country
+
 
 # inferred arrays based on first item
 array_0: 1, 1
@@ -92,16 +98,17 @@ array_4: 1, 2, 3, 4, 5
 
 
 # explicit typing
-variable_0: u8 1                          
-variable_1: u16 25000000                
-variable_2: f32 1.0                      
-variable_3: f64 1.000000000
+variable_0: u1 1                          
+variable_1: u2 25000000                
+variable_2: f4 1.0                      
+variable_3: f8 1.000000000
 variable_4: Vector3 (1.0, 1.0, 1.0)                 
-variable_5: s16 "this is a string"       
+variable_5: s16 "this is a string"
+variable_6: _color green       
 
 
 # zero initialized array
-num_array: [1024] u8 0
+num_array: [1024] u1 0
 
 if [num_array] != 1:         # this if statement will be looped 1024 times.
     print("&/[num_array]/")
@@ -129,18 +136,18 @@ else:
 free some_input # if not freed some_input will be freed when out of scope
 
 {main}
-num_array_1: f32
+num_array_1: f4
     1.0, 1.0, 1.0, 1.0,
     2.0, 2.0, 2.0, 2.0,
     3.0, 3.0, 3.0, 3.0,
 
 # assigment examples
-string_array: s8 
+string_array: s1 
     "string 0", "string 1", "string 2"
 
 
 # NOT DONE!!
-new_string_array: [1024] s8 "init"            # Initializes the array with 1024 "init" strings
+new_string_array: [1024] s1 "init"            # Initializes the array with 1024 "init" strings
 new_string_array_1: string_array              # copies only the first element into the first index of the array
 new_string_array_2: string_array[1]           # copies only the indexed item to the first item in the array
 new_string_array_2[1]: string_array[1]
@@ -163,7 +170,7 @@ if vector_array[0].x = 0.0
 else:
     pass
 
-assigment_0: f32 10.0
+assigment_0: f4 10.0
 assigment_0: + 5.0
 assigment_0: - 5.0
 assigment_0: * 5.0
@@ -222,13 +229,13 @@ function generic_func: []
     
     return result
 
-some_new_var: u8 0, 0, 0
+some_new_var: u1 0, 0, 0
 
 # arithmetic expression
 [some_new_var]: ((1 + 1) + (2 * 3) + 1) / 4      
 
 # arithmetic expression with explicit type
-some_new_var_1: f32 ((1.0 + 1.0) + (1.0 * 1.0) + 1.0) / 1.0   
+some_new_var_1: f4 ((1.0 + 1.0) + (1.0 * 1.0) + 1.0) / 1.0   
 
 #/ primitive number types are interchangeble with arithmetic operations, 
 which type is used during such an operation is fully dependent on the type
@@ -238,14 +245,14 @@ inferred to it's largest signed version. /#
 
 
 # threading example
-function compare3: u8
+function compare3: u1
 
     x: (), y: (), z: ()
     other_x: ()
     other_y: ()
     other_z: ()
 
-    shared result_0: [x + y + z] u8
+    shared result_0: [x + y + z] u1
     
     {t1}
     if [x] = [other_x]:
@@ -260,7 +267,7 @@ function compare3: u8
         [(result_0 * 3) + 2)]: 1
     
     {main}
-    result_1: [x] u8
+    result_1: [x] u1
     
     if [result_0 * 3] = 1
     & [(result_0 * 3) + 1)] = 1
@@ -291,7 +298,7 @@ try another_var: do_something()
 fail print("just a warning")
 
 # explicit key map
-map test_map: (s8: i32)
+map test_map: (s8: i4)
     ("key 1": 500),
     ("key 2": 4),
     ("key 3": 650)
