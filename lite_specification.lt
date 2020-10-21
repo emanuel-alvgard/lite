@@ -22,12 +22,12 @@ out the compiler will automatically infer the type to it's largest form. /#
 STACK: "64MB"              # stack size
 THREADS: 3                 # thread pool
 
-
+# builtin funcitons
+print(""): none
+read(none): ""
+terminate(""): none
 
 # relative or absolute imports with aliasing and specific importing
-import system
-import io
-import ui
 import mod_0: "module_0.lt"
 import "../module_1.lt".some_function
 
@@ -281,7 +281,15 @@ fail pass
 try another_var: do_something()
 fail print("just a warning")
 
-keymap 
+# explicit key map
+map test_map: (s8: i32)
+    ("key 1": 500),
+    ("key 2": 4),
+    ("key 3": 650)
+    
+# implicit key map, types inferred on first item
+map test_map_2: ("key 1": 1.0), ("key 2": 2.0)
+    
 
 # keywords
 #/ 
