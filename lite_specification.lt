@@ -324,22 +324,22 @@ lock, unlock, allocate, free,
 
 # alternative looping
 
-x: [100] u1 0
+some_var: [100] u1 0
 y: [100] u1 5
 
-[x]: 1
-[x][i]: i
-[x][i]: y[i]
+[some_var]: 1
+[some_var][i]: i
+[some_var][i]: y[i]
 
 loop [100]:
     pass
 
-loop [x]:
+loop [some_var]:
     pass
 
-loop [x][i]:
+loop [some_var][i]:
     pass
 
-if [x][i] = 0:
-    x[i]: y[i]
+if [some_var][i] = 0:
+    some_var[i]: y[i]
 
