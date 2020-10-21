@@ -19,14 +19,17 @@ out the compiler will automatically infer the type to it's largest form. /#
 
 
 # compiler variables
-STACK: '64MB'              # stack size
+STACK: "64MB"              # stack size
 THREADS: 3                 # thread pool
 
 
 
 # relative or absolute imports with aliasing and specific importing
-import mod_0: 'module_0.lt'
-import '../module_1.lt'.some_function
+import system
+import io
+import ui
+import mod_0: "module_0.lt"
+import "../module_1.lt".some_function
 
 
 
@@ -69,7 +72,7 @@ variable_0: 1                           # i64
 variable_1: 2500000                     # i64
 variable_2: 1.0                         # f64
 variable_3: 1.00000000000               # f64
-variable_4: 'this is a string'          # s16
+variable_4: "this is a string"          # s16
 
 # inferred arrays based on first item
 array_0: 1, 1
@@ -81,18 +84,20 @@ array_4: 1, 2, 3, 4, 5
 
 # explicit typing
 variable_0: u8 1                          
-variable_1: u16 (25000000                
+variable_1: u16 25000000                
 variable_2: f32 1.0                      
 variable_3: f64 1.000000000
 variable_4: Vector3 (1.0, 1.0, 1.0)                 
-variable_5: s16 'this is a string'       
+variable_5: s16 "this is a string"       
 
 
 # zero initialized array
 num_array: [1024] u8 0
 
 if [num_array] = 0:         # this if statement will be looped 1024 times.
-    print('yes')
+    print("yes")
+else:
+    print("no")
 
 
 a: 0
@@ -107,10 +112,10 @@ loop:
 some_input_0:                 # stack allocation
 allocate some_input: read()   # heap allocation of 3 items the each the size of read()'s return value
 
-if [some_input].substring('hello'):  # if statement will be looped 3 times.
-    print('true')
+if [some_input].substring("hello"):  # if statement will be looped 3 times.
+    print("true")
 else:
-    print('false')
+    print("false")
 
 free some_input # if not freed some_input will be freed when out of scope
 
@@ -126,9 +131,10 @@ string_array: s8
 
 
 # NOT DONE!!
-new_string_array: [1024] s8 "init"           # Initializes the array with 1024 "init" strings
+new_string_array: [1024] s8 "init"            # Initializes the array with 1024 "init" strings
 new_string_array_1: string_array              # copies only the first element into the first index of the array
-new_string_array_2: string_array[1]           # copies only the indexed item
+new_string_array_2: string_array[1]           # copies only the indexed item to the first item in the array
+new_string_array_2[1]: string_array[1]
 [new_string_array_2]: "test"                  # copies "test" into every index of array
 [new_string_array_0]: [string_array]          # copies all items of string_array_0 into new_string_array
 
@@ -166,7 +172,7 @@ lock some_array                # makes the variable immutable
 if [some_array].x = 1.0:
     pass
 else if [some_array].x = 2.0:
-    fail 'this stops execution'
+    pass
 else:
     exit
 
@@ -194,7 +200,7 @@ lines: [128] Line                           # array contains 128 0-initialized L
 line_0: lines[0]                            # indexed value gets copied in memory by the compiler.
 line_0.start: Vector3 (1.0, 1.0, 1.0)
 lines[0]: line_0                            # indexed value gets overwritten with line_0's value
-lines[0].id: 'some string'
+lines[0].id: "some string"
 
 
 
@@ -267,10 +273,15 @@ var_6: do_something_else() # if var_1 has not returned, this function will be ex
 
 # error handling
 try new_var: do_something()
-fail print("this function failed")
+fail terminate("this process was now terminated")
 
 try other_var: do_something_else()
 fail pass
+
+try another_var: do_something()
+fail print("just a warning")
+
+keymap 
 
 # keywords
 #/ 
