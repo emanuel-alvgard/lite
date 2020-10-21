@@ -241,7 +241,7 @@ function compare3: u8
         [(result_0 * 3) + 1)]: 1
 
     {t3}
-    lif [z] = [other_z]:
+    if [z] = [other_z]:
         [(result_0 * 3) + 2)]: 1
     
     {main}
@@ -265,11 +265,16 @@ var_4: do_unrelated()
 var_5: do_related(var_1) # will automatically defer this function call until 'var_1' has returned.
 var_6: do_something_else() # if var_1 has not returned, this function will be executed before do_related().
 
+# error handling
+try new_var: do_something()
+fail print("this function failed")
 
+try other_var: do_something_else()
+fail pass
 
 # keywords
 #/ 
 import, type, function, return, loop, 
-if, else if, else, pass, exit, fail,
+if, else if, else, pass, exit, try, fail,
 lock, unlock, allocate, free, inline, shared, map
 /#
