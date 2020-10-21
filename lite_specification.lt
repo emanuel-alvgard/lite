@@ -94,10 +94,10 @@ variable_5: s16 "this is a string"
 # zero initialized array
 num_array: [1024] u8 0
 
-if [num_array] = 0:         # this if statement will be looped 1024 times.
-    print("yes")
+if [num_array] != 1:         # this if statement will be looped 1024 times.
+    print("&/[num_array]/")
 else:
-    print("no")
+    print("false")
 
 
 a: 0
@@ -289,7 +289,11 @@ map test_map: (s8: i32)
     
 # implicit key map, types inferred on first item
 map test_map_2: ("key 1": 1.0), ("key 2": 2.0)
-    
+
+
+# string interpolation
+var: 32
+print("this will print the number &/var/")
 
 # keywords
 #/ 
