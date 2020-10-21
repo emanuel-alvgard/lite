@@ -44,24 +44,24 @@ inline:
 
 
 
-literal color8:
+primitive color8:
     red, green, blue
 
-literal country8:
+primitive country8:
     sweden, norway, denmark
 
 
-type Vector3:
+composite Vector3:
     x: f32
     y: f32
     z: f32
 
-type Entity:
+composite Entity:
     id: u32
     color: color8
     position: Vector3
 
-type Line:   
+composite Line:   
     id: s32            # 32 characters long string
     start: Vector3
     end: Vector3
@@ -306,7 +306,7 @@ print("this will print the number &/var/")
 
 # keywords
 #/ 
-import, literal, type, function, return, loop, 
+import, primitive, composite, function, return, loop, 
 if, else if, else, pass, exit, try, fail,
 lock, unlock, allocate, free, inline, shared, map
 /#
