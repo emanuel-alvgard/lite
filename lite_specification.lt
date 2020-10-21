@@ -43,6 +43,14 @@ inline:
     }
 
 
+
+literal color8:
+    red, green, blue
+
+literal country8:
+    sweden, norway, denmark
+
+
 type Vector3:
     x: f32
     y: f32
@@ -50,6 +58,7 @@ type Vector3:
 
 type Entity:
     id: u32
+    color: color8
     position: Vector3
 
 type Line:   
@@ -297,7 +306,7 @@ print("this will print the number &/var/")
 
 # keywords
 #/ 
-import, type, function, return, loop, 
+import, literal, type, function, return, loop, 
 if, else if, else, pass, exit, try, fail,
 lock, unlock, allocate, free, inline, shared, map
 /#
