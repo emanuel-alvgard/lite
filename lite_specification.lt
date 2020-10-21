@@ -313,7 +313,33 @@ print("this will print the number &/var/")
 
 # keywords
 #/ 
-import, primitive, composite, function, return, loop, 
-if, else if, else, pass, exit, try, fail,
-lock, unlock, allocate, free, inline, shared, map
+import, inline, shared, map, primitive, composite, 
+function, return, loop, 
+exit, if, else if, else, pass, try, fail,
+lock, unlock, allocate, free,
 /#
+
+
+
+
+# alternative looping
+
+x: [100] u1 0
+y: [100] u1 5
+
+[x]: 1
+[x][i]: i
+[x][i]: y[i]
+
+loop [100]:
+    pass
+
+loop [x]:
+    pass
+
+loop [x][i]:
+    pass
+
+if [x][i] = 0:
+    x[i]: y[i]
+
