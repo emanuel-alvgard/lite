@@ -117,7 +117,6 @@ else:
 
 
 
-{t1}
 some_input_0:                 # stack allocation
 allocate some_input: read()   # heap allocation of 3 items the each the size of read()'s return value
 
@@ -128,7 +127,7 @@ else:
 
 free some_input # if not freed some_input will be freed when out of scope
 
-{main}
+
 num_array_1: f4
     1.0, 1.0, 1.0, 1.0,
     2.0, 2.0, 2.0, 2.0,
@@ -177,7 +176,7 @@ some_array: [128] Vector3
 lock some_array                # makes the variable immutable
 
 
-{t1}
+_t1_
 if [some_array].x = 1.0:
     pass
 else if [some_array].x = 2.0:
@@ -186,7 +185,7 @@ else:
     exit
 
         
-{main}
+_main_
 loop:                    # while
     exit
         
@@ -247,19 +246,19 @@ function compare3: u1
 
     shared result_0: [x + y + z] u1
     
-    {t1}
+    _t1_
     if [x] = [other_x]:
         [result_0 * 3]: 1
 
-    {t2}
+    _t2_
     if [y] = [other_y]:
         [(result_0 * 3) + 1)]: 1
 
-    {t3}
+    _t3_
     if [z] = [other_z]:
         [(result_0 * 3) + 2)]: 1
     
-    {main}
+    _main_
     result_1: [x] u1
     
     if [result_0 * 3] = 1
@@ -270,12 +269,12 @@ function compare3: u1
     return result_1
 
 
-{t1} # threads are scoped but they do not define scope
+_t1_ # threads are scoped but they do not define scope
 var_1: compare3(x, x_other, y, y_other, z, z_other)
 var_2: do_something()
 var_3: do_something_else()
 
-{main}
+_main_
 var_4: do_unrelated()
 var_5: do_related(var_1) # will automatically defer this function call until 'var_1' has returned.
 var_6: do_something_else() # if var_1 has not returned, this function will be executed before do_related().
@@ -302,13 +301,12 @@ map test_map_2: ("key 1": 1.0), ("key 2": 2.0)
 
 # string interpolation
 var: 32
-print("this will print the number &/var/")
+print("this will print the number {var})
 
 # keywords
 #/ 
 import, inline, shared, map, primitive, composite, 
-function, return, loop, 
-exit, if, else if, else, pass, try, fail,
+function, return, exit, if, else if, else, pass, try, fail,
 lock, unlock, allocate, free,
 /#
 
