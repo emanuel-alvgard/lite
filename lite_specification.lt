@@ -107,7 +107,7 @@ variable_6: _color green
 
 
 # zero initialized array
-num_array: u1 [1024] (0)
+num_array: u1 [1024] 0
 
 if [num_array][i] != 1:         # this if statement will be looped 1024 times.
     print("{num_array[i]}")
@@ -128,8 +128,7 @@ free some_input # if not freed some_input will be freed when out of scope
 
 num_array_1: f4
     1.0, 1.0, 1.0, 1.0,
-    2.0, 2.0, 2.0, 2.0,
-    3.0, 3.0, 3.0, 3.0,
+    2.0, 2.0, 2.0, 2.0
 
 # assigment examples
 string_array: s1 
@@ -137,12 +136,12 @@ string_array: s1
 
 
 # NOT DONE!!
-new_string_array: [1024] "init"               # Initializes the array with 1024 s1 "init" strings
+new_string_array: s8 [1024] "init"          # Initializes the array with 1024 s1 "init" strings
 new_string_array_1: string_array              # copies only the first element into the first index of the array
 new_string_array_2: string_array[1]           # copies only the indexed item to the first item in the array
 new_string_array_2[1]: string_array[1]        # copies from/to specified index
 [new_string_array_2]: "test"                  # copies "test" into every index of array. can only be done to existing arrays
-[new_string_array_0]: [string_array]            # copies all items of string_array_0 into new_string_array
+[new_string_array_0]: [string_array]          # copies all items of string_array_0 into new_string_array
 
 
 
@@ -175,9 +174,9 @@ lock some_array                # makes the variable immutable
 
 
 _t1_
-if [some_array].x = 1.0:
+if [some_array][i].x = 1.0:
     pass
-else if [some_array].x = 2.0:
+else if some_array[i].x = 2.0:
     pass
 else:
     exit
@@ -220,7 +219,7 @@ lines[0].id: "some string"
 function generic_func: []
     input_0: ()
     input_1: ()
-    result: [input_0] input_0              # creates an array with length of input_0 and of type input_0 (this is evaluated at runtime)
+    result: input_0 [input_0]              # creates an array with length of input_0 and of type input_0 (this is evaluated at runtime)
     # some generic array manipulation
     
     return result
@@ -248,7 +247,7 @@ function compare3: u1
     other_y: ()
     other_z: ()
 
-    shared result_0: u1 [x + y + z] (0) 
+    shared result_0: u1 [x + y + z] 0 
     
     _t1_
     if [x][i] = other_x[i]:
@@ -262,11 +261,11 @@ function compare3: u1
         result_0[(i * 3) + 2]: 1
     
     _main_
-    result_1: u1 [x] (0)
+    result_1: u1 [x] 0
     
     if [result_0 * 3][i] = 1
-    & [(result_0 * 3) + 1)] = 1
-    & [(result_0 * 3) + 2)] = 1:
+    & result_0[(i * 3) + 1] = 1
+    & result_0[(i * 3) + 2] = 1:
         result_1[i]: 1
 
     return result_1
