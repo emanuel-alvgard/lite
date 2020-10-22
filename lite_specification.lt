@@ -142,7 +142,7 @@ new_string_array_1: string_array              # copies only the first element in
 new_string_array_2: string_array[1]           # copies only the indexed item to the first item in the array
 new_string_array_2[1]: string_array[1]        # copies from/to specified index
 [new_string_array_2]: "test"                  # copies "test" into every index of array. can only be done to existing arrays
-new_string_array_0: [string_array]            # copies all items of string_array_0 into new_string_array
+[new_string_array_0]: [string_array]            # copies all items of string_array_0 into new_string_array
 
 
 
