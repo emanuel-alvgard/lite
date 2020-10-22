@@ -107,7 +107,7 @@ variable_6: _color green
 
 
 # zero initialized array
-num_array: u1 [1024] 0
+num_array: u1 [1024] (0)
 
 if [num_array][i] != 1:         # this if statement will be looped 1024 times.
     print("{num_array[i]}")
@@ -170,7 +170,7 @@ assigment_0: ++
 assigment_0: --
 
 
-some_array: [128] Vector3    
+some_array: Vector3 [128]   
 lock some_array                # makes the variable immutable
 
 
@@ -208,7 +208,7 @@ function transform_position_of_entities: none
 
 
 
-lines: [128] Line                           # array contains 128 0-initialized Lines.
+lines: Line [128]                           # array contains 128 0-initialized Lines.
 line_0: lines[0]                            # indexed value gets copied in memory by the compiler.
 line_0.start: Vector3 (1.0, 1.0, 1.0)
 lines[0]: line_0                            # indexed value gets overwritten with line_0's value
@@ -248,27 +248,26 @@ function compare3: u1
     other_y: ()
     other_z: ()
 
-    shared result_0: [x + y + z] u1
+    shared result_0: u1 [x + y + z] (0) 
     
     _t1_
-    if [x] = [other_x]:
-        [result_0 * 3]: 1
+    if [x][i] = other_x[i]:
+        result_0[i * 3]: 1
 
     _t2_
-    if [y] = [other_y]:
-        [(result_0 * 3) + 1)]: 1
-
+    if [y][i] = other_y[i]:
+        result_0[(i * 3) + 1]: 1
     _t3_
-    if [z] = [other_z]:
-        [(result_0 * 3) + 2)]: 1
+    if [z][i] = other_z[i]:
+        result_0[(i * 3) + 2]: 1
     
     _main_
-    result_1: [x] u1
+    result_1: u1 [x] (0)
     
-    if [result_0 * 3] = 1
+    if [result_0 * 3][i] = 1
     & [(result_0 * 3) + 1)] = 1
     & [(result_0 * 3) + 2)] = 1:
-        [result_1]: 1
+        result_1[i]: 1
 
     return result_1
 
@@ -306,6 +305,27 @@ map test_map_2: ("key 1": 1.0), ("key 2": 2.0)
 # string interpolation
 var: 32
 print("this will print the number {var})
+
+
+# micro benchmark example
+sum: 0
+
+loop [30][e]:
+    sum: 0
+    
+    x: u2 [1000000]
+    [x][i]: i 
+
+    y: u2 [1000000 - 1]
+    [y][i]: x[i] + x[i + 1]
+
+    i: 0
+    loop [1000000][i * 100]:
+        sum: + y[i]
+
+print("{sum}")
+
+
 
 # keywords
 #/ 
