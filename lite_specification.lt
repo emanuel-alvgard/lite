@@ -24,12 +24,11 @@ out the compiler will automatically infer the type to it's largest form.
 
 # compiler variables
 STACK: "64MB"              # stack size
-THREADS: 3                 # thread pool
 
-# builtin funcitons
-print(""): none
+# builtin funciton keywords
+print(string, _mode): none
 read(none): ""
-terminate(""): none
+terminate(string, _mode): none
 
 # relative or absolute imports with aliasing and specific importing
 import mod_0: "module_0.lt"
@@ -108,10 +107,10 @@ variable_6: _color green
 
 
 # zero initialized array
-num_array: [1024] u1 0
+num_array: u1 [1024] 0
 
-if [num_array][a] != 1:         # this if statement will be looped 1024 times.
-    print("&[num_array[a]/")
+if [num_array][i] != 1:         # this if statement will be looped 1024 times.
+    print("{num_array[i]}")
 else:
     print("false")
 
@@ -127,7 +126,6 @@ else:
 
 free some_input # if not freed some_input will be freed when out of scope
 
-
 num_array_1: f4
     1.0, 1.0, 1.0, 1.0,
     2.0, 2.0, 2.0, 2.0,
@@ -139,10 +137,10 @@ string_array: s1
 
 
 # NOT DONE!!
-new_string_array: [1024] s1 "init"            # Initializes the array with 1024 "init" strings
+new_string_array: [1024] "init"               # Initializes the array with 1024 s1 "init" strings
 new_string_array_1: string_array              # copies only the first element into the first index of the array
 new_string_array_2: string_array[1]           # copies only the indexed item to the first item in the array
-new_string_array_2[1]: string_array[1]
+new_string_array_2[1]: string_array[1]        # copies from/to specified index
 [new_string_array_2]: "test"                  # copies "test" into every index of array. can only be done to existing arrays
 new_string_array_0: [string_array]            # copies all items of string_array_0 into new_string_array
 
@@ -186,7 +184,13 @@ else:
 
         
 _main_
-loop:                    # while
+loop [some_array][i]:                    # iterator and incrementer
+    if some_array[i] = 0:
+        pass
+    else: 
+        exit
+
+loop [1000][i]:
     exit
         
 unlock some_array              # makes the variable mutable again
@@ -306,7 +310,8 @@ print("this will print the number {var})
 # keywords
 #/ 
 import, inline, shared, map, primitive, composite, 
-function, return, exit, if, else if, else, pass, try, fail,
+function, return, loop, exit, if, else if, else, 
+pass, try, fail, print, read, terminate
 lock, unlock, allocate, free,
 /#
 
