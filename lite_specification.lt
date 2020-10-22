@@ -110,19 +110,12 @@ variable_6: _color green
 # zero initialized array
 num_array: [1024] u1 0
 
-if [num_array] != 1:         # this if statement will be looped 1024 times.
-    print("&/[num_array]/")
+if [num_array][a] != 1:         # this if statement will be looped 1024 times.
+    print("&[num_array[a]/")
 else:
     print("false")
 
 
-a: 0
-b: 0
-loop:
-    a: ++
-    b: ++
-    if a + b = 10:
-        exit
 
 {t1}
 some_input_0:                 # stack allocation
@@ -151,8 +144,8 @@ new_string_array: [1024] s1 "init"            # Initializes the array with 1024 
 new_string_array_1: string_array              # copies only the first element into the first index of the array
 new_string_array_2: string_array[1]           # copies only the indexed item to the first item in the array
 new_string_array_2[1]: string_array[1]
-[new_string_array_2]: "test"                  # copies "test" into every index of array
-[new_string_array_0]: [string_array]          # copies all items of string_array_0 into new_string_array
+[new_string_array_2]: "test"                  # copies "test" into every index of array. can only be done to existing arrays
+new_string_array_0: [string_array]            # copies all items of string_array_0 into new_string_array
 
 
 
@@ -320,26 +313,4 @@ lock, unlock, allocate, free,
 /#
 
 
-
-
-# alternative looping
-
-some_var: [100] u1 0
-y: [100] u1 5
-
-[some_var]: 1
-[some_var][i]: i
-[some_var][i]: y[i]
-
-loop [100]:
-    pass
-
-loop [some_var]:
-    pass
-
-loop [some_var][i]:
-    pass
-
-if [some_var][i] = 0:
-    some_var[i]: y[i]
 
