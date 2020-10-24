@@ -28,6 +28,7 @@ STACK: "64MB"              # stack size
 # builtin funciton keywords
 print(string, _mode): none
 read(none): ""
+evaluate(string)
 terminate(string, _mode): none
 
 # relative or absolute imports with aliasing and specific importing
@@ -330,7 +331,7 @@ print("{sum}")
 #/ 
 import, inline, shared, map, primitive, composite, 
 function, return, loop, exit, if, else if, else, 
-pass, try, fail, print, read, terminate
+skip, next, try, fail, print, read, evaluate, terminate
 lock, unlock, allocate, free,
 /#
 
