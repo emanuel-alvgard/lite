@@ -110,7 +110,7 @@ variable_6: _color green
 # zero initialized array
 num_array: u1 [1024] 0
 
-if [num_array][i] != 1:         # this if statement will be looped 1024 times.
+if num_array != 1:         # this if statement will be looped 1024 times.
     print("{num_array[i]}")
 else:
     print("false")
@@ -120,7 +120,7 @@ else:
 some_input_0:                 # stack allocation
 allocate some_input: read()   # heap allocation of 3 items the each the size of read()'s return value
 
-if [some_input].substring("hello"):  # if statement will be looped 3 times.
+if some_input.substring("hello"):  # if statement will be looped 3 times.
     print("true")
 else:
     print("false")
@@ -138,11 +138,10 @@ string_array: s1
 
 # NOT DONE!!
 new_string_array: s8 [1024] "init"          # Initializes the array with 1024 s1 "init" strings
-new_string_array_1: string_array              # copies only the first element into the first index of the array
 new_string_array_2: string_array[1]           # copies only the indexed item to the first item in the array
 new_string_array_2[1]: string_array[1]        # copies from/to specified index
-[new_string_array_2]: "test"                  # copies "test" into every index of array. can only be done to existing arrays
-[new_string_array_0]: [string_array]          # copies all items of string_array_0 into new_string_array
+new_string_array_2: "test"                  # copies "test" into every index of array. can only be done to existing arrays
+new_string_array_0: string_array          # copies all items of string_array_0 into new_string_array
 
 
 
@@ -175,7 +174,7 @@ lock some_array                # makes the variable immutable
 
 
 _t1_
-if [some_array][i].x = 1.0:
+if some_array[i].x = 1.0:
     pass
 else if some_array[i].x = 2.0:
     pass
@@ -184,13 +183,13 @@ else:
 
         
 _main_
-loop [some_array][i]:                    # iterator and incrementer
+loop some_array[i]:                    # iterator and incrementer
     if some_array[i] = 0:
         pass
     else: 
         exit
 
-loop [1000][i]:
+loop 1000[i]:
     exit
         
 unlock some_array              # makes the variable mutable again
@@ -200,9 +199,9 @@ function transform_position_of_entities: none
     entities: (Entity)
     transform: (Vector3)
     
-    [enitities].position.x: * [transform].x 
-    [enitities].position.y: * [transform].y 
-    [enitities].position.z: * [transform].z
+    enitities.position.x: * transform.x 
+    enitities.position.y: * transform.y 
+    enitities.position.z: * transform.z
         
     return    
 
@@ -228,7 +227,7 @@ function generic_func: []
 some_new_var: u1 0, 0, 0
 
 # arithmetic expression
-[some_new_var]: ((1 + 1) + (2 * 3) + 1) / 4      
+some_new_var: ((1 + 1) + (2 * 3) + 1) / 4      
 
 # arithmetic expression with explicit type
 some_new_var_1: f4 ((1.0 + 1.0) + (1.0 * 1.0) + 1.0) / 1.0   
@@ -251,20 +250,20 @@ function compare3: u1
     shared result_0: u1 [x + y + z] 0 
     
     _t1_
-    if [x][i] = other_x[i]:
+    if x[i] = other_x:
         result_0[i * 3]: 1
 
     _t2_
-    if [y][i] = other_y[i]:
+    if y[i] = other_y:
         result_0[(i * 3) + 1]: 1
     _t3_
-    if [z][i] = other_z[i]:
+    if z[i] = other_z:
         result_0[(i * 3) + 2]: 1
     
     _main_
     result_1: u1 [x] 0
     
-    if [result_0 * 3][i] = 1
+    if result_0 * 3[i] = 1
     & result_0[(i * 3) + 1] = 1
     & result_0[(i * 3) + 2] = 1:
         result_1[i]: 1
@@ -314,13 +313,13 @@ loop [30][e]:
     sum: 0
     
     x: u2 [1000000]
-    [x][i]: i 
+    x[i]: i 
 
     y: u2 [1000000 - 1]
-    [y][i]: x[i] + x[i + 1]
+    y[i]: x[i] + x[i + 1]
 
     i: 0
-    loop [1000000][i * 100]:
+    loop 1000000[i * 100]:
         sum: + y[i]
 
 print("{sum}")
