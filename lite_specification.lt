@@ -14,7 +14,7 @@
 
 
 #/ 
-primitive data types/structures: none, u1-8 (unsigned), 
+primitive data types/structures: none, bool, u1-8 (unsigned), 
 i1-8 (signed), f4-8 (float), s1-x (string), _(custom), [array](generic structure). 
 What types are avalible will vary with the underlying implementation. if type annotation is left
 out the compiler will automatically infer the type to it's largest form. 
@@ -56,17 +56,17 @@ primitive _country:
     spain, portugal, brazil
 
 
-composite Vector3:
+type Vector3:
     x: f4
     y: f4
     z: f4
 
-composite Entity:
+type Entity:
     id: u2
     color: _color
     position: Vector3
 
-composite Line:   
+type Line:   
     id: s32            # 32 characters long string
     start: Vector3
     end: Vector3
@@ -104,7 +104,8 @@ variable_2: f4 1.0
 variable_3: f8 1.000000000
 variable_4: Vector3 (1.0, 1.0, 1.0)                 
 variable_5: s16 "this is a string"
-variable_6: _color green       
+variable_6: _color green
+variable_4: bool true
 
 
 # zero initialized array
@@ -309,7 +310,7 @@ print("this will print the number {var})
 # micro benchmark example
 sum: 0
 
-loop [30][e]:
+loop 30[e]:
     sum: 0
     
     x: u2 [1000000]
@@ -328,7 +329,7 @@ print("{sum}")
 
 # keywords
 #/ 
-import, inline, shared, map, primitive, composite, 
+import, inline, shared, map, primitive, type, 
 function, return, loop, exit, if, else if, else, 
 skip, next, try, fail, print, read, evaluate, terminate
 lock, unlock, allocate, free,
