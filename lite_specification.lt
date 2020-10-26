@@ -14,7 +14,7 @@
 
 
 #/ 
-primitive data types/structures: none, bool, u1-8 (unsigned), 
+primitive data types/structures: none, u1-8 (unsigned), 
 i1-8 (signed), f4-8 (float), s1-x (string), _(custom), [array](generic structure). 
 What types are avalible will vary with the underlying implementation. if type annotation is left
 out the compiler will automatically infer the type to it's largest form. 
@@ -54,19 +54,22 @@ primitive _color:       # custom primitives are always implemented as u2
 primitive _country:
     sweden, norway, denmark,
     spain, portugal, brazil
+    
+primitive _bool:
+    true, false
 
 
-type Vector3:
+composite Vector3:
     x: f4
     y: f4
     z: f4
 
-type Entity:
+composite Entity:
     id: u2
     color: _color
     position: Vector3
 
-type Line:   
+composite Line:   
     id: s32            # 32 characters long string
     start: Vector3
     end: Vector3
@@ -85,8 +88,8 @@ variable_0: 1                           # i8
 variable_1: 2500000                     # i8
 variable_2: 1.0                         # f8
 variable_3: 1.00000000000               # f8
-variable_4: "this is a string"          # s16
-variable_5: sweden                      # _country
+variable_4: "/ this is a 
+            multiline string /"          # s16
 
 
 # inferred arrays based on first item
@@ -105,14 +108,15 @@ variable_3: f8 1.000000000
 variable_4: Vector3 (1.0, 1.0, 1.0)                 
 variable_5: s16 "this is a string"
 variable_6: _color green
-variable_4: bool true
+variable_7: _bool true
 
 
-# zero initialized array
+
+# zero initialized array 
 num_array: u1 [1024] 0
 
 if num_array != 1:         # this if statement will be looped 1024 times.
-    print("{num_array[i]}")
+    print("&/num_array[i]/")
 else:
     print("false")
 
@@ -174,7 +178,7 @@ some_array: Vector3 [128]
 lock some_array                # makes the variable immutable
 
 
-_t1_
+{t1}
 if some_array[i].x = 1.0:
     pass
 else if some_array[i].x = 2.0:
@@ -183,7 +187,7 @@ else:
     exit
 
         
-_main_
+{main}
 loop some_array[i]:                    # iterator and incrementer
     if some_array[i] = 0:
         pass
@@ -250,18 +254,18 @@ function compare3: u1
 
     shared result_0: u1 [x + y + z] 0 
     
-    _t1_
+    {t1}
     if x[i] = other_x:
         result_0[i * 3]: 1
 
-    _t2_
+    {t2}
     if y[i] = other_y:
         result_0[(i * 3) + 1]: 1
-    _t3_
+    {t3}
     if z[i] = other_z:
         result_0[(i * 3) + 2]: 1
     
-    _main_
+    {main}
     result_1: u1 [x] 0
     
     if result_0 * 3[i] = 1
@@ -272,12 +276,12 @@ function compare3: u1
     return result_1
 
 
-_t1_ # threads are scoped but they do not define scope
+{t1} # threads are scoped but they do not define scope
 var_1: compare3(x, x_other, y, y_other, z, z_other)
 var_2: do_something()
 var_3: do_something_else()
 
-_main_
+{main}
 var_4: do_unrelated()
 var_5: do_related(var_1) # will automatically defer this function call until 'var_1' has returned.
 var_6: do_something_else() # if var_1 has not returned, this function will be executed before do_related().
@@ -323,13 +327,13 @@ loop 30[e]:
     loop 1000000[i * 100]:
         sum: + y[i]
 
-print("{sum}")
+print("&/sum/ is equal to")
 
 
 
 # keywords
 #/ 
-import, inline, shared, map, primitive, type, 
+import, inline, shared, map, primitive, composite, 
 function, return, loop, exit, if, else if, else, 
 skip, next, try, fail, print, read, evaluate, terminate
 lock, unlock, allocate, free,
