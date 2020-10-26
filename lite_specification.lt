@@ -26,10 +26,15 @@ out the compiler will automatically infer the type to it's largest form.
 STACK: "64MB"              # stack size
 
 # builtin funciton keywords
-print(string, _mode): none
-read(none): ""
+write(string, string(file), _mode): none
+read(none, string(file)): ""
+append()
+create()
+delete()
+save()
+load()
 evaluate(string)
-terminate(string, _mode): none
+terminate(string, string(file) _mode): none
 
 # relative or absolute imports with aliasing and specific importing
 import mod_0: "module_0.lt"
@@ -116,9 +121,9 @@ variable_7: _bool true
 num_array: u1 [1024] 0
 
 if num_array != 1:         # this if statement will be looped 1024 times.
-    print("&(num_array[i])")
+    write("&(num_array[i])")
 else:
-    print("false")
+    write("false")
 
 
 
@@ -126,9 +131,9 @@ some_input_0:                 # stack allocation
 allocate some_input: read()   # heap allocation of 3 items the each the size of read()'s return value
 
 if some_input.substring("hello"):  # if statement will be looped 3 times.
-    print("true")
+    write("true")
 else:
-    print("false")
+    write("false")
 
 free some_input # if not freed some_input will be freed when out of scope
 
@@ -294,7 +299,7 @@ try other_var: do_something_else()
 fail skip
 
 try another_var: do_something()
-fail print("just a warning")
+fail write("just a warning")
 
 # explicit key map
 map test_map: (s8: i4)
@@ -308,7 +313,7 @@ map test_map_2: ("key 1": 1.0), ("key 2": 2.0)
 
 # string interpolation
 var: 32
-print("this will print the number {var})
+write("this will write the number &/var/")
 
 
 # micro benchmark example
@@ -327,7 +332,47 @@ loop 30[e]:
     loop 1000000[i * 100]:
         sum: + y[i]
 
-print("sum is equal to &(sum)")
+write("sum is equal to &(sum)")
+
+
+
+
+write() # defaults to console
+read()	# defaults to console
+
+file: "some_file.txt"
+
+allocate bytes: read(file, 0, 500) # reads 500 bytes with 0 start offset. 
+write(file, "this is some new content")
+append(file, "some appended content")
+create("a_new_textfile.txt")
+delete("a_new_textfile.txt")
+
+free(content)
+
+
+
+line: Line 
+	(Vec2 (0.0, 0.0), Vec2 (1.0, 1.0)),
+	(Vec2 (0.0, 0.0), Vec2 (1.0, 1.0)),
+	(Vec2 (0.0, 0.0), Vec2 (1.0, 1.0)),
+	(Vec2 (0.0, 0.0), Vec2 (1.0, 1.0)),
+	(Vec2 (0.0, 0.0), Vec2 (1.0, 1.0)),
+	(Vec2 (0.0, 0.0), Vec2 (1.0, 1.0)),
+	(Vec2 (0.0, 0.0), Vec2 (1.0, 1.0))
+
+
+line_copy: line
+
+
+save_file: "some_file.ltb"
+
+save(line_copy, save_file) # /line_copy(*2(*1(0.0,0.0),*1(0.0,0.0))#0/*#0x6/
+
+new_line: load("line_copy", save_file)
+
+
+
 
 
 
@@ -335,7 +380,7 @@ print("sum is equal to &(sum)")
 #/ 
 import, inline, shared, map, primitive, composite, 
 function, return, loop, exit, if, else if, else, 
-skip, next, try, fail, print, read, evaluate, terminate
+skip, next, try, fail, write, read, evaluate, terminate
 lock, unlock, allocate, free,
 /#
 
