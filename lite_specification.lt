@@ -116,7 +116,7 @@ variable_7: _bool true
 num_array: u1 [1024] 0
 
 if num_array != 1:         # this if statement will be looped 1024 times.
-    print("&/num_array[i]/")
+    print("&(num_array[i])")
 else:
     print("false")
 
@@ -160,9 +160,9 @@ vector_array: Vector3
 if vector_array[0].x = 0.0
 | vector_array[1].x = 0.0 
 & vector_array[2].x = 0.0:
-    pass
+    skip
 else:
-    pass
+    skip
 
 assigment_0: f4 10.0
 assigment_0: + 5.0
@@ -180,9 +180,9 @@ lock some_array                # makes the variable immutable
 
 {t1}
 if some_array[i].x = 1.0:
-    pass
+    skip
 else if some_array[i].x = 2.0:
-    pass
+    skip
 else:
     exit
 
@@ -190,7 +190,7 @@ else:
 {main}
 loop some_array[i]:                    # iterator and incrementer
     if some_array[i] = 0:
-        pass
+        skip
     else: 
         exit
 
@@ -291,7 +291,7 @@ try new_var: do_something()
 fail terminate("this process was now terminated")
 
 try other_var: do_something_else()
-fail pass
+fail skip
 
 try another_var: do_something()
 fail print("just a warning")
@@ -327,7 +327,7 @@ loop 30[e]:
     loop 1000000[i * 100]:
         sum: + y[i]
 
-print("&/sum/ is equal to")
+print("sum is equal to &(sum)")
 
 
 
