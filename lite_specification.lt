@@ -312,25 +312,7 @@ map test_map_2: ("key 1": 1.0), ("key 2": 2.0)
 
 # string interpolation
 var: 32
-write("this will write the number &/var/")
-
-
-# micro benchmark example
-sum: 0
-
-loop 30[e]:
-    
-    x: u2 [1000000]
-    x[i]: i 
-
-    y: u2 [1000000 - 1]
-    y[i]: x[i] + x[i + 1]
-
-    loop 1000000[i * 100]:
-        sum: + y[i]
-
-write("sum is equal to &(sum)")
-
+write("this will write the number &(var)")
 
 
 
