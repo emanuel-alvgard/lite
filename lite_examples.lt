@@ -30,3 +30,20 @@ fail: write("one of these functions failed!")
 loop 100[i]: 
     try: if var[i] = 5: var[i]: + 10 
     fail indexFault: exit
+
+
+# micro benchmark example
+sum: 0
+
+loop 30[e]:
+    
+    x: u2 [1000000]
+    x[i]: i 
+
+    y: u2 [1000000 - 1]
+    y[i]: x[i] + x[i + 1]
+
+    loop 1000000[i * 100]:
+        sum: + y[i]
+
+write("sum is equal to &(sum)")
