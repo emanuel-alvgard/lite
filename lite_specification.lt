@@ -26,19 +26,28 @@ out the compiler will automatically infer the type to it's largest form.
 STACK: "64MB"              # stack size
 
 # builtin funciton keywords
-write(string, string(file), _mode): none
-read(none, string(file)): ""
-append()
-create()
-delete()
+@ = optional parameter
+write(text(string), @string(filepath)): none
+read(@filepath(string), @offset_start(integer), @length(integer)): string
+append(text(string), @file(string))
+create(name(string))
+delete(filepath(string))
 save()
 load()
 evaluate(string)
 terminate(string, string(file) _mode): none
 
+
+# specifying which package this module belongs to
+package main
+
+
 # relative or absolute imports with aliasing and specific importing
-import mod_0: "module_0.lt"
-import "../module_1.lt".some_function
+import alias: "./some_file.lt"
+
+import:
+	"./some_other_file_0".some_func
+	"./some_other_file_1".some_other_func
 
 
 
@@ -322,8 +331,8 @@ read()	# defaults to console
 file: "some_file.txt"
 
 allocate bytes: read(file, 0, 500) # reads 500 bytes with 0 start offset. 
-write(file, "this is some new content")
-append(file, "some appended content")
+write("this is some new content", file)
+append("some appended content", file)
 create("a_new_textfile.txt")
 delete("a_new_textfile.txt")
 
@@ -355,13 +364,21 @@ new_line: load("line_copy", save_file)
 
 
 
-# keywords
-#/ 
-import, inline, shared, map, primitive, composite, 
+
+#/
+GENERAL KEYWORDS
+package, import, inline, shared, map, primitive, composite, 
 function, return, loop, exit, if, else if, else, 
-skip, next, try, fail, write, read, evaluate, terminate
-lock, unlock, allocate, free,
+skip, next, try, fail, lock, unlock, allocate, free,
 /#
+
+#/
+BUILTIN FUNCTIONS
+read(), write(), create(), delete(), append()
+evaluate(), terminate(), save(), load()
+/#
+
+
 
 
 
