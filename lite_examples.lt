@@ -1,0 +1,32 @@
+primitive _fault:
+    typeFault,
+    someFault
+
+var: u1 1, 2, 3, 5
+
+#/ 
+if a control statement is followed by a single statement
+the new statement can be put on the same line
+/#
+
+if var = 1: var: 5
+else if var = 2: var: 10
+else if var = 3: var: 20
+else: var: 30
+
+# var = 5, 10, 20, 30
+
+
+try: if var = 5: var: + 5
+fail typeFault: write("&(typeFault))
+fail someFault:
+
+try: 
+    some_func(var)
+    some_other_func(var)
+
+fail: write("one of these functions failed!")
+
+loop 100[i]: 
+    try: if var[i] = 5: var[i]: + 10 
+    fail indexFault: exit
