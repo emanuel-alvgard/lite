@@ -199,8 +199,7 @@ loop some_array[i]:                    # iterator and incrementer
     else: 
         exit
 
-loop 1000[i]:
-    exit
+loop 1000[i]: write("&(i)")
         
 unlock some_array              # makes the variable mutable again
 
@@ -302,7 +301,7 @@ try another_var: do_something()
 fail write("just a warning")
 
 # explicit key map
-map test_map: (s8: i4)
+map test_map: i2
     ("key 1": 500),
     ("key 2": 4),
     ("key 3": 650)
@@ -320,7 +319,6 @@ write("this will write the number &/var/")
 sum: 0
 
 loop 30[e]:
-    sum: 0
     
     x: u2 [1000000]
     x[i]: i 
@@ -328,7 +326,6 @@ loop 30[e]:
     y: u2 [1000000 - 1]
     y[i]: x[i] + x[i + 1]
 
-    i: 0
     loop 1000000[i * 100]:
         sum: + y[i]
 
