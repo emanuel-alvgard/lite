@@ -22,20 +22,17 @@ out the compiler will automatically infer the type to it's largest form.
 
 
 
-# compiler variables
-STACK: "64MB"              # stack size
-
 # builtin funciton keywords
 @ = optional parameter
 write(text(string), @string(filepath)): none
 read(@filepath(string), @offset_start(integer), @length(integer)): string
-append(text(string), @file(string))
-create(name(string))
-delete(filepath(string))
-save()
-load()
-evaluate(string)
-terminate(string, string(file) _mode): none
+append(text(string), @filepath(string))
+create(name(string)): filepath(string)
+delete(filepath(string)): none
+save(target(variable), filepath(string)): none
+load(target(string), filepath(string)): []
+evaluate(text(string)): none
+terminate(message(string)): none
 
 
 # specifying which package this module belongs to
