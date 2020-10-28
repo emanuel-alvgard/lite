@@ -13,3 +13,11 @@ Is a general purpose programming language that aims at being:
 foo_0: i1 128
 
 ````
+
+### Features
++ Strong typing
++ High interoperability with C
++ Powerful looping
++ Deterministic scoped memory managment
++ SOA (Structure Of Arrays) memory layout by default
++ Automatic vectorization
