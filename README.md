@@ -38,6 +38,7 @@ composite Vector2:
 Features
 ------
 + Strong typing
++ Safe and simple concurrency
 + High interoperability with C
 + Powerful looping
 + Deterministic scoped memory managment
