@@ -182,3 +182,94 @@ int main()
     printf("current line is: %d\n", line);
     printf("current character is: %d\n", character);
 }
+
+
+
+
+// syntax tokens
+
+/*
+keyword
+single line comment
+multi line comment
+type annotation
+string literal
+number literal
+custom literal
+variable assignment
+function call
+
+
+
+
+
+// tokens/scope
+
+/* global
+# (single line comment)
+#/ (multi line comment start)
+/# (multi line comment end)
+{} (thread)
+package
+import
+inline
+shared
+variable assignment
+variable name
+[(number/custom literal)]: (index)
+type annotation
+[(number literal)] (init array length)
+[(custom literal)] (incrementer)
+number literal
+string literal
+custom literal
+function call
+map
+primitive
+composite
+function
+loop
+if
+else if
+else
+& (and)
+| (or)
+try
+fail
+lock
+unlock
+allocate
+free
+*/
+
+
+
+
+
+
+
+
+
+
+
+/* package
+*/
+
+/* import
+alias variable
+import path
+*/
+
+/* inline
+c-code
+*/
+
+/* shared
+variable assignment
+allocate
+*/
+
+/* variable assigment
+
+
+
