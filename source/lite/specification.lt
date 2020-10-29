@@ -14,7 +14,7 @@
 
 
 #/ 
-primitive data types/structures: none, u1-8 (unsigned), 
+primitive data types/structures: none, any, u1-8 (unsigned), 
 i1-8 (signed), f4-8 (float), s(x) (string), _(custom), [array](generic structure). 
 What types are avalible will vary with the underlying implementation. if type annotation is left
 out the compiler will automatically infer the type to it's largest form. 

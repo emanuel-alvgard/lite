@@ -186,24 +186,13 @@ int main()
 
 
 
-// syntax tokens
-
-/*
-keyword
-single line comment
-multi line comment
-type annotation
-string literal
-number literal
-custom literal
-variable assignment
-function call
 
 
 
+// TOKEN FUNCTIONS
+// some smaller subfunctions can be combined into 
+// a larger function for simplicity
 
-
-// tokens/scope
 
 /* global
 # (single line comment)
@@ -214,16 +203,8 @@ package
 import
 inline
 shared
-variable assignment
-variable name
-[(number/custom literal)]: (index)
-type annotation
-[(number literal)] (init array length)
-[(custom literal)] (incrementer)
-number literal
-string literal
-custom literal
-function call
+variable
+function_call
 map
 primitive
 composite
@@ -242,34 +223,96 @@ allocate
 free
 */
 
-
-
-
-
-
-
-
-
-
-
 /* package
+package_name
 */
 
 /* import
-alias variable
-import path
+alias_variable
+import_path
 */
 
 /* inline
-c-code
+c_code
 */
+
+/* primitive
+primitive_name
+primitive_literal
+item_delimiter (,)
 
 /* shared
-variable assignment
 allocate
+variable
 */
 
-/* variable assigment
+/* variable
+variable_name
+index ([])
+property_access
+property_name
+property_function_call
+type_annotation
+number_literal
+string_literal
+primitive_literal
+composite_literal
+item_delimiter (,)
+arithmetic_expression
+function_call
+init_length ([])
+init_number_literal
+init_string_literal
+init_primitive_literal
+init_composite_literal
+init_arithmetic_expression
+init_function_call
+*/
 
+/* function
+function_name
+type_annotation
+input_variable
+# (single line comment)
+#/ (multi line comment start)
+/# (multi line comment end)
+{} (thread)
+package
+import
+inline
+shared
+variable
+function_call
+map
+primitive
+composite
+function
+loop
+if
+else if
+else
+& (and)
+| (or)
+try
+fail
+lock
+unlock
+allocate
+free
+return
+return_variable_name
+*/
+
+/* function_call
+
+*/
+
+/* thread ({})
+thread_name
+*/
+
+/* if / if else
+
+*/
 
 
