@@ -10,11 +10,12 @@
 * arithmetic operators are +, -, *, /, %, ++, --. These can only be used on primitive types.
 * comparison operators are =, >, <, !=, !>, !<.
 * threads can only read other threads varaiables and do atomic i.e(not ++, --) operations on shared variables.
+* lite only uses procedures with multiple dispatch.
 /#
 
 
 #/ 
-primitive data types/structures: none, any, u1-8 (unsigned), 
+primitive data types/structures: none, type, u1-8 (unsigned), 
 i1-8 (signed), f4-8 (float), s(x) (string), _(custom), [array](generic structure). 
 What types are avalible will vary with the underlying implementation. if type annotation is left
 out the compiler will automatically infer the type to it's largest form. 
@@ -57,8 +58,6 @@ inline:
         printf('Hello!');
     }
 
-
-
 primitive _color:       # custom primitives are always implemented as u2
     red, green, blue
 
@@ -70,7 +69,7 @@ primitive _bool:
     true, false
 
 
-composite Vector3:
+composite Vector2:
     x: f4
     y: f4
     z: f4
@@ -79,25 +78,32 @@ composite Entity:
     id: u2
     color: _color
     position: Vector3
+    burning: _bool
 
 composite Line:   
-    id: s32            # 32 characters long string
+    id: str
     start: Vector3
     end: Vector3
 
-    function unique_type_func: none
-        parameter_0: (Vector3)
-        parameter_1: (Vector3)
-        parameter_2: (Vector3)
 
-        return
-   
+procedure (+): Vector2
+    input_0: (Vector2)
+    input_1: (Vector2)
+
+    x: input_0.x + input_1.x
+    y: input_0.y + input_1.y
+    
+    result: Vector2 (x, y)
+    return result
+
+test_vector: Vector2 (1.0, 1.0) + Vector2 (2.0, 2.0)
+# test_vector = Vector2 (3.0, 3.0)    
 
 
 # type inference of primitive number types default to it's largest type
-variable_0: 1                           # i8
-variable_1: 2500000                     # i8
-variable_2: 1.0                         # f8
+variable_0: 1                           # i1
+variable_1: 2500000                     # i4
+variable_2: 1.0                         # f4
 variable_3: 1.00000000000               # f8
 variable_4: "/ this is a 
             multiline string /"          # s16
@@ -210,7 +216,7 @@ loop 1000[i]: write("&(i)")
 unlock some_array              # makes the variable mutable again
 
         
-function transform_position_of_entities: none  
+procedure transform_position_of_entities: none  
     entities: (Entity)
     transform: (Vector3)
     
@@ -231,9 +237,9 @@ lines[0].id: "some string"
 
 
 # generic function since both primitive and custom types are iterable
-function generic_func: []
-    input_0: ()
-    input_1: ()
+procedure generic_func: type
+    input_0: (type)
+    input_1: (type)
     result: input_0 [input_0]              # creates an array with length of input_0 and of type input_0 (this is evaluated at runtime)
     # some generic array manipulation
     
@@ -255,12 +261,12 @@ inferred to it's largest signed version. /#
 
 
 # threading example
-function compare3: u1
+procedure compare3: u1
 
-    x: (), y: (), z: ()
-    other_x: ()
-    other_y: ()
-    other_z: ()
+    x: (type), y: (type), z: (type)
+    other_x: (type)
+    other_y: (type)
+    other_z: (type)
 
     shared result_0: u1 [x + y + z] 0 
     
@@ -297,14 +303,15 @@ var_5: do_related(var_1) # will automatically defer this function call until 'va
 var_6: do_something_else() # if var_1 has not returned, this function will be executed before do_related().
 
 # error handling
-try new_var: do_something()
-fail terminate("this process was now terminated")
+try: new_var: do_something()
+catch someFault: terminate("this process was now terminated")
+catch indexFault: skip
 
-try other_var: do_something_else()
-fail skip
+try: other_var: do_something_else()
+catch: skip
 
-try another_var: do_something()
-fail write("just a warning")
+try: another_var: do_something()
+catch: write("just a warning")
 
 # explicit key map
 map test_map: i2
@@ -364,9 +371,9 @@ new_line: load("line_copy", save_file)
 
 #/
 GENERAL KEYWORDS
-package, import, inline, shared, map, primitive, composite, 
-function, return, loop, exit, if, else if, else, 
-skip, next, try, fail, lock, unlock, allocate, free,
+package, import, inline, shared, map, primitive, 
+composite, procedure, return, loop, exit, if, else if, else, 
+skip, next, try, catch, lock, unlock, allocate, free,
 /#
 
 #/
