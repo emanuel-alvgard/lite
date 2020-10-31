@@ -11,6 +11,7 @@
 * comparison operators are =, >, <, !=, !>, !<.
 * threads can only read other threads varaiables and do atomic i.e(not ++, --) operations on shared variables.
 * lite only uses procedures with multiple dispatch.
+* lite does not allow variable shadowing.
 /#
 
 
