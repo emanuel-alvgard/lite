@@ -205,7 +205,7 @@ else:
     exit
 
         
-{main}
+{main} 
 loop some_array[i]:                    # iterator and incrementer
     if some_array[i] = 0:
         skip

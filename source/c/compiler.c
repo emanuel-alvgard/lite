@@ -100,7 +100,7 @@ void syntax_identifier()
 
 // DONE
 // # this is a comment
-void syntax_comment_single() // gets impolemented by all other syntax functions
+void syntax_comment_single() // gets impolemented by all other syntax procedures
 {
     int comment_character = 0;
     while (1)
@@ -162,7 +162,7 @@ void syntax_comment_multiple()
 
 
 //
-void syntax_definition_function()
+void syntax_definition_procedure()
 {}
 
 //
@@ -189,9 +189,9 @@ int main()
 
 
 
-// TOKEN FUNCTIONS
-// some smaller subfunctions can be combined into 
-// a larger function for simplicity
+// TOKEN procedureS
+// some smaller subprocedures can be combined into 
+// a larger procedure for simplicity
 
 
 /* global
@@ -204,11 +204,11 @@ import
 inline
 shared
 variable
-function_call
+procedure_call
 map
 primitive
 composite
-function
+procedure
 loop
 if
 else if
@@ -216,7 +216,7 @@ else
 & (and)
 | (or)
 try
-fail
+catch
 lock
 unlock
 allocate
@@ -251,7 +251,7 @@ variable_name
 index ([])
 property_access
 property_name
-property_function_call
+property_procedure_call
 type_annotation
 number_literal
 string_literal
@@ -259,18 +259,18 @@ primitive_literal
 composite_literal
 item_delimiter (,)
 arithmetic_expression
-function_call
+procedure_call
 init_length ([])
 init_number_literal
 init_string_literal
 init_primitive_literal
 init_composite_literal
 init_arithmetic_expression
-init_function_call
+init_procedure_call
 */
 
-/* function
-function_name
+/* procedure
+procedure_name
 type_annotation
 input_variable
 # (single line comment)
@@ -282,11 +282,11 @@ import
 inline
 shared
 variable
-function_call
+procedure_call
 map
 primitive
 composite
-function
+procedure
 loop
 if
 else if
@@ -294,7 +294,7 @@ else
 & (and)
 | (or)
 try
-fail
+catch
 lock
 unlock
 allocate
@@ -303,7 +303,7 @@ return
 return_variable_name
 */
 
-/* function_call
+/* procedure_call
 
 */
 
