@@ -25,7 +25,7 @@ var0: ++
 ````
 **Keywords**
 ````
-function test: none
+procedure test: none
   skip
   
 primitive _bool:
