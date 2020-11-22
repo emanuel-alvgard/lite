@@ -189,9 +189,14 @@ int main()
 
 
 
-// TOKEN procedureS
+// TOKEN procedures
 // some smaller subprocedures can be combined into 
 // a larger procedure for simplicity
+// all the following procedures will we looped in a main loop
+// every proc. will return an exit code which will trigger the next proc.
+// if the proc. to be executed does not exist further down the loop the
+// loop will restart whilst retaining the exit code and look for the 
+// right proc. to execute
 
 
 /* global
