@@ -1,16 +1,29 @@
 #include <stdio.h>
 #include <string.h>
 
-char code[1024] = "some_var: \n";
-char character = 0;
-char line = 0;
+int code[1024];
+int character = 0;
+int line = 0;
 
-char scope = 0;
-char indentation = 0;
+int scope = 0;
+int indentation = 0;
 
-char syntax_error = 0;
+int syntax_error = 0;
 
-char state = 0;
+int state = 0;
+
+
+void read_file() {
+    
+    FILE *file = fopen("source.txt", "r");
+    int a = 0;
+
+    while (1) {
+        code[a] = fgetc(file);
+        if (code[a] != NULL) {
+            break; }
+        else {
+            a ++; } } }
 
 
 
@@ -71,7 +84,3 @@ int main() {
         printf("success!\n"); }
     else {
         printf("error!\n"); } }
-
-
-
-
