@@ -13,6 +13,7 @@ int syntax_error = 0;
 int state = 0;
 
 
+
 void read_file() {
     
     FILE *file = fopen("source.txt", "r");
@@ -20,10 +21,12 @@ void read_file() {
 
     while (1) {
         code[a] = fgetc(file);
-        if (code[a] != NULL) {
-            break; }
+        printf("%c", code[a]);
+        if (code[a] != -1) {
+            a ++; }
         else {
-            a ++; } } }
+            break; } }
+    return; }
 
 
 
@@ -42,11 +45,11 @@ void case_snake() {
             character += 1; }
         else if (code[character] == 95) {
             character += 1; }
-        else if () {
+        /*else if () {
             if (code[character] == 58 && code[character + 1] == 32) {
             state = 1;
             character += 2;
-            break; } }
+            break; } }*/
         else {
             syntax_error = 1;
             break; } }
@@ -71,14 +74,17 @@ void case_snake() {
 
 
 int main() {
-    while (code[character] != 0 || syntax_error == 0) {
+    
+    read_file();
+    
+    /*
+    while (code[character] != -1 && syntax_error == 0) {
         // indentation
         // new_line
         // keywords
-        case_snake();
-        // case_camel
-    
-        printf("%d", character); }
+        //case_snake();
+        //case_camel }
+        */
 
     if (syntax_error == 0) {
         printf("success!\n"); }
