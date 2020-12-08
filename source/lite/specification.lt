@@ -12,14 +12,14 @@
 * threads can only read other threads varaiables and do atomic i.e(not ++, --) operations on shared variables.
 * lite only uses procedures with multiple dispatch.
 * lite does not allow variable shadowing.
+* if a value is left out the variable is 0 initialized
 /#
 
 
 #/ 
-primitive data types/structures: none, type, u1-8 (unsigned), 
-i1-8 (signed), f4-8 (float), s(x) (string), _(custom), [array](generic structure). 
+primitive data types/structures: none, i32, 64, 128 (signed), f32, 64, 128 (float), str (immutable), [array](generic structure). 
 What types are avalible will vary with the underlying implementation. if type annotation is left
-out the compiler will automatically infer the type to it's largest form. 
+out the compiler will automatically infer the type to 64-bit. 
 /#
 
 
@@ -48,18 +48,7 @@ import:
 	"./some_other_file_0".some_func
 	"./some_other_file_1".some_other_func
 
-
-
-# the compiler just copy paste this code in to the generated C file
-inline:
-    #include <string.h>
-
-    int some_c_function()
-    {
-        printf('Hello!');
-    }
-
-primitive _color:       # custom primitives are always implemented as u2
+primitive _color:       # custom primitives are always implemented as i32
     red, green, blue
 
 primitive _country:
@@ -71,12 +60,12 @@ primitive _bool:
 
 
 composite Vector2:
-    x: f4
-    y: f4
-    z: f4
+    x: f32
+    y: f32
+    z: f32
 
 composite Entity:
-    id: u2
+    id: i32
     color: _color
     position: Vector3
     burning: _bool
@@ -101,13 +90,13 @@ test_vector: Vector2 (1.0, 1.0) + Vector2 (2.0, 2.0)
 # test_vector = Vector2 (3.0, 3.0)    
 
 
-# type inference of primitive number types default to it's largest type
-variable_0: 1                           # i1
-variable_1: 2500000                     # i4
-variable_2: 1.0                         # f4
-variable_3: 1.00000000000               # f8
+# type inference of primitive number types default to 64-bit
+variable_0: 1                           # i64
+variable_1: 2500000                     # i64
+variable_2: 1.0                         # f64
+variable_3: 1.00000000000               # f64
 variable_4: "/ this is a 
-            multiline string /"          # s16
+            multiline string /"
 
 
 # inferred arrays based on first item
@@ -119,19 +108,19 @@ array_4: 1, 2, 3, 4, 5
 
 
 # explicit typing
-variable_0: u1 1                          
-variable_1: u2 25000000                
-variable_2: f4 1.0                      
-variable_3: f8 1.000000000
+variable_0: i32 1                          
+variable_1: i64 25000000                
+variable_2: f32 1.0                      
+variable_3: f64 1.000000000
 variable_4: Vector3 (1.0, 1.0, 1.0)                 
-variable_5: s16 "this is a string"
+variable_5: str "this is a string"
 variable_6: _color green
 variable_7: _bool true
 
 
 
 # zero initialized array 
-num_array: u1 [1024] 0
+num_array: i32 [1024] 0
 
 if num_array != 1:         # this if statement will be looped 1024 times.
     write("&(num_array[i])")
@@ -150,17 +139,17 @@ else:
 
 free some_input # if not freed some_input will be freed when out of scope
 
-num_array_1: f4
+num_array_1: f32
     1.0, 1.0, 1.0, 1.0,
     2.0, 2.0, 2.0, 2.0
 
 # assigment examples
-string_array: s1 
+string_array: str 
     "string 0", "string 1", "string 2"
 
 
 # NOT DONE!!
-new_string_array: s8 [1024] "init"          # Initializes the array with 1024 s1 "init" strings
+new_string_array: str [1024] "init"          # Initializes the array with 1024 str "init" strings
 new_string_array_2: string_array[1]           # copies only the indexed item to the first item in the array
 new_string_array_2[1]: string_array[1]        # copies from/to specified index
 new_string_array_2: "test"                  # copies "test" into every index of array. can only be done to existing arrays
@@ -182,7 +171,7 @@ if vector_array[0].x = 0.0
 else:
     skip
 
-assigment_0: f4 10.0
+assigment_0: f32 10.0
 assigment_0: + 5.0
 assigment_0: - 5.0
 assigment_0: * 5.0
@@ -246,7 +235,7 @@ procedure generic_func: type
     
     return result
 
-some_new_var: u1 0, 0, 0
+some_new_var: i32 0, 0, 0
 
 # arithmetic expression
 some_new_var: ((1 + 1) + (2 * 3) + 1) / 4      
@@ -262,14 +251,14 @@ inferred to it's largest signed version. /#
 
 
 # threading example
-procedure compare3: u1
+procedure compare3: i32
 
     x: (type), y: (type), z: (type)
     other_x: (type)
     other_y: (type)
     other_z: (type)
 
-    shared result_0: u1 [x + y + z] 0 
+    shared result_0: i32 [x + y + z] 0 
     
     {t1}
     if x[i] = other_x:
@@ -283,7 +272,7 @@ procedure compare3: u1
         result_0[(i * 3) + 2]: 1
     
     {main}
-    result_1: u1 [x] 0
+    result_1: i32 [x] 0
     
     if result_0 * 3[i] = 1
     & result_0[(i * 3) + 1] = 1
@@ -315,7 +304,7 @@ try: another_var: do_something()
 catch: write("just a warning")
 
 # explicit key map
-map test_map: i2
+map test_map: i32
     ("key 1": 500),
     ("key 2": 4),
     ("key 3": 650)
@@ -372,7 +361,7 @@ new_line: load("line_copy", save_file)
 
 #/
 GENERAL KEYWORDS
-package, import, inline, shared, map, primitive, 
+package, import, shared, map, primitive, 
 composite, procedure, return, loop, exit, if, else if, else, 
 skip, next, try, catch, lock, unlock, allocate, free,
 /#
