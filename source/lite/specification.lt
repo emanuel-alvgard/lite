@@ -17,7 +17,7 @@
 
 
 #/ 
-primitive data types/structures: none, i32, 64, 128 (signed), f32, 64, 128 (float), str (immutable), [array](generic structure). 
+primitive data types/structures: none, i32, 64, 128 (signed), f32, 64, 128 (float), str(ascii), utf8, utf16 (immutable), [array](generic structure). 
 What types are avalible will vary with the underlying implementation. if type annotation is left
 out the compiler will automatically infer the type to 64-bit. 
 /#
