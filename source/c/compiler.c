@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <string.h>
+#include <pthread.h>
 
-int code[1024];
-int character = 0;
+char code[10240000];
+char character = 0;
 int line = 0;
 
 int scope = 0;
@@ -14,9 +15,9 @@ int state = 0;
 
 
 
-void read_file() {
+void read_file(char *file_name) {
     
-    FILE *file = fopen("source.txt", "r");
+    FILE *file = fopen(file_name, "r");
     int a = 0;
 
     while (1) {
@@ -73,9 +74,11 @@ void case_snake() {
 
 
 
-int main() {
+
+
+int main(int argc, char *argv[]) {
     
-    read_file();
+    read_file(argv[1]);
     
     /*
     while (code[character] != -1 && syntax_error == 0) {
