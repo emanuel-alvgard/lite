@@ -1,17 +1,10 @@
 # lite programming language
 **Assignment**
 ````
-# single line comment
+x: 1, 2, 3
+x: ++
 
-#/
-multi line
-comment
-/#
-
-var_0: 1, 2, 3
-var_0: ++
-
-# var_0 = 2, 3, 4 
+# x = 2, 3, 4 
 # all variables are arrays and assignments are looped by default.
 ````
 **Keywords**
