@@ -146,7 +146,7 @@ if some_input.substring("hello"):  # if statement will be looped 3 times.
 else:
     write("false")
 
-free some_input # if not freed some_input will be freed when out of scope
+some_input # if not freed some_input will be freed when out of scope
 
 num_array_1: f32
     1.0, 1.0, 1.0, 1.0,
@@ -197,14 +197,14 @@ lock some_array                # makes the variable immutable
 {t1}
 if some_array.x = 1.0:
     skip
-else if some_array.x = 2.0:
+else some_array.x = 2.0:
     skip
 else:
     exit
 
         
-{main} 
-loop [i]: 
+{main}
+loop[i]: 
 	if i != 1000: write("&(i)")
 	else: exit
         
@@ -266,14 +266,14 @@ inferred to it's largest signed version. /#
     switch result_0: [x + y + z] 
     
     {t1}
-    if [i] x = other_x:
+    if x[+i] = other_x:
         result_0[i * 3]: 1
 
     {t2}
-    if [i] y = other_y:
+    if y[+i] = other_y:
         result_0[(i * 3) + 1]: 1
     {t3}
-    if [i] z = other_z:
+    if z[+i] = other_z:
         result_0[(i * 3) + 2]: 1
     
     {main}
@@ -308,10 +308,6 @@ catch: skip
 try: another_var: do_something()
 catch: write("just a warning")
 
-# implicit key map, types inferred on first item
-map test_map_2: ("key 1": 1.0), ("key 2": 2.0)
-
-
 # string interpolation
 var: 32
 write("this will write the number &(var)")
@@ -328,9 +324,6 @@ write("this is some new content", file)
 append("some appended content", file)
 create("a_new_textfile.txt")
 delete("a_new_textfile.txt")
-
-free(content)
-
 
 
 line: Line 
@@ -360,7 +353,7 @@ new_line: load("line_copy", save_file)
 
 #/
 GENERAL KEYWORDS
-package, import, switch, ::, return, loop, exit, if, else, 
+package, import, switch, ::, loop, exit, if, else, 
 skip, next, try, catch, lock, unlock, dynamic, scope
 /#
 
