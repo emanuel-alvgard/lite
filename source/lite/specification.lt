@@ -362,7 +362,7 @@ new_line: load("line_copy", save_file)
 #/
 GENERAL KEYWORDS
 package, import, switch, map, ::, return, loop, exit, if, else, 
-skip, next, try, catch, lock, unlock, dynamic, free
+skip, next, try, catch, lock, unlock, dynamic, scope
 /#
 
 #/
