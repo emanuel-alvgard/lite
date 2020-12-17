@@ -206,7 +206,7 @@ loop 1000[i]: write("&(i)")
 unlock some_array              # makes the variable mutable again
 
         
-procedure transform_position_of_entities: none  
+:: transform_position_of_entities:  
     entities: (Entity)
     transform: (Vector3)
     
@@ -227,7 +227,7 @@ lines[0].id: "some string"
 
 
 # generic function since both primitive and custom types are iterable
-:: generic_func: type
+:: generic_func:
     input_0: (type)
     input_1: (type)
     result: input_0 [input_0]              # creates an array with length of input_0 and of type input_0 (this is evaluated at runtime)
@@ -251,7 +251,7 @@ inferred to it's largest signed version. /#
 
 
 # threading example
-:: compare3: i32
+:: compare3:
 
     x: (type), y: (type), z: (type)
     other_x: (type)
@@ -303,12 +303,6 @@ catch: skip
 try: another_var: do_something()
 catch: write("just a warning")
 
-# explicit key map
-map test_map: i32
-    ("key 1": 500),
-    ("key 2": 4),
-    ("key 3": 650)
-    
 # implicit key map, types inferred on first item
 map test_map_2: ("key 1": 1.0), ("key 2": 2.0)
 
@@ -324,7 +318,7 @@ read()	# defaults to console
 
 file: "some_file.txt"
 
-allocate bytes: read(file, 0, 500) # reads 500 bytes with 0 start offset. 
+dynamic bytes: read(file, 0, 500) # reads 500 bytes with 0 start offset. 
 write("this is some new content", file)
 append("some appended content", file)
 create("a_new_textfile.txt")
@@ -361,7 +355,7 @@ new_line: load("line_copy", save_file)
 
 #/
 GENERAL KEYWORDS
-package, import, switch, map, ::, return, loop, exit, if, else, 
+package, import, switch, ::, return, loop, exit, if, else, 
 skip, next, try, catch, lock, unlock, dynamic, scope
 /#
 
