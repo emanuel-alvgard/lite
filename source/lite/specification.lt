@@ -48,35 +48,35 @@ import:
 	"./some_other_file_0".some_func
 	"./some_other_file_1".some_other_func
 
-primitive _color:       # custom primitives are always implemented as i32
+_color:       # custom primitives are always implemented as i32
     red, green, blue
 
-primitive _country:
+_country:
     sweden, norway, denmark,
     spain, portugal, brazil
     
-primitive _bool:
+_bool:
     true, false
 
 
-composite Vector2:
+Vector2:
     x: f32
     y: f32
     z: f32
 
-composite Entity:
+Entity:
     id: i32
     color: _color
     position: Vector3
     burning: _bool
 
-composite Line:   
+Line:   
     id: str
     start: Vector3
     end: Vector3
 
 
-procedure (+): Vector2
+:: (+): Vector2
     input_0: (Vector2)
     input_1: (Vector2)
 
@@ -130,7 +130,7 @@ else:
 
 
 some_input_0:                 # stack allocation
-allocate some_input: read()   # heap allocation of 3 items the each the size of read()'s return value
+dynamic some_input: read()   # heap allocation of 3 items the each the size of read()'s return value
 
 if some_input.substring("hello"):  # if statement will be looped 3 times.
     write("true")
@@ -227,7 +227,7 @@ lines[0].id: "some string"
 
 
 # generic function since both primitive and custom types are iterable
-procedure generic_func: type
+:: generic_func: type
     input_0: (type)
     input_1: (type)
     result: input_0 [input_0]              # creates an array with length of input_0 and of type input_0 (this is evaluated at runtime)
@@ -251,14 +251,14 @@ inferred to it's largest signed version. /#
 
 
 # threading example
-procedure compare3: i32
+:: compare3: i32
 
     x: (type), y: (type), z: (type)
     other_x: (type)
     other_y: (type)
     other_z: (type)
 
-    shared result_0: i32 [x + y + z] 0 
+    switch result_0: [x + y + z] 
     
     {t1}
     if x[i] = other_x:
@@ -361,9 +361,8 @@ new_line: load("line_copy", save_file)
 
 #/
 GENERAL KEYWORDS
-package, import, shared, map, primitive, 
-composite, procedure, return, loop, exit, if, else if, else, 
-skip, next, try, catch, lock, unlock, allocate, free,
+package, import, switch, map, ::, return, loop, exit, if, else, 
+skip, next, try, catch, lock, unlock, dynamic, free
 /#
 
 #/
