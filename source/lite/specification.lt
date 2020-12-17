@@ -9,7 +9,7 @@
 * variables can only be overwritten to the same type. 
 * arithmetic operators are +, -, *, /, %, ++, --. These can only be used on primitive types.
 * comparison operators are =, >, <, !=, !>, !<.
-* threads can only read other threads varaiables and do atomic i.e(not ++, --) operations on shared variables.
+* threads can only read other threads varaiables and do atomic i.e(not ++, --) operations on switches.
 * lite only uses procedures with multiple dispatch.
 * lite does not allow variable shadowing.
 * if a value is left out the variable is 0 initialized
@@ -58,12 +58,6 @@ _country:
 _bool:
     true, false
 
-
-Vector2:
-    x: f32
-    y: f32
-    z: f32
-
 Entity:
     id: i32
     color: _color
@@ -75,19 +69,34 @@ Line:
     start: Vector3
     end: Vector3
 
+Vector2:
+    x: f32
+    y: f32
+    z: f32
 
-:: (+): Vector2
-    input_0: (Vector2)
-    input_1: (Vector2)
+# procedure with multiple outputs
+:: vec2_add_and_reverse:
+	in0: (Vector2)
+	in1: (Vector2)
 
-    x: input_0.x + input_1.x
-    y: input_0.y + input_1.y
-    
-    result: Vector2 (x, y)
-    return result
+	result_0: [in0] Vector2
+	result_1: [in1] Vector2
 
-test_vector: Vector2 (1.0, 1.0) + Vector2 (2.0, 2.0)
-# test_vector = Vector2 (3.0, 3.0)    
+	result_0.x: in0.x + in1.x
+	result_0.y: in0.y + in1.y
+
+	result_1.x: result_0.y
+	result_1.y: result_0.x
+
+	out0: (result_0)
+	out1: (result_1)
+
+vector0: [1024] Vector2 (1.0, 1.0)
+vector1: [1024] Vector2 (2.0, 2.0)
+
+var0: vec2_add_and_reverse(vector0, vector1)
+var1: var0[out0]
+var2: var0[out1]
 
 
 # type inference of primitive number types default to 64-bit
@@ -120,7 +129,7 @@ variable_7: _bool true
 
 
 # zero initialized array 
-num_array: i32 [1024] 0
+num_array: [1024] i32 0
 
 if num_array != 1:         # this if statement will be looped 1024 times.
     write("&(num_array[i])")
@@ -149,8 +158,8 @@ string_array: str
 
 
 # NOT DONE!!
-new_string_array: str [1024] "init"          # Initializes the array with 1024 str "init" strings
-new_string_array_2: string_array[1]           # copies only the indexed item to the first item in the array
+new_string_array: [1024] str "init"          # Initializes the array with 1024 str "init" strings
+new_string_array_2: string_array[1]           # copies only the indexed item to all the items of the array
 new_string_array_2[1]: string_array[1]        # copies from/to specified index
 new_string_array_2: "test"                  # copies "test" into every index of array. can only be done to existing arrays
 new_string_array_0: string_array          # copies all items of string_array_0 into new_string_array
@@ -181,27 +190,23 @@ assigment_0: ++
 assigment_0: --
 
 
-some_array: Vector3 [128]   
+some_array: [128] Vector3   
 lock some_array                # makes the variable immutable
 
 
 {t1}
-if some_array[i].x = 1.0:
+if some_array.x = 1.0:
     skip
-else if some_array[i].x = 2.0:
+else if some_array.x = 2.0:
     skip
 else:
     exit
 
         
 {main} 
-loop some_array[i]:                    # iterator and incrementer
-    if some_array[i] = 0:
-        skip
-    else: 
-        exit
-
-loop 1000[i]: write("&(i)")
+loop [i]: 
+	if i != 1000: write("&(i)")
+	else: exit
         
 unlock some_array              # makes the variable mutable again
 
@@ -214,7 +219,7 @@ unlock some_array              # makes the variable mutable again
     enitities.position.y: * transform.y 
     enitities.position.z: * transform.z
         
-    return    
+    out: (entities)    
 
 
 
@@ -261,20 +266,20 @@ inferred to it's largest signed version. /#
     switch result_0: [x + y + z] 
     
     {t1}
-    if x[i] = other_x:
+    if [i] x = other_x:
         result_0[i * 3]: 1
 
     {t2}
-    if y[i] = other_y:
+    if [i] y = other_y:
         result_0[(i * 3) + 1]: 1
     {t3}
-    if z[i] = other_z:
+    if [i] z = other_z:
         result_0[(i * 3) + 2]: 1
     
     {main}
     result_1: i32 [x] 0
     
-    if result_0 * 3[i] = 1
+    if result_0[i * 3] = 1
     & result_0[(i * 3) + 1] = 1
     & result_0[(i * 3) + 2] = 1:
         result_1[i]: 1
