@@ -88,8 +88,9 @@ Vector2:
 	result_1.x: result_0.y
 	result_1.y: result_0.x
 
-	out0: (result_0)
-	out1: (result_1)
+	return:
+		out0: (result_0)
+		out1: (result_1)
 
 vector0: [1024] Vector2 (1.0, 1.0)
 vector1: [1024] Vector2 (2.0, 2.0)
@@ -97,6 +98,9 @@ vector1: [1024] Vector2 (2.0, 2.0)
 var0: vec2_add_and_reverse(vector0, vector1)
 var1: var0[out0]
 var2: var0[out1]
+
+scope:
+	variable: 10 # this memory is dropped after the scope ends
 
 
 # type inference of primitive number types default to 64-bit
@@ -131,7 +135,7 @@ variable_7: _bool true
 # zero initialized array 
 num_array: [1024] i32 0
 
-if num_array != 1:         # this if statement will be looped 1024 times.
+if num_array <i> != 1:         # this if statement will be looped 1024 times.
     write("&(num_array[i])")
 else:
     write("false")
@@ -204,7 +208,7 @@ else:
 
         
 {main}
-loop[i]: 
+loop <i>: 
 	if i != 1000: write("&(i)")
 	else: exit
         
@@ -266,20 +270,20 @@ inferred to it's largest signed version. /#
     switch result_0: [x + y + z] 
     
     {t1}
-    if x[+i] = other_x:
+    if x <i> = other_x:
         result_0[i * 3]: 1
 
     {t2}
-    if y[+i] = other_y:
+    if y <i> = other_y:
         result_0[(i * 3) + 1]: 1
     {t3}
-    if z[+i] = other_z:
+    if z <i> = other_z:
         result_0[(i * 3) + 2]: 1
     
     {main}
     result_1: i32 [x] 0
     
-    if result_0[i * 3] = 1
+    if result_0 <i * 3> = 1
     & result_0[(i * 3) + 1] = 1
     & result_0[(i * 3) + 2] = 1:
         result_1[i]: 1
