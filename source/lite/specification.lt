@@ -7,7 +7,7 @@
 * lite is completely stack based and all data is stored as SOA.
 * all variables are arrays. This means that all varaibles are iterable.
 * variables can only be overwritten to the same type. 
-* arithmetic operators are +, -, *, /, %, ++, --. These can only be used on primitive types.
+* arithmetic operators are +, -, *, /, % .These can only be used on primitive types.
 * comparison operators are =, >, <, !=, !>, !<.
 * threads can only read other threads varaiables and do atomic i.e(not ++, --) operations on switches.
 * lite only uses procedures with multiple dispatch.
@@ -190,8 +190,7 @@ assigment_0: - 5.0
 assigment_0: * 5.0
 assigment_0: / 5.0
 assigment_0: % 5.0
-assigment_0: ++
-assigment_0: --
+
 
 
 some_array: [128] Vector3   
