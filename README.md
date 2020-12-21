@@ -9,7 +9,7 @@ x: + 1
 ````
 **Keywords**
 ````
-# procuedure
+# procuedure 
 :: calculate_meaning_of_life:
 	a: (i8)
 	b: a * 1
