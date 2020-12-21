@@ -1,25 +1,24 @@
 #/
-* lite uses 4 white-space indentation for scoping but can also be written without indentation.
-* object lifetime is always scope bound
-* no aliasing, except for imports
-* assignments are always passed by value. When passing arguments primitives are passed by value and user defined types passed by reference.
-* lite is a small language that compiles to readable C. It will ultimately serve as a kind of language interface.
-* lite is completely stack based and all data is stored as SOA.
+* lite uses 4 white-space indentation for scoping but can also be written without indentation using (;).
+* object lifetime is always scope bound.
+* no aliasing, except for imports.
+* assignments and arguments are always passed by value.
+* lite is a small language that compiles to readable C.
+* all data is stored as SOA.
 * all variables are arrays. This means that all varaibles are iterable.
 * variables can only be overwritten to the same type. 
 * arithmetic operators are +, -, *, /, % .These can only be used on primitive types.
 * comparison operators are =, >, <, !=, !>, !<.
-* threads can only read other threads varaiables and do atomic i.e(not ++, --) operations on switches.
 * lite only uses procedures with multiple dispatch.
 * lite does not allow variable shadowing.
-* if a value is left out the variable is 0 initialized
+* if a value is left out the variable is 0 initialized.
 /#
 
 
 #/ 
-primitive data types/structures: none, i32, 64, 128 (signed), f32, 64, 128 (float), str(ascii), utf8, utf16 (immutable), [array](generic structure). 
+primitive data types/structures: none, i8-128 (signed), f32-128 (float), str(utf8)(immutable), [array](generic structure). 
 What types are avalible will vary with the underlying implementation. if type annotation is left
-out the compiler will automatically infer the type to 64-bit. 
+out the compiler will automatically try inferring the type to it's smallest type. 
 /#
 
 
@@ -48,7 +47,7 @@ import:
 	"./some_other_file_0".some_func
 	"./some_other_file_1".some_other_func
 
-_color:       # custom primitives are always implemented as i32
+_color:       # custom primitives are always implemented as i8 (256 values)
     red, green, blue
 
 _country:
@@ -74,7 +73,21 @@ Vector2:
     y: f32
     z: f32
 
-# procedure with multiple outputs
+# procedure with multiple *unnamed outputs
+:: some_procedure:
+	a: (i8)
+	b: (f32)
+	
+	var0: do_some_float_math(b)
+	var1: a + 42
+	
+	return: var0, var1 
+		# output0: (var0)
+		# output1: (var1)
+		
+some_procedure(42, 15.0)		
+
+# procedure with multiple *named outputs
 :: vec2_add_and_reverse:
 	in0: (Vector2)
 	in1: (Vector2)
@@ -226,7 +239,7 @@ unlock some_array              # makes the variable mutable again
 
 
 
-lines: Line [128]                           # array contains 128 0-initialized Lines.
+lines: [128] Line                           # array contains 128 0-initialized Lines.
 line_0: lines[0]                            # indexed value gets copied in memory by the compiler.
 line_0.start: Vector3 (1.0, 1.0, 1.0)
 lines[0]: line_0                            # indexed value gets overwritten with line_0's value
@@ -280,7 +293,7 @@ inferred to it's largest signed version. /#
         result_0[(i * 3) + 2]: 1
     
     {main}
-    result_1: i32 [x] 0
+    switch result_1: [x]
     
     if result_0 <i * 3> = 1
     & result_0[(i * 3) + 1] = 1
