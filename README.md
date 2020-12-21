@@ -2,22 +2,27 @@
 **Assignment**
 ````
 x: 1, 2, 3
-x: ++
+x: + 1
 
 # x = 2, 3, 4 
 # all variables are arrays and assignments are looped by default.
 ````
 **Keywords**
 ````
-procedure test: none
-  skip
+# procuedure
+:: calculate_meaning_of_life:
+	a: (i8)
+	b: a * 1
+	return: b
   
-primitive _bool:
-  true, false
-  
-composite Vector2:
-  x: f32
-  y: f32
+# primitive type
+_bool:
+	true, false
+
+# composite type
+Vector2:
+	x: f32
+	y: f32
 ````
 Features
 ------
