@@ -2,7 +2,7 @@
 * lite uses 4 white-space indentation for scoping but can also be written without indentation using (;).
 * object lifetime is always scope bound.
 * no aliasing, except for imports.
-* assignments and arguments are always passed by value.
+* assignments are always passed by value and arguments are always passed by reference.
 * lite is a small language that compiles to readable C.
 * all data is stored as SOA.
 * all variables are arrays. This means that all varaibles are iterable.
@@ -12,6 +12,7 @@
 * lite only uses procedures with multiple dispatch.
 * lite does not allow variable shadowing.
 * if a value is left out the variable is 0 initialized.
+* dynamic variables are only initialized and allocated when first referenced.
 /#
 
 
@@ -73,7 +74,6 @@ Vector2:
     y: f32
     z: f32
 
-# procedure with multiple *unnamed outputs
 :: some_procedure:
 	a: (i8)
 	b: (f32)
@@ -81,13 +81,9 @@ Vector2:
 	var0: do_some_float_math(b)
 	var1: a + 42
 	
-	return: var0, var1 
-		# output0: (var0)
-		# output1: (var1)
-		
-some_procedure(42, 15.0)		
+	a: var1
+	b: var0		
 
-# procedure with multiple *named outputs
 :: vec2_add_and_reverse:
 	in0: (Vector2)
 	in1: (Vector2)
@@ -101,9 +97,6 @@ some_procedure(42, 15.0)
 	result_1.x: result_0.y
 	result_1.y: result_0.x
 
-	return:
-		out0: (result_0)
-		out1: (result_1)
 
 vector0: [1024] Vector2 (1.0, 1.0)
 vector1: [1024] Vector2 (2.0, 2.0)
@@ -369,7 +362,7 @@ new_line: load("line_copy", save_file)
 
 #/
 GENERAL KEYWORDS
-package, import, switch, ::, loop, exit, if, else, 
+package, import, ::, loop, exit, if, else, 
 skip, next, try, catch, lock, unlock, dynamic, scope
 /#
 
