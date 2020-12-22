@@ -1,15 +1,20 @@
 someData: [24] i8
 someToAdd: [24] i8
+someString: str "hello", "world"
+
+dynamic buffer: str
+dynamic substring: str
+some: [24] i8
+
 
 :: initIntData:
     a: (i8)
     a <i>: i
 
-shared dynamic result: i8 
 :: add:
-    a: ()
-    b: ()
-    result: a + b # when iteration is done "result" is allocated in memory.
+    a: (i8), b: (i8), c: (i8)
+    c: a + b 
+    # when iteration is done "c" is allocated on the heap.
 
 try:
     initIntData(someData)
@@ -19,4 +24,6 @@ catch typeError: write("non valid type for operation")
 catch: skip
 
 
-
+read("text.txt, buffer)
+getSubstring("test", substring)
+add(someToAdd, some)
