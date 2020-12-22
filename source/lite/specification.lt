@@ -1,7 +1,7 @@
 #/
 * lite uses 4 white-space indentation for scoping but can also be written without indentation using (;).
 * object lifetime is always scope bound.
-* no aliasing, except for imports.
+* no aliasing, except for imports and procedure inputs.
 * assignments are always passed by value and arguments are always passed by reference.
 * lite is a small language that compiles to readable C.
 * all data is stored as SOA.
