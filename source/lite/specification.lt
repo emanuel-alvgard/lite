@@ -74,36 +74,34 @@ Vector2:
     y: f32
     z: f32
 
-:: some_procedure:
+:: someProcedure:
 	a: (i8)
 	b: (f32)
 	
-	var0: do_some_float_math(b)
-	var1: a + 42
-	
-	a: var1
-	b: var0		
+	a: + 42
+	doSomeFloatMath(b)		
 
-:: vec2_add_and_reverse:
+:: vec2AddAndReverse:
 	in0: (Vector2)
 	in1: (Vector2)
+	out: (Vector2)
 
-	result_0: [in0] Vector2
-	result_1: [in1] Vector2
+	result0: [in0] Vector2
+	result1: [in1] Vector2
 
-	result_0.x: in0.x + in1.x
-	result_0.y: in0.y + in1.y
+	result0.x: in0.x + in1.x
+	resultt0.y: in0.y + in1.y
 
-	result_1.x: result_0.y
-	result_1.y: result_0.x
+	out.x: result0.y
+	out.y: result0.x
 
 
 vector0: [1024] Vector2 (1.0, 1.0)
 vector1: [1024] Vector2 (2.0, 2.0)
+resultVector: [1024] Vector2
 
-var0: vec2_add_and_reverse(vector0, vector1)
-var1: var0[out0]
-var2: var0[out1]
+vec2AddAndReverse(vector0, vector1, resultVector)
+
 
 scope:
 	variable: 10 # this memory is dropped after the scope ends
@@ -268,12 +266,13 @@ inferred to it's largest signed version. /#
 # threading example
 :: compare3:
 
-    x: (type), y: (type), z: (type)
-    other_x: (type)
-    other_y: (type)
-    other_z: (type)
+    x: (), y: (), z: ()
+    other_x: ()
+    other_y: ()
+    other_z: ()
+    result: ()
 
-    switch result_0: [x + y + z] 
+    shared result_0: [x + y + z] i8 
     
     {t1}
     if x <i> = other_x:
@@ -287,14 +286,12 @@ inferred to it's largest signed version. /#
         result_0[(i * 3) + 2]: 1
     
     {main}
-    switch result_1: [x]
-    
     if result_0 <i * 3> = 1
     & result_0[(i * 3) + 1] = 1
     & result_0[(i * 3) + 2] = 1:
-        result_1[i]: 1
+        result[i]: 1
 
-    return result_1
+    
 
 
 {t1} # threads are scoped but they do not define scope
@@ -363,7 +360,7 @@ new_line: load("line_copy", save_file)
 
 #/
 GENERAL KEYWORDS
-package, import, ::, loop, exit, if, else, 
+package, import, shared, ::, loop, exit, if, else, 
 skip, next, try, catch, lock, unlock, scope
 /#
 
