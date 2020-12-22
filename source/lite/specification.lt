@@ -17,7 +17,7 @@
 
 
 #/ 
-primitive data types/structures: none, i8-128 (signed), f32-128 (float), str(utf8)(immutable), [array](generic structure). 
+primitive data types/structures: none, i8-128 (signed), f32-128 (float), str(utf8)(immutable structure), [array](generic structure). 
 What types are avalible will vary with the underlying implementation. if type annotation is left
 out the compiler will automatically try inferring the type to it's smallest type. 
 /#
@@ -139,19 +139,20 @@ variable_7: _bool true
 
 
 # zero initialized array 
-num_array: [1024] i32 0
+num_array: [1024] i8
 
 if num_array <i> != 1:         # this if statement will be looped 1024 times.
     write("&(num_array[i])")
 else:
     write("false")
+    
+some_input_0: str                 # dynamic heap variable when size is omitted
+sliced: str
 
+read("file.txt", some_input_0)
+slice(some_input_0, 10, sliced)
 
-
-some_input_0:                 # stack allocation
-dynamic some_input: read()   # heap allocation of 3 items the each the size of read()'s return value
-
-if some_input.substring("hello"):  # if statement will be looped 3 times.
+if sliced = "hello":  # if statement will be looped 3 times.
     write("true")
 else:
     write("false")
@@ -363,7 +364,7 @@ new_line: load("line_copy", save_file)
 #/
 GENERAL KEYWORDS
 package, import, ::, loop, exit, if, else, 
-skip, next, try, catch, lock, unlock, dynamic, scope
+skip, next, try, catch, lock, unlock, scope
 /#
 
 #/
