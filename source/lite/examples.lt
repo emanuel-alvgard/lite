@@ -1,49 +1,22 @@
-primitive _fault:
-    typeFault,
-    someFault
+someData: [24] i8
+someToAdd: [24] i8
 
-var: u1 1, 2, 3, 5
+:: initIntData:
+    a: (i8)
+    a <i>: i
 
-#/ 
-if a control statement is followed by a single statement
-the new statement can be put on the same line
-/#
+shared dynamic result: i8 
+:: add:
+    a: ()
+    b: ()
+    result: a + b # when iteration is done "result" is allocated in memory.
 
-if var = 1: var: 5
-else if var = 2: var: 10
-else if var = 3: var: 20
-else: var: 30
-
-# var = 5, 10, 20, 30
-
-
-try: if var = 5: var: + 5
-fail typeFault: write("&(typeFault))
-fail someFault:
-
-try: 
-    some_func(var)
-    some_other_func(var)
-
-fail: write("one of these functions failed!")
-
-loop 100[i]: 
-    try: if var[i] = 5: var[i]: + 10 
-    fail indexFault: exit
+try:
+    initIntData(someData)
+    initIntData(someToAdd)
+    add(someData, someToAdd)
+catch typeError: write("non valid type for operation")
+catch: skip
 
 
-# micro benchmark example
-sum: 0
 
-loop 30[e]:
-    
-    x: u2 [1000000]
-    x[i]: i 
-
-    y: u2 [1000000 - 1]
-    y[i]: x[i] + x[i + 1]
-
-    loop 1000000[i * 100]:
-        sum: + y[i]
-
-write("sum is equal to &(sum)")
