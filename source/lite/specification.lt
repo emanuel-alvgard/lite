@@ -51,7 +51,7 @@ import:
 _color:       # custom primitives are always implemented as i8 (256 values)
     red, green, blue
 
-_country:
+_country: # this primitive type is hidden to everythin outside of this package
     sweden, norway, denmark,
     spain, portugal, brazil
     
@@ -199,7 +199,7 @@ assigment_0: % 5.0
 
 
 some_array: [128] Vector3   
-lock some_array                # makes the variable immutable
+lock some_array                # can only be modified by owner thread
 
 
 {t1}
@@ -213,21 +213,17 @@ else:
         
 {main}
 loop <i>: 
-	if i != 1000: write("&(i)")
+	if i != 1000: write("&(i) is the current iteration number")
 	else: exit
-        
-unlock some_array              # makes the variable mutable again
 
         
-:: transform_position_of_entities:  
+:: transformEntityPosition:  
     entities: (Entity)
     transform: (Vector3)
     
     enitities.position.x: * transform.x 
     enitities.position.y: * transform.y 
     enitities.position.z: * transform.z
-        
-    out: (entities)    
 
 
 
@@ -360,13 +356,13 @@ new_line: load("line_copy", save_file)
 
 #/
 GENERAL KEYWORDS
-package, import, shared, ::, loop, exit, if, else, 
-skip, next, try, catch, lock, unlock, scope
+package, import, ::, loop, exit, if, else, 
+skip, next, try, catch, lock, hide, scope
 /#
 
 #/
 BUILTIN FUNCTIONS
-read(), write(), create(), delete(), append()
+read(), write(), create(), delete(),
 evaluate(), terminate(), save(), load()
 /#
 
