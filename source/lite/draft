@@ -1,0 +1,29 @@
+:: some_proc:
+    in name: (u8)
+    in other: (u16)
+
+    out first: (name)
+    out second: (other)
+Vec3:
+   data: [34] u16
+   :: some_other:
+_boolean:
+             
+var_1
+u16 var_2: some_proc(name: var_1)
+
+var_3: [128] u8 1, 2, 3
+var_4: 1, 1, 1
+  
+loop var_3: + 1 
+# 2, 3, 4, 1, 1, 1, 1, 1, 1,  etc.....
+
+if:
+else jljasdf:
+else:
+
+try: some_proc(var_2)
+catch someError: do_this()
+catch:
+    all_other_stuff()
+
