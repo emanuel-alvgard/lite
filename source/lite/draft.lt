@@ -1,3 +1,15 @@
+
+try:
+    write(string: "hello" file: /some_file, offset: 345)
+
+try:
+     input: read(file: /some_file, offset: 400)
+     loop <i> input:
+            write(string: "character found") 
+catch read_error: skip
+
+
+
 :: some_proc:
     in name: (u8)
     in other: (u16)
@@ -26,4 +38,7 @@ try: some_proc(var_2)
 catch someError: do_this()
 catch:
     all_other_stuff()
+
+
+
 
