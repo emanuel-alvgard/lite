@@ -1,0 +1,83 @@
+# primitive / blueprint / abstract
+_country:
+    Sweden, Norway, Denmark, Finland
+
+_city:
+    Stockholm, Sävsjö, Helsingfors, Oslo
+
+# composite / blueprint that needs to be instantiated / abstract
+_Vector3: 
+    x: f32
+    y: f32
+    z: f32
+
+# structure / definition is instantiation
+Spatial:
+    position: [1024] _Vector3
+
+    :: transform_position:
+        in position: (_Vector3)
+        in transform: (_Vector3)
+
+
+
+ # can pass around primitives and composites / can belong to a structure
+:: some_proc:
+    in name: (str)
+    in age: (u8)
+    in country: (_country)
+    in city: (_city)
+
+some_proc(
+    name: "Emanuel"
+    age: 29
+    city: "Sävsjö"
+)
+
+
+Spatial.transform_position(
+
+)
+try:
+    write(string: "hello" file: /some_file, offset: 345)
+
+try:
+     input: read(file: /some_file, offset: 400)
+     loop <i> input:
+            write(string: "character found") 
+catch read_error: skip
+
+
+
+:: some_proc:
+    in name: (u8)
+    in other: (u16)
+
+    out first: (name)
+    out second: (other)
+Vec3:
+   data: [34] u16
+   :: some_other:
+_boolean:
+             
+var_1
+u16 var_2: some_proc(name: var_1)
+
+var_3: [128] u8 1, 2, 3
+var_4: 1, 1, 1
+  
+loop var_3: + 1 
+# 2, 3, 4, 1, 1, 1, 1, 1, 1,  etc.....
+
+if:
+else jljasdf:
+else:
+
+try: some_proc(var_2)
+catch someError: do_this()
+catch:
+    all_other_stuff()
+
+
+
+
