@@ -1,3 +1,4 @@
 someVar_name: 42
 other_var: 345
-last_var: 1200
+last_var:
+    1200

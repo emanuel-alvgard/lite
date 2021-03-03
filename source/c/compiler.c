@@ -113,7 +113,7 @@ void read_file(char *file_name) {
 
 
 
-void tokenizer(){
+void tokenization(){
     while (code[c] != EOF) {
         
         // variable/procedure name
@@ -169,24 +169,80 @@ void tokenizer(){
 
         // newline
         else if (code[c] == '\n') {
+            printf("[new line]");
             c += 1;
             token[t] = 5;
             t += 1;
         }
 
+        // indentation
+        else if (code[c] == ' ' &&
+                code[c + 1] == ' ' &&
+                code[c + 2] == ' ' &&
+                code[c + 3] == ' '){
+            printf("[indentation]");
+            c += 4;
+            token[t] = 6;
+            t += 1;
+        }
+
+        // space
+        else if (code[c] == ' '){
+            printf("[space]");
+            c += 1;
+            token[t] = 7;
+            t += 1;
+        }
+
+        else if (code[c] == EOF){
+            token[t] = EOF;
+            printf("eof-token");
+        }
 
         // unknown
         else {
             printf("[unknown token]\n");
             break;
         }
+
+        if (code[c] != EOF){}
+        else {
+            token[t] = EOF;
+            printf("[EOF]");
+        }
     }
 }
+
+
+
+
+
+void syntax_analasys(){
+    t = 0;
+    while (token[t] != EOF){
+        
+        // variable/procedure name
+        if (token[t] == 1){
+            if (token[t + 1] == 2) {printf("[var accept]");}
+            else if (token[t] + 1 == 3) {printf("[scoped var accept]");}
+            else {printf("var error");}
+        }
+
+        // assign operator
+        if (token[t] == 2){
+            if (token[t + 1] == 4) {printf("[num accept]");}
+        }
+        t += 1;
+    }
+}
+
+
 
 
 
 int main(int argc, char *argv[]) {
     
     read_file(argv[1]);
-    tokenizer();
+    tokenization();
+    syntax_analasys();
 }
