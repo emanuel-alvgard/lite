@@ -1,28 +1,8 @@
-#define lite_win32
-#define lite_gcc
+#define gcc
 
-#ifdef lite_win32
 #ifndef WINDOWS
 #define WINDOWS
 #include <windows.h>
-#endif
-#endif
-
-#ifdef lite_unix
-#ifndef PTHREAD
-#define PTHREAD
-#include <pthread.h>
-#endif
-
-#ifndef TIME
-#define TIME
-#include <time.h>
-#endif
-
-#ifndef UNISTD
-#define UNISTD
-#include <unistd.h>
-#endif
 #endif
 
 #ifndef STDINT
@@ -45,34 +25,25 @@
 #include <stdatomic.h>
 #endif
 
-#ifdef lite_clang
+#ifdef clang
 #pragma clang optimize off
 #endif
 
-#ifdef lite_gcc
+#ifdef gcc
 #pragma GCC push_options
 #pragma GCC optimize ("O0")
 #endif
 
 // TODO
 // create different thread typed with different priority (sleep time)
-// create thread_sync function
+// create lite_time_win32 or lite_system_win32.
 // make thread() so that specific thread can be called
-// create cross OS header file for time functions 
-
 
 
 // 32 * number of physical cores
 enum constant { THREAD_COUNT = 1024 };
 atomic_uint_least32_t thread_count = 1;
-
-#ifdef lite_unix
-pthread_t thread_id[THREAD_COUNT];
-#endif
-
-#ifdef lite_win32
 DWORD thread_id[THREAD_COUNT];
-#endif
 
 atomic_uint_least8_t thread_work[THREAD_COUNT];
 atomic_uint_least8_t thread_exit[THREAD_COUNT];
@@ -85,8 +56,7 @@ void (*thread_function[THREAD_COUNT])();
 atomic_uint_least32_t thread_sleep = THREAD_COUNT * 100;
 atomic_uint_least8_t thread_sync_done = 1;
 
-
-#ifdef lite_unix
+/*
 struct timespec thread_clock_start() {
     struct timespec start;
     clock_gettime(CLOCK_MONOTONIC, &start);
@@ -113,16 +83,11 @@ void thread_benchmark() {
     thread_clock_stop(start);
 }
 void (*fp_thread_benchmark) = thread_benchmark;
-#endif
+*/
 
 
-#ifdef lite_unix
-void *thread_pool(void *index) {
-#endif
 
-#ifdef lite_win32
 DWORD WINAPI thread_pool(LPVOID index) {
-#endif
 
     int i = (intptr_t) index;
     while (1) {
@@ -163,16 +128,8 @@ DWORD WINAPI thread_pool(LPVOID index) {
         } 
     }
     thread_exited[i] = 1;
-    
-    #ifdef lite_unix
-    void *result;
-    return result;
-    #endif
-
-    #ifdef lite_win32
     DWORD result;
     return result;
-    #endif
 }
 
 
@@ -181,20 +138,10 @@ void thread_pool_start(int count) {
 
     thread_count = count;
 
-    #ifdef lite_unix
-    for (int i = 0; i < thread_count; i ++) {
-        pthread_t init_thread;
-        thread_id[i] = init_thread;
-    }
-    #endif
-
-    #ifdef lite_win32
     for (int i = 0; i < thread_count; i ++) {
         DWORD init_thread;
         thread_id[i] = init_thread;
     }
-    #endif
-
     for (int i = 0; i < thread_count; i ++) {
         thread_work[i] = 0;
     }
@@ -214,17 +161,9 @@ void thread_pool_start(int count) {
         thread_function[i] = NULL;
     }
 
-    #ifdef lite_unix
-    for (int i = 0; i < thread_count; i ++) {
-        pthread_create(&pthread[i], NULL, thread_pool, (void *)(intptr_t) i);
-    }
-    #endif
-
-    #ifdef lite_win32
     for (int i = 0; i < thread_count; i ++) {
         CreateThread(NULL, 0, thread_pool, (void *)(intptr_t) i, 0, &thread_id[i]);
     }
-    #endif
 }
 
 
@@ -268,20 +207,10 @@ void thread_pool_stop() {
             }
         }
     }
-    
-    #ifdef lite_unix
-    for (int i = 0; i < THREAD_COUNT; i ++) {
-        thread_id[i] = NULL;
-    }
-    #endif
-
-    #ifdef lite_win32
      for (int i = 0; i < THREAD_COUNT; i ++) {
         DWORD re_init;
         thread_id[i] = re_init;
     }
-    #endif
-
     for (int i = 0; i < THREAD_COUNT; i ++) {
         thread_work[i] = 0;
     }
@@ -322,20 +251,10 @@ void thread(void (*func)()) {
     }
 }
 
-#ifdef lite_clang
+#ifdef clang
 #pragma clang optimize on
 #endif
 
-#ifdef lite_gcc
+#ifdef gcc
 #pragma GCC pop_options
 #endif
-
-
-
-int main() {
-    thread_pool_start(8);
-    printf("DONE\n");
-    Sleep(50000);
-    thread_pool_stop();
-    return 0;
-}

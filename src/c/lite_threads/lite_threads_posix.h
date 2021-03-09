@@ -1,8 +1,18 @@
-#define gcc
+#define clang
 
-#ifndef WINDOWS
-#define WINDOWS
-#include <windows.h>
+#ifndef PTHREAD
+#define PTHREAD
+#include <pthread.h>
+#endif
+
+#ifndef TIME
+#define TIME
+#include <time.h>
+#endif
+
+#ifndef UNISTD
+#define UNISTD
+#include <unistd.h>
 #endif
 
 #ifndef STDINT
@@ -36,14 +46,14 @@
 
 // TODO
 // create different thread typed with different priority (sleep time)
-// create lite_time_win32 or lite_system_win32.
+// create thread_sync function
 // make thread() so that specific thread can be called
 
 
 // 32 * number of physical cores
 enum constant { THREAD_COUNT = 1024 };
 atomic_uint_least32_t thread_count = 1;
-DWORD thread_id[THREAD_COUNT];
+pthread_t thread_id[THREAD_COUNT];
 
 atomic_uint_least8_t thread_work[THREAD_COUNT];
 atomic_uint_least8_t thread_exit[THREAD_COUNT];
@@ -56,7 +66,8 @@ void (*thread_function[THREAD_COUNT])();
 atomic_uint_least32_t thread_sleep = THREAD_COUNT * 100;
 atomic_uint_least8_t thread_sync_done = 1;
 
-/*
+
+
 struct timespec thread_clock_start() {
     struct timespec start;
     clock_gettime(CLOCK_MONOTONIC, &start);
@@ -83,11 +94,11 @@ void thread_benchmark() {
     thread_clock_stop(start);
 }
 void (*fp_thread_benchmark) = thread_benchmark;
-*/
 
 
 
-DWORD WINAPI thread_pool(LPVOID index) {
+
+void *thread_pool(void *index) {
 
     int i = (intptr_t) index;
     while (1) {
@@ -100,14 +111,14 @@ DWORD WINAPI thread_pool(LPVOID index) {
             }
             else {
                 if (thread_sync[i] == 0) {
-                    //usleep(thread_sleep);
+                    usleep(thread_sleep);
                 }
                 else if (thread_synced[i] == 0) {
                     thread_synced[i] = 1;
-                    //usleep(thread_sleep);
+                    usleep(thread_sleep);
                 }
                 else if (thread_sync_done == 0) {
-                    //usleep(thread_sleep);
+                    usleep(thread_sleep);
                 }
                 else {
                     thread_sync[i] = 0;
@@ -128,7 +139,7 @@ DWORD WINAPI thread_pool(LPVOID index) {
         } 
     }
     thread_exited[i] = 1;
-    DWORD result;
+    void *result;
     return result;
 }
 
@@ -139,7 +150,7 @@ void thread_pool_start(int count) {
     thread_count = count;
 
     for (int i = 0; i < thread_count; i ++) {
-        DWORD init_thread;
+        pthread_t init_thread;
         thread_id[i] = init_thread;
     }
     for (int i = 0; i < thread_count; i ++) {
@@ -160,9 +171,8 @@ void thread_pool_start(int count) {
     for (int i = 0; i < thread_count; i ++) {
         thread_function[i] = NULL;
     }
-
     for (int i = 0; i < thread_count; i ++) {
-        CreateThread(NULL, 0, thread_pool, (void *)(intptr_t) i, 0, &thread_id[i]);
+        pthread_create(&thread_id[i], NULL, thread_pool, (void *)(intptr_t) i);
     }
 }
 
@@ -207,9 +217,8 @@ void thread_pool_stop() {
             }
         }
     }
-     for (int i = 0; i < THREAD_COUNT; i ++) {
-        DWORD re_init;
-        thread_id[i] = re_init;
+    for (int i = 0; i < THREAD_COUNT; i ++) {
+        thread_id[i] = NULL;
     }
     for (int i = 0; i < THREAD_COUNT; i ++) {
         thread_work[i] = 0;
@@ -258,9 +267,3 @@ void thread(void (*func)()) {
 #ifdef gcc
 #pragma GCC pop_options
 #endif
-
-
-
-int main() {
-    return 0;
-}
