@@ -36,7 +36,7 @@
 
 // TODO
 // create different thread typed with different priority (sleep time)
-// create thread_sync function
+// create lite_time_win32 or lite_system_win32.
 // make thread() so that specific thread can be called
 
 
