@@ -1,4 +1,4 @@
-# lite programming language
+# lite programming language (OUTDATED)
 **Assignment**
 ````
 x: 1, 2, 3
