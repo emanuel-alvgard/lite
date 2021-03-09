@@ -1,4 +1,4 @@
-#define gcc
+#define clang
 
 #ifndef PTHREAD
 #define PTHREAD
