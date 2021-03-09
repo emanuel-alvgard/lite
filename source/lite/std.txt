@@ -1,8 +1,8 @@
 # Standard Library
 
-thread.lt
+threads.lt
 network.lt
-parse.lt
+parsing.lt
 graphics.lt
 audio.lt
 io.lt
