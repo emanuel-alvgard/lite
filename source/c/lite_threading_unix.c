@@ -3,6 +3,7 @@
 #ifndef PTHREAD
 #define PTHREAD
 #include <pthread.h>
+#endif
 
 #ifndef TIME
 #define TIME
@@ -12,7 +13,6 @@
 #ifndef UNISTD
 #define UNISTD
 #include <unistd.h>
-#endif
 #endif
 
 #ifndef STDINT
