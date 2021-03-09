@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 //char code[10240000];
@@ -27,7 +28,7 @@ char *read_file(char *file_name) {
     file_size = fseek( file, 0L, SEEK_END);
     rewind(file);
 
-    buffer = calloc(1, file_size + 1);
+    buffer = (char *) calloc(1, file_size + 1);
     fread(buffer, file_size, 1, file);
 
     fclose(file);
@@ -55,6 +56,7 @@ int lower(char c) {
 
 int upper(char c) {
     if (c > 64 && c < 91) { return 1; }
+    else { return 0; }
 }
 
 int space(char c) {
@@ -67,14 +69,16 @@ int space(char c) {
 // digit
 
 // consider changing to number instead
-int integer(char *code, char *c) {
+int integer(char *code, char c) {
+    int a = 0;
     while (1) {
-        if (digit(&code[*c]) == 1) { *c ++; }
-        else if (&code[*c] == 46 && digit(&code[*c + 1]) == 1) { return 0; break; }
-        else { return 1; break; }
+        if (digit(code[c]) == 1) { a ++; }
+        else if (code[c] == 46 && digit(code[c + 1]) == 1) { return 0; break; }
+        else { return a; break; }
     }
 }
 
+/*
 int floating() {
 
 }
@@ -104,7 +108,7 @@ int primitive() {}
 // upper
 int composite() {}
 
-
+*/
 
 
 
