@@ -1,6 +1,3 @@
-#include <objc/objc.h>
-#include <objc/objc-runtime.h>
-#include <CoreFoundation/CoreFoundation.h>
+#include "X11/Xlib.h"
 #include <stdio.h>
-
-
+#include <stdlib.h>
