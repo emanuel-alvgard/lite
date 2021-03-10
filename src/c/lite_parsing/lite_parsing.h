@@ -1,41 +1,9 @@
+#ifndef STDIO
+#define STDIO
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#endif
 
-//char code[10240000];
-//char ch = 0;
-//int token[10240000];
-//char to = 0;
-
-//int line = 0;
-//int scope = 0;
-//int indentation = 0;
-//int syntax_error = 0;
-//int state = 0;
-
-
-// TODO
-// add offset for each token
-
-// belongs to lite_io.h
-char *read_file(char *file_name) {
-    
-    FILE *file;
-    long file_size;
-    char *buffer;
-
-    file = fopen(file_name, "r");
-    file_size = fseek( file, 0L, SEEK_END);
-    rewind(file);
-
-    buffer = (char *) calloc(1, file_size + 1);
-    fread(buffer, file_size, 1, file);
-
-    fclose(file);
-    return buffer;
-}
-
-
+// character functions
 int digit(char c) {
     if (c > 47 && c < 58) { return 1; }
     else { return 0; }
@@ -64,11 +32,13 @@ int space(char c) {
     else { return 0; }
 }
 
+int line(char c) {
+    if (c == 10) { return 1;}
+    else { return 0; }
+}
 
 
-// digit
-
-// consider changing to number instead
+// token functions
 int integer(char *code, char c) {
     int a = 0;
     while (1) {
@@ -77,6 +47,39 @@ int integer(char *code, char c) {
         else { return a; break; }
     }
 }
+
+
+
+
+
+// global data
+char code[100];
+int c = 0;
+
+char character[100];
+int ch = 0;
+
+int offset_token[100];
+char token[100];
+char to = 0;
+
+
+// passes
+void pass_character() {
+    while (code[c] != EOF) {
+        if (space(code[c]) == 1) {}
+        else if (lower(code[c]) == 1) {}
+        else if (upper(code[c]) == 1) {}
+        else if (symbol(code[c]) == 1) {}
+        else if (digit(code[c]) == 1) {}
+        else if (line(code[c]) == 1) {}
+        else {}
+    }
+}
+
+void pass_token() {}
+
+
 
 /*
 int floating() {

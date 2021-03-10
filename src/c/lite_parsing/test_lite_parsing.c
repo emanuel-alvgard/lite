@@ -17,3 +17,43 @@ int main() {
 
     return 0;
 }
+
+/* future API?
+
+enable_aritmetic();
+enable_comparison();
+enable_assignemt();
+enable_flow();
+
+GENERAL
+- Arithemtic
+arithmetic_token_add("+");
+token_subtract("-");
+token_multiply("*");
+token_divide("/");
+arithmetic_rule_();
+
+
+-Assignment
+assignment_token(":");
+
+-Comparison
+token_equal("=");
+token_not_equal("!=");
+token_lesser("<");
+token_greater(">");
+token_not_lesser("!<");
+token_not_greater("!>");
+
+-Flow
+token_conditional_initiator("if");
+token_conditional_alternative("if else");
+token_conditional_default("else");
+
+SPECIFIC
+token_keyword("import");
+token_keyword("function");
+
+
+RULES
+
